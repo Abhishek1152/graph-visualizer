@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		#toolbar
+		{
+		    position: absolute;
+		    width: 100%;
+		    top: 0; bottom: 0; right: 0; left: 0;
+		    height: 120px ;
+		    background-color: #0c1d59;
+		}
+
+		#gridContainer
+		{
+			outline: 1px solid rgb(175, 216, 248);
+			font-size: 0;
+			position: absolute;
+			bottom: 10px;
+		}
+		.gridsquare
+		{
+			width: 25px;
+			height: 25px;
+			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
+			display: inline-block;
+		}
+
+		.animateCell
+		{
+			box-shadow: 0 1px 0 rgb(237, 12, 0) inset, 1px 0px 0px rgb(237, 12, 0) inset;
+			background-color: yellow;
+			animation-name: animateVisited;
+			animation-duration: 1.5s; 
+			animation-timing-function: ease-out; 
+		}
+		.wall
+		{
+			box-shadow: 0 1px 0 rgb(0, 0, 0) inset, 1px 0px 0px rgb(0, 0, 0) inset;
+			background-color: black;
+			animation-name: animateWall;
+			animation-duration: 0.3s;
+			animation-timing-function: ease-out;
+			
+		}
+		.start
+		{
+			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
+			background-color: green;
+		}
+		.stop
+		{
+			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
+			background-color: red;
+		}
+
+		@keyframes animateVisited 
+		{
+			0% 
+			{
+				transform: scale(.0);
+				background-color: red;
+				border-radius: 100%;
+			}
+			50% 
+			{
+				background-color: orange;
+			}
+			80% 
+			{
+				transform: scale(1.2);
+				background-color: pink;
+
+			}
+			100%
+			{
+				transform: scale(1)
+				background-color: pink;
+			}
+		}
+		@keyframes animateWall
+		{
+			50%
+			{
+				transform: scale(1.2);
+			}
+			100%
+			{
+				transform: scale(1);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id='toolbar'>
+		
+
+		<button type = "button" onclick="BFSUtil(10, 20)"> BFS </button>
+		<button type = "button" onclick="DFSUtil(10, 20)"> DFS </button>	
+
+
+	</div>
+	<div id="gridContainer"></div>
+	<script type="text/javascript" src="HomeScript.js"></script>
+	<script type="text/javascript" src="./Algorithms/DepthFirstSearch.js"></script>
+	<script type="text/javascript" src="./Algorithms/BreadthFirstSearch.js"></script>
+	<script type="text/javascript" src="./Animations/animateWall.js"></script>
+
+</body>
+</html>
