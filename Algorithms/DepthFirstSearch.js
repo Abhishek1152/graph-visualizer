@@ -5,25 +5,26 @@ async function DepthFirstSearch(row, col)
 {
 	if(found || row >= gridRows || col >= gridCols || row < 0 || col < 0 || visited[row][col])
 		return;
-	if(getCell(row, col).classList.contains("wall"))
-		return;
 	if(row == stopRow && col == stopCol)
 	{
 		found = true;
 		return;
 	}
+	if(getCell(row, col).classList.contains("wall"))
+		return;
+	
 	visited[row][col] = true;
 	var currentCell = getCell(row, col);
-	await sleep(10);
+	await sleep(ms);
 	currentCell.classList.add("animateCell");
-	await sleep(10);
+	await sleep(ms);
 	await DepthFirstSearch(row+1, col);
 	await DepthFirstSearch(row, col+1);
 	await DepthFirstSearch(row-1, col);
 	await DepthFirstSearch(row, col-1);
 }
 
-async function DFSUtil(row, col)
+async function DFSUtil()
 {
 	isRunning = true;
 	clearGrid();
@@ -34,7 +35,7 @@ async function DFSUtil(row, col)
 	    for(var j=0; j<60; j++) 
 	        visited[i][j] = false;
 	}
-	await DepthFirstSearch(row, col);
+	await DepthFirstSearch(startRow, startCol);
 	// drawPath();
 	isRunning = false;
 }

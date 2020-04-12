@@ -1,9 +1,14 @@
-var found;
 var visited = [];
 
 function isValidCell(row, col)
 {
 	return (row >= 0 && row < gridRows && col >= 0 && col < gridCols);
+}
+
+function isPath(row, col)
+{
+	return (!visited[row][col] && !getCell(row, col).classList.contains("wall") 
+		|| getCell(row, col).classList.contains("stop"));
 }
 
 async function BreadthFirstSearch(startRow, startCol)
@@ -18,26 +23,26 @@ async function BreadthFirstSearch(startRow, startCol)
 		if(row == stopRow && col == stopCol)
 			break;
 		currentCell = getCell(row, col);
-		await sleep(10);
+		await sleep(ms);
 		currentCell.classList.add("animateCell");
-		await sleep(10);
+		await sleep(ms);
 		Queue.splice(0, 1);
-		if(isValidCell(row+1, col) && !visited[row+1][col] && !getCell(row+1, col).classList.contains("wall"))
+		if(isValidCell(row+1, col) && isPath(row+1, col))
 		{
 			visited[row+1][col] = true;
 			Queue.push([row+1, col]);
 		}
-		if(isValidCell(row-1, col)  && !visited[row-1][col] && !getCell(row-1, col).classList.contains("wall"))
+		if(isValidCell(row-1, col) && isPath(row-1, col))
 		{
 			visited[row-1][col] = true;
 			Queue.push([row-1, col]);
 		}
-		if(isValidCell(row, col+1)  && !visited[row][col+1] && !getCell(row, col+1).classList.contains("wall"))
+		if(isValidCell(row, col+1) && isPath(row, col+1))
 		{
 			visited[row][col+1] = true;
 			Queue.push([row, col+1]);
 		}
-		if(isValidCell(row, col-1)  && !visited[row][col-1] && !getCell(row, col-1).classList.contains("wall"))
+		if(isValidCell(row, col-1) && isPath(row, col-1))
 		{
 			visited[row][col-1] = true;
 			Queue.push([row, col-1]);
@@ -45,18 +50,18 @@ async function BreadthFirstSearch(startRow, startCol)
 	}
 }
 
-async function BFSUtil(row, col)
+async function BFSUtil()
 {
 	isRunning = true;
 	clearGrid();
-	found = false;
 	for(var i=0; i<20; i++) 
 	{
 	    visited[i] = [];
 	    for(var j=0; j<60; j++) 
 	        visited[i][j] = false;
 	}
-	await BreadthFirstSearch(row, col);
+	 
+	await BreadthFirstSearch(startRow, startCol);
 	// drawPath();
 	isRunning = false;
 }

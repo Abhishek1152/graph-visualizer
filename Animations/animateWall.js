@@ -1,4 +1,15 @@
-let grid = document.querySelector("#gridContainer"), isDragging = false, draggingStartCell = false, draggingStopCell = false;
+var grid = document.querySelector("#gridContainer"), isDragging = false, draggingStartCell = false, draggingStopCell = false;
+var prevMS;
+function getRowandCol(e)
+{
+	for(var i=0; i<20; i++) 
+	{
+	    for(var j=0; j<60; j++) 
+	        if(e == getCell(i, j))
+	        	return [i, j];
+	}
+}
+
 grid.onmousedown = function(e) 
 {
 	if(e.target.nodeName === "DIV" && !e.target.id && !e.target.classList.contains("row") && !isRunning) 
@@ -19,6 +30,8 @@ grid.onmousedown = function(e)
 		}
 
 		isDragging = true;
+		prevMS = ms;
+		ms = 0;
 		
 	}
 }
@@ -28,6 +41,7 @@ grid.onmouseup = grid.onmouseleave = function()
 	isDragging = false;
 	draggingStartCell = false;
 	draggingStopCell = false;
+	ms = prevMS;
 }
 
 document.body.ondragstart = function(e) 
@@ -43,20 +57,24 @@ grid.onmouseover = function(e)
 		{
 			prevStart = document.getElementsByClassName("start");
 			prevStart[0].classList.remove("start");
-			e.target.classList.remove("animateCell");
-			e.target.classList.remove("wall");
 			e.target.classList.add("start");
-			// Change start row and col
+			// Try scaling the below two lines
+			var temp = getRowandCol(e.target);
+			startRow = temp[0], startCol = temp[1];
+			// Work on instant shortest path
+			//BFSUtil();
 			return;
 		}
 		if(draggingStopCell)
 		{
 			prevStart = document.getElementsByClassName("stop");
 			prevStart[0].classList.remove("stop");
-			e.target.classList.remove("animateCell");
-			e.target.classList.remove("wall");
 			e.target.classList.add("stop");
-			// change stop row and col
+			// Try scaling the below two lines
+			var temp = getRowandCol(e.target);
+			stopRow = temp[0], stopCol = temp[1];
+			// Work on instant shortest path
+			//BFSUtil();
 			return;
 		}
 

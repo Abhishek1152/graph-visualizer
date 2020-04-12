@@ -3,7 +3,7 @@ gridContainer.style.left = (screen.width-25*gridCols)/screen.width * 50+"%";
 var found = false;
 const WALLCOLOR = "black", STARTCOLOR = "red", STOPCOLOR="green", VISITEDCOLOR="magenta", CURRENTCOLOR="yellow"; 
 // Try to implement arrow direction
-var isRunning = false;
+var isRunning = false, ms = 10;
 var startRow = 10, startCol = 20, stopRow = 10, stopCol = 40;
 
 function sleep(ms) 
@@ -33,7 +33,6 @@ function genDivs(rows, cols)
 			
 			else if(r == stopRow && c == stopCol)
 				cell.classList.add("stop");
-			
 		    
 		    row.appendChild(cell); 
 		} 
@@ -50,10 +49,10 @@ function clearGrid()
 	    {
 	    	if(getCell(i, j).classList.contains("wall"))
 	    		continue;
-	    	if(i == 10 && j == 20)
-	        	getCell(i, j).style.background = STARTCOLOR;
-	        else if(i == 10 && j == 40)
-	        	getCell(i, j).style.background = STOPCOLOR;
+	    	if(i == startRow && j == startCol)
+	        	getCell(i, j).classList.add("start");
+	        else if(i == stopRow && j == stopCol)
+	        	getCell(i, j).classList.add("stop");
 	        else 
 	        	getCell(i, j).classList.add("gridsquare");
 	        getCell(i, j).classList.remove("animateCell");
