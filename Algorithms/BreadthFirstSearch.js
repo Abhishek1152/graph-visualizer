@@ -11,7 +11,7 @@ function isPath(row, col)
 		|| getCell(row, col).classList.contains("stop"));
 }
 
-async function BreadthFirstSearch(startRow, startCol)
+async function BreadthFirstSearch()
 {
 	var Queue = [];
 	Queue.push([startRow, startCol]);
@@ -61,7 +61,7 @@ async function BFSUtil()
 	        visited[i][j] = false;
 	}
 	 
-	await BreadthFirstSearch(startRow, startCol);
+	await BreadthFirstSearch();
 	// drawPath();
 	isRunning = false;
 }

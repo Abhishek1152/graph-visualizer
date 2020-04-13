@@ -61,6 +61,9 @@ grid.onmouseover = function(e)
 			// Try scaling the below two lines
 			var temp = getRowandCol(e.target);
 			startRow = temp[0], startCol = temp[1];
+
+			// startRow = e.target.dataset.row;
+			// startCol = e.target.dataset.col;
 			// Work on instant shortest path
 			//BFSUtil();
 			return;
