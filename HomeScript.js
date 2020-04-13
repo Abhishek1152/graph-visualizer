@@ -46,20 +46,8 @@ function clearGrid()
 	for(var i=0; i<20; i++) 
 	{
 	    for(var j=0; j<60; j++) 
-	    {
-	    	if(getCell(i, j).classList.contains("wall"))
-	    		continue;
-	    	if(i == startRow && j == startCol)
-	        	getCell(i, j).classList.add("start");
-	        else if(i == stopRow && j == stopCol)
-	        	getCell(i, j).classList.add("stop");
-	        else 
-	        	getCell(i, j).classList.add("gridsquare");
 	        getCell(i, j).classList.remove("animateCell");
-	    }
-
 	}
 }
 
 genDivs(gridRows, gridCols);
-

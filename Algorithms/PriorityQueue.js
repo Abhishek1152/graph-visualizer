@@ -68,4 +68,11 @@ class PriorityQueue
 	    // return true if the queue is empty. 
 	    return this.items.length == 0; 
 	}
+	printPQueue() 
+	{ 
+	    var str = ""; 
+	    for (var i = 0; i < this.items.length; i++) 
+	        str += this.items[i].priority + ": " + this.items[i].element + "\n"; 
+	    return str; 
+	} 
 } 

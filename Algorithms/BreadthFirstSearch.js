@@ -20,7 +20,7 @@ async function BreadthFirstSearch()
 	while(Queue.length != 0)
 	{
 		var row = Queue[0][0], col = Queue[0][1];
-		if(row == stopRow && col == stopCol)
+		if(getCell(row, col).classList.contains("stop"))
 			break;
 		currentCell = getCell(row, col);
 		await sleep(ms);
