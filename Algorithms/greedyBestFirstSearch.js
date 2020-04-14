@@ -66,10 +66,10 @@ async function BestFirstSearchUtil()
 {
 	isRunning = true;
 	clearGrid();
-	for(var i=0; i<20; i++) 
+	for(var i=0; i<gridRows; i++) 
 	{
 	    visited[i] = [];
-	    for(var j=0; j<60; j++) 
+	    for(var j=0; j<gridCols; j++) 
 	        visited[i][j] = false;
 	}
 	 

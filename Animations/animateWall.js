@@ -2,9 +2,9 @@ var grid = document.querySelector("#gridContainer"), isDragging = false, draggin
 var prevMS;
 function getRowandCol(e)
 {
-	for(var i=0; i<20; i++) 
+	for(var i=0; i<gridRows; i++) 
 	{
-	    for(var j=0; j<60; j++) 
+	    for(var j=0; j<gridCols; j++) 
 	        if(e == getCell(i, j))
 	        	return [i, j];
 	}
