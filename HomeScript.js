@@ -1,10 +1,12 @@
-var gridCols = 60, gridRows = 20;
-gridContainer.style.left = (screen.width-25*gridCols)/screen.width * 50+"%";
+const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+var gridCols = Math.ceil(vw/26), gridRows = Math.floor(vh-140)/26;
 var found = false;
 const WALLCOLOR = "black", STARTCOLOR = "red", STOPCOLOR="green", VISITEDCOLOR="magenta", CURRENTCOLOR="yellow"; 
 // Try to implement arrow direction
 var isRunning = false, ms = 10;
-var startRow = 10, startCol = 20, stopRow = 10, stopCol = 40;
+var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols), 
+stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 
 function sleep(ms) 
 {
@@ -43,11 +45,12 @@ function genDivs(rows, cols)
 
 function clearGrid()
 {
-	for(var i=0; i<20; i++) 
+	for(var i=0; i<gridRows; i++) 
 	{
-	    for(var j=0; j<60; j++) 
+	    for(var j=0; j<gridCols; j++) 
 	        getCell(i, j).classList.remove("animateCell");
 	}
 }
 
 genDivs(gridRows, gridCols);
+document.getElementById("gridContainer").style.left = (vw-document.getElementById("gridContainer").offsetWidth)/2+"px";
