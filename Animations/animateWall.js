@@ -60,6 +60,7 @@ grid.onmouseover = function(e)
 			e.target.classList.add("start");
 			var temp = getRowandCol(e.target);
 			startRow = temp[0], startCol = temp[1];
+		
 			// Work on instant shortest path
 			//BFSUtil();
 			return;

@@ -1,4 +1,4 @@
-var gridCols = 60, gridRows = 20;
+var gridCols = 10, gridRows = 10;
 gridContainer.style.left = (screen.width-25*gridCols)/screen.width * 50+"%";
 var found = false;
 const WALLCOLOR = "black", STARTCOLOR = "red", STOPCOLOR="green", VISITEDCOLOR="magenta", CURRENTCOLOR="yellow"; 
