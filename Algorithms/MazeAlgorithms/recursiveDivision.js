@@ -25,4 +25,5 @@ async function generateBorders()
 async function recursiveDivision()
 {
 	await generateBorders();
+	
 }

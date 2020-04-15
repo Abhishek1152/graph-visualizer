@@ -1,7 +1,12 @@
 var closedList = []
 
+async function AStar()
+{
 
-async function DijkstrasUtil() 
+}
+
+
+async function AStarUtil() 
 {
 	isRunning = true;
 	clearGrid();
