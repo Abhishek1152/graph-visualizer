@@ -1,6 +1,6 @@
 const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-var gridCols = Math.ceil(vw/26), gridRows = Math.floor(vh-130)/26;
+var gridCols = Math.ceil(vw/26), gridRows = Math.floor((vh-100)/26);
 var found = false;
 const WALLCOLOR = "black", STARTCOLOR = "red", STOPCOLOR="green", VISITEDCOLOR="magenta", CURRENTCOLOR="yellow"; 
 // Try to implement arrow direction

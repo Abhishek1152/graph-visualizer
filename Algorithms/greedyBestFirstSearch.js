@@ -20,7 +20,6 @@ async function BestFirstSearch()
 	while(!priorityQueue.isEmpty())
 	{
 		var temp = priorityQueue.dequeue();
-		console.log(temp.priority+"\n");
 		var row = temp.element[0], col = temp.element[1];
 		if(getCell(row, col).classList.contains("stop"))
 			break;
@@ -56,7 +55,6 @@ async function BestFirstSearch()
 			var weight = getCell(row, col-1).classList.contains("weight")? 5 : 1;
 			priorityQueue.enqueue([row, col-1], weight+priority);
 		}
-		console.log(priorityQueue.printPQueue()+"\n\n\n");
 	}
 }
 

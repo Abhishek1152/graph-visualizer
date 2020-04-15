@@ -73,7 +73,6 @@ async function Dijkstras()
 			}
 		}
 	}
-	console.log(dist[stopRow][stopCol]);
 }
 
 
