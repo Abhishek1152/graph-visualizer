@@ -47,7 +47,7 @@ function genDivs(rows, cols)
 }
 
 
-function clearGrid()
+function clearAnimatedCells()
 {
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -56,5 +56,16 @@ function clearGrid()
 	}
 }
 
+function clearGrid()
+{
+	for(var i=0; i<gridRows; i++) 
+	{
+	    for(var j=0; j<gridCols; j++) 
+	    {
+	        getCell(i, j).classList.remove("animateCell");
+	        getCell(i, j).classList.remove("wall");
+	    }
+	}
+}
 genDivs(gridRows, gridCols);
 document.getElementById("gridContainer").style.left = (vw-document.getElementById("gridContainer").offsetWidth)/2+"px";

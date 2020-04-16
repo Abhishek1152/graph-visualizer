@@ -1,3 +1,8 @@
+function randomNumber(min, max)
+{
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 async function generateBorders()
 {
 	for(var i=parseInt(gridCols/2), j=i+1; i >= 0; i--, j++)
@@ -81,16 +86,9 @@ async function addVerticalWall(minY, maxY, x)
 	}
 }
 
-
-function randomNumber(min, max)
-{
-	return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 async function recursiveDivision()
 {
-
+	clearGrid();
 	await generateBorders();
-
-	addInnerWalls(false, 1, gridCols-2, 1, gridRows-2);
+	await addInnerWalls(false, 1, gridCols-2, 1, gridRows-2);
 }

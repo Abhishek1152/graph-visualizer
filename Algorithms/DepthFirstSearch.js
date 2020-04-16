@@ -27,7 +27,7 @@ async function DepthFirstSearch(row, col)
 async function DFSUtil()
 {
 	isRunning = true;
-	clearGrid();
+	clearAnimatedCells();
 	found = false;
 	for(var i=0; i<gridRows; i++) 
 	{

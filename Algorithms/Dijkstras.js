@@ -79,7 +79,7 @@ async function Dijkstras()
 async function DijkstrasUtil() 
 {
 	isRunning = true;
-	clearGrid();
+	clearAnimatedCells();
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];

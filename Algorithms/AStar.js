@@ -9,7 +9,7 @@ async function AStar()
 async function AStarUtil() 
 {
 	isRunning = true;
-	clearGrid();
+	clearAnimatedCells();
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];

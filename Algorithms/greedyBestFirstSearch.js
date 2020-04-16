@@ -63,7 +63,7 @@ async function BestFirstSearch()
 async function BestFirstSearchUtil()
 {
 	isRunning = true;
-	clearGrid();
+	clearAnimatedCells();
 	for(var i=0; i<gridRows; i++) 
 	{
 	    visited[i] = [];
