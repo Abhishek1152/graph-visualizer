@@ -26,9 +26,6 @@ async function AStar()
 
 		i = p.element[0];
 		j = p.element[1];
-		console.log(i+" "+j);
-		console.log(openList.printPQueue());
-		console.log("\n");
 		currentCell = getCell(i, j);
 		await sleep(ms);
 		currentCell.classList.add("animateCell");

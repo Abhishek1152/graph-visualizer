@@ -8,15 +8,14 @@ function isValidPath(row, col)
 
 async function Dijkstras()
 {
-	var setds = new Set();
-	setds.add([0, startRow, startCol]);
+	var setds = new PriorityQueue();
+	setds.enqueue([startRow, startCol], 0);
 	dist[startRow][startCol] = 0; 
-	while(setds.size != 0)
+	while(!setds.isEmpty())
 	{
-		var it = setds.values(), first = it.next();
-		var tmp = first.value;
-		setds.delete(tmp);
-		var uRow = tmp[1], uCol = tmp[2];
+		var tmp = setds.dequeue();
+		var uRow = tmp.element[0], uCol = tmp.element[1];
+		//Change from here
 		if(getCell(uRow, uCol).classList.contains("stop"))
 			break;
 		currentCell = getCell(uRow, uCol);
