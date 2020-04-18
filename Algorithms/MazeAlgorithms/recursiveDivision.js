@@ -88,7 +88,9 @@ async function addVerticalWall(minY, maxY, x)
 
 async function recursiveDivision()
 {
+	isRunning = true;
 	clearGrid();
 	await generateBorders();
 	await addInnerWalls(false, 1, gridCols-2, 1, gridRows-2);
+	isRunning = false;
 }
