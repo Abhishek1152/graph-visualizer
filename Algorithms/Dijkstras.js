@@ -9,13 +9,13 @@ function isValidPath(row, col)
 async function Dijkstras()
 {
 	var setds = new PriorityQueue();
-	setds.enqueue([startRow, startCol], 0);
+	setds.enqueue([startRow, startCol], 1);
 	dist[startRow][startCol] = 0; 
 	while(!setds.isEmpty())
 	{
 		var tmp = setds.dequeue();
 		var uRow = tmp.element[0], uCol = tmp.element[1];
-		//Change from here
+
 		if(getCell(uRow, uCol).classList.contains("stop"))
 			break;
 		currentCell = getCell(uRow, uCol);
@@ -29,10 +29,8 @@ async function Dijkstras()
 			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
 			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
 			{
-				if(dist[vRow][vCol] != Number.MAX_SAFE_INTEGER)
-					setds.delete([dist[vRow][vCol], vRow, vCol]);
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.add([dist[vRow][vCol], vRow, vCol]);
+				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
 			}
 		}
 		if(isValidCell(uRow-1, uCol) && isValidPath(uRow-1, uCol))
@@ -41,10 +39,8 @@ async function Dijkstras()
 			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
 			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
 			{
-				if(dist[vRow][vCol] != Number.MAX_SAFE_INTEGER)
-					setds.delete([dist[vRow][vCol], vRow, vCol]);
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.add([dist[vRow][vCol], vRow, vCol]);
+				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
 			}
 		}
 		if(isValidCell(uRow, uCol+1) && isValidPath(uRow, uCol+1))
@@ -53,10 +49,8 @@ async function Dijkstras()
 			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
 			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
 			{
-				if(dist[vRow][vCol] != Number.MAX_SAFE_INTEGER)
-					setds.delete([dist[vRow][vCol], vRow, vCol]);
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.add([dist[vRow][vCol], vRow, vCol]);
+				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
 			}
 		}
 		if(isValidCell(uRow, uCol-1) && isValidPath(uRow, uCol-1))
@@ -65,10 +59,8 @@ async function Dijkstras()
 			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
 			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
 			{
-				if(dist[vRow][vCol] != Number.MAX_SAFE_INTEGER)
-					setds.delete([dist[vRow][vCol], vRow, vCol]);
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.add([dist[vRow][vCol], vRow, vCol]);
+				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
 			}
 		}
 	}
