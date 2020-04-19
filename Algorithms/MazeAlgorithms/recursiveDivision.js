@@ -91,6 +91,9 @@ async function recursiveDivision()
 	isRunning = true;
 	clearGrid();
 	await generateBorders();
-	await addInnerWalls(false, 1, gridCols-2, 1, gridRows-2);
+	var horizontal;
+	if(gridRows > gridCols)
+		horizontal = true;
+	await addInnerWalls(horizontal, 1, gridCols-2, 1, gridRows-2);
 	isRunning = false;
 }
