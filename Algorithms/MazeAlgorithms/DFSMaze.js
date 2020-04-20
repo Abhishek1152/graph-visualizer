@@ -49,7 +49,7 @@ async function DFSMaze()
     {
         var current = stack.pop();
 
-        var validNeighbors = [];
+        var validNeighbours = [];
         var straightMoves = [[0, -2], [0, 2], [-2, 0], [2, 0]];
 
         for (var move of straightMoves) 
@@ -58,26 +58,26 @@ async function DFSMaze()
             {
                 x: current.x + move[0],
                 y: current.y + move[1]
-            };
+            }
 
             if (!isOnBoard(newNodePosition) || board[newNodePosition.y][newNodePosition.x].visited) 
             {
                 continue;
             }
 
-            validNeighbors.push(newNodePosition);
+            validNeighbours.push(newNodePosition);
         }
 
-        // If we have available neighbor(s), we choose a random neighbor
+        // If we have available Neighbour(s), we choose a random Neighbour
         // and remove the wall(obstacle cell) between these two cell.
-        if (validNeighbors.length > 0) 
+        if (validNeighbours.length > 0) 
         {
             stack.push(current);
-            var randNeighbor = validNeighbors[Math.floor(Math.random() * 101) % validNeighbors.length];
+            var randNeighbour = validNeighbours[Math.floor(Math.random() * 101) % validNeighbours.length];
 
-            if (randNeighbor.y == current.y) 
+            if (randNeighbour.y == current.y) 
             { // Same row
-                if (randNeighbor.x > current.x) 
+                if (randNeighbour.x > current.x) 
                 {
                 	getCell(current.y, current.x+1).classList.remove("wall");
                 	await sleep(25);
@@ -94,7 +94,7 @@ async function DFSMaze()
             } 
             else 
             { // Same column
-                if (randNeighbor.y > current.y)
+                if (randNeighbour.y > current.y)
                 {
                 	getCell(current.y+1, current.x).classList.remove("wall");
                 	await sleep(25);
@@ -108,8 +108,8 @@ async function DFSMaze()
                 }
             }
 
-            board[randNeighbor.y][randNeighbor.x].visited = true;
-            stack.push(randNeighbor);
+            board[randNeighbour.y][randNeighbour.x].visited = true;
+            stack.push(randNeighbour);
         }
     }
 
