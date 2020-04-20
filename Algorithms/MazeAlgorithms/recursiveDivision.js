@@ -7,7 +7,7 @@ async function generateBorders()
 {
 	for(var i=parseInt(gridCols/2), j=i+1; i >= 0; i--, j++)
 	{
-			getCell(0, i).classList.add("wall");
+		getCell(0, i).classList.add("wall");
 		if(j < gridCols)
 			getCell(0, j).classList.add("wall");
 		await sleep(10);
