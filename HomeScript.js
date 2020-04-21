@@ -52,7 +52,11 @@ function clearAnimatedCells()
 	for(var i=0; i<gridRows; i++) 
 	{
 	    for(var j=0; j<gridCols; j++) 
+	    {
 	        getCell(i, j).classList.remove("animateCell");
+	        getCell(i, j).classList.remove("animatePath");
+	    }
+
 	}
 }
 
@@ -64,6 +68,7 @@ function clearGrid()
 	    {
 	        getCell(i, j).classList.remove("animateCell");
 	        getCell(i, j).classList.remove("wall");
+	        getCell(i, j).classList.remove("animatePath");
 	    }
 	}
 }

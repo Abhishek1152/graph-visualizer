@@ -44,6 +44,14 @@
 			animation-duration: 1.5s; 
 			animation-timing-function: ease-out; 
 		}
+		.animatePath
+		{
+			box-shadow: 0 1px 0 rgb(237, 12, 0) inset, 1px 0px 0px rgb(237, 12, 0) inset;
+			background-color: cyan;
+			animation-name: animatePath;
+			animation-duration: 1s; 
+			animation-timing-function: ease-out; 
+		}
 		.wall
 		{
 			box-shadow: 0 1px 0 rgb(0, 0, 0) inset, 1px 0px 0px rgb(0, 0, 0) inset;
@@ -79,13 +87,34 @@
 			80% 
 			{
 				transform: scale(1.2);
-				background-color: pink;
-
 			}
 			100%
 			{
 				transform: scale(1)
 				background-color: pink;
+			}
+		}
+
+		@keyframes animatePath
+		{
+			0% 
+			{
+				transform: scale(.0);
+				background-color: magenta;
+				border-radius: 100%;
+			}
+			50% 
+			{
+				background-color: purple;
+			}
+			80% 
+			{
+				transform: scale(1.2);
+			}
+			100%
+			{
+				transform: scale(1)
+				background-color: cyan;
 			}
 		}
 		@keyframes animateWall
@@ -112,6 +141,7 @@
 		<button onclick="AStarUtil()">A* Algorithm</button>
 		<button onclick="recursiveDivision()">Recursive Division</button>
 		<button onclick="DFSMazeUtil()">DFS Maze</button>
+		<button onclick="KruskalMazeUtil()">Kruskal Maze</button>
 
 
 	</div>
@@ -126,6 +156,7 @@
 	<script type="text/javascript" src="./Algorithms/AStar.js"></script>
 	<script type="text/javascript" src="./Algorithms/MazeAlgorithms/recursiveDivision.js"></script>
 	<script type="text/javascript" src="./Algorithms/MazeAlgorithms/DFSMaze.js"></script>
+	<script type="text/javascript" src="./Algorithms/MazeAlgorithms/KruskalMaze.js"></script>
 
 
 </body>

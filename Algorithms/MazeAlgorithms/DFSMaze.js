@@ -14,27 +14,29 @@ async function DFSMaze()
     		board[i][j] = {"visited": false, "wall": true};
     }
 
-    for (var i = 2; i < gridRows-1; i += 2) 
+    for (var i = 1; i < gridRows-1; i++) 
     {
-        for (var j = 1; j < gridCols-1; j++) 
+        for (var j = 2; j < gridCols-1; j+=2) 
         {
         	if(getCell(i, j).classList.contains("start") || getCell(i, j).classList.contains("stop"))
         		continue;
         	getCell(i, j).classList.add("wall");
-        	await sleep(1);
+        	
             board[i][j].visited = false, board[i][j].wall = true;
         }
+        await sleep(50);
     }
-    for (var j = 2; j < gridCols-1; j+=2) 
+    for (var j = 1; j < gridCols-1; j++) 
     {
-        for (var i = 1; i < gridRows-1; i++) 
+        for (var i = 2; i < gridRows-1; i += 2) 
         {
         	if(getCell(i, j).classList.contains("start") || getCell(i, j).classList.contains("stop"))
         		continue;
         	getCell(i, j).classList.add("wall");
-        	await sleep(1);
+        	
             board[i][j].visited = false, board[i][j].wall = true;
         }
+        await sleep(50);
     }
 
     // Choose start point

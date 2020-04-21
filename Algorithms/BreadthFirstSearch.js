@@ -21,7 +21,10 @@ async function BreadthFirstSearch()
 	{
 		var row = Queue[0][0], col = Queue[0][1];
 		if(getCell(row, col).classList.contains("stop"))
+		{
+			//await drawPathBFS();
 			break;
+		}
 		currentCell = getCell(row, col);
 		await sleep(ms);
 		currentCell.classList.add("animateCell");
@@ -62,6 +65,8 @@ async function BFSUtil()
 	}
 	 
 	await BreadthFirstSearch();
-	// drawPath();
+	//await drawPathBFS();
 	isRunning = false;
 }
+
+//async function drawPathBFS()
