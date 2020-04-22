@@ -150,7 +150,6 @@ function kruskal()
     {    
     	// algorithm complete. stop execution.
         clearInterval(startTimerKl);
-        console.log("done");
     }
 }
 
