@@ -1,4 +1,5 @@
 var dist = [];
+var predecessor = [];
 
 function isValidPath(row, col)
 {
@@ -17,7 +18,10 @@ async function Dijkstras()
 		var uRow = tmp.element[0], uCol = tmp.element[1];
 
 		if(getCell(uRow, uCol).classList.contains("stop"))
+		{
+			await drawPath(predecessor);
 			break;
+		}
 		currentCell = getCell(uRow, uCol);
 		await sleep(ms);
 		currentCell.classList.add("animateCell");
@@ -31,6 +35,8 @@ async function Dijkstras()
 			{
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
 				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
+				predecessor[vRow][vCol].r = uRow;
+				predecessor[vRow][vCol].c = uCol;
 			}
 		}
 		if(isValidCell(uRow-1, uCol) && isValidPath(uRow-1, uCol))
@@ -41,6 +47,8 @@ async function Dijkstras()
 			{
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
 				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
+				predecessor[vRow][vCol].r = uRow;
+				predecessor[vRow][vCol].c = uCol;
 			}
 		}
 		if(isValidCell(uRow, uCol+1) && isValidPath(uRow, uCol+1))
@@ -51,6 +59,8 @@ async function Dijkstras()
 			{
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
 				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
+				predecessor[vRow][vCol].r = uRow;
+				predecessor[vRow][vCol].c = uCol;
 			}
 		}
 		if(isValidCell(uRow, uCol-1) && isValidPath(uRow, uCol-1))
@@ -61,6 +71,8 @@ async function Dijkstras()
 			{
 				dist[vRow][vCol] = dist[uRow][uCol] + weight;
 				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
+				predecessor[vRow][vCol].r = uRow;
+				predecessor[vRow][vCol].c = uCol;
 			}
 		}
 	}
@@ -74,8 +86,12 @@ async function DijkstrasUtil()
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];
+	    predecessor[i] = [];
 	    for(var j=0; j<gridCols; j++) 
-	        dist[i][j] = Number.MAX_SAFE_INTEGER;
+	    {
+	        dist[i][j] = INT_MAX;
+	        predecessor[i][j] = {r: -1, c: -1};
+	    }
 	}
 	await Dijkstras();
 	isRunning = false;
