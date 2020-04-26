@@ -1,6 +1,8 @@
 const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 var gridCols = Math.floor(vw/26), gridRows = Math.floor((vh-120)/26);
+
+const INT_MAX = Number.MAX_SAFE_INTEGER;
 if(gridCols % 2 == 0)
 	gridCols++;
 if(gridRows % 2 == 0)

@@ -49,7 +49,7 @@
 			box-shadow: 0 1px 0 rgb(237, 12, 0) inset, 1px 0px 0px rgb(237, 12, 0) inset;
 			background-color: cyan;
 			animation-name: animatePath;
-			animation-duration: 1s; 
+			animation-duration: .7s; 
 			animation-timing-function: ease-out; 
 		}
 		.wall
@@ -99,7 +99,7 @@
 		{
 			0% 
 			{
-				transform: scale(.0);
+				transform: scale(.6);
 				background-color: magenta;
 				border-radius: 100%;
 			}
@@ -139,6 +139,7 @@
 		<button onclick="DijkstrasUtil()">Dijkstra’s</button>
 		<button onclick="BestFirstSearchUtil()">Best First Search</button>
 		<button onclick="AStarUtil()">A* Algorithm</button>
+		<button onclick="bidirectionalAStarUtil()">Bidirectional A*</button>
 		<button onclick="recursiveDivision()">Recursive Division</button>
 		<button onclick="DFSMazeUtil()">DFS Maze</button>
 		<button onclick="KruskalMazeUtil()">Kruskal Maze</button>
@@ -154,6 +155,7 @@
 	<script type="text/javascript" src="./Algorithms/PriorityQueue.js"></script>
 	<script type="text/javascript" src="./Algorithms/greedyBestFirstSearch.js"></script>
 	<script type="text/javascript" src="./Algorithms/AStar.js"></script>
+	<script type="text/javascript" src="./Algorithms/bidirectionalAStar.js"></script>
 	<script type="text/javascript" src="./Algorithms/MazeAlgorithms/recursiveDivision.js"></script>
 	<script type="text/javascript" src="./Algorithms/MazeAlgorithms/DFSMaze.js"></script>
 	<script type="text/javascript" src="./Algorithms/MazeAlgorithms/KruskalMaze.js"></script>
