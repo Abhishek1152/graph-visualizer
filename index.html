@@ -49,7 +49,7 @@
 			box-shadow: 0 1px 0 rgb(237, 12, 0) inset, 1px 0px 0px rgb(237, 12, 0) inset;
 			background-color: cyan;
 			animation-name: animatePath;
-			animation-duration: .7s; 
+			animation-duration: .5s; 
 			animation-timing-function: ease-out; 
 		}
 		.wall
@@ -100,21 +100,17 @@
 			0% 
 			{
 				transform: scale(.6);
-				background-color: magenta;
-				border-radius: 100%;
-			}
-			50% 
-			{
 				background-color: purple;
+				border-radius: 100%;
 			}
 			80% 
 			{
-				transform: scale(1.2);
+				transform: scale(1.1);
 			}
 			100%
 			{
 				transform: scale(1)
-				background-color: cyan;
+				background-color: magenta;			
 			}
 		}
 		@keyframes animateWall

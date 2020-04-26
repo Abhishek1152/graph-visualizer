@@ -18,19 +18,19 @@ function isPath(row, col)
 		|| getCell(row, col).classList.contains("stop"));
 }
 
-async function drawPathBFS()
+/*
+** @param pred - Takes predecessor matrix which has predecessor for every grid cells
+** Draws the path from source to destination
+*/
+async function drawPath(pred)
 {
 	var path = [];
 	var crawl = {row: stopRow, col: stopCol};
-	
-	
-
-
-	while(predecessor[crawl.row][crawl.col].r != -1 && 
-			predecessor[crawl.row][crawl.col].c != -1)
+	while(pred[crawl.row][crawl.col].r != -1 && 
+			pred[crawl.row][crawl.col].c != -1)
 	{
-		path.push(predecessor[crawl.row][crawl.col]);
-		var tempRow = predecessor[crawl.row][crawl.col].r, tempCol = predecessor[crawl.row][crawl.col].c;	
+		path.push(pred[crawl.row][crawl.col]);
+		var tempRow = pred[crawl.row][crawl.col].r, tempCol = pred[crawl.row][crawl.col].c;	
 		crawl.row = tempRow;
 		crawl.col = tempCol;
 	}
@@ -41,7 +41,6 @@ async function drawPathBFS()
 		getCell(path[i].r, path[i].c).classList.add("animatePath");
 		await sleep(50);
 	}
-
 }
 
 async function BreadthFirstSearch()
@@ -57,7 +56,7 @@ async function BreadthFirstSearch()
 		var row = Queue[0][0], col = Queue[0][1];
 		if(getCell(row, col).classList.contains("stop"))
 		{
-			await drawPathBFS();
+			await drawPath(predecessor);
 			break;
 		}
 		currentCell = getCell(row, col);
@@ -68,7 +67,7 @@ async function BreadthFirstSearch()
 		if(isValidCell(row+1, col) && isPath(row+1, col))
 		{
 			visited[row+1][col] = true;
-			pathDistance[row+1][col] = pathDistance[row][col]+1;
+			//pathDistance[row+1][col] = pathDistance[row][col]+1;
 			predecessor[row+1][col].r = row;
 			predecessor[row+1][col].c = col;
 			Queue.push([row+1, col]);
@@ -76,7 +75,7 @@ async function BreadthFirstSearch()
 		if(isValidCell(row-1, col) && isPath(row-1, col))
 		{
 			visited[row-1][col] = true;
-			pathDistance[row-1][col] = pathDistance[row][col]+1;
+			//pathDistance[row-1][col] = pathDistance[row][col]+1;
 			predecessor[row-1][col].r = row;
 			predecessor[row-1][col].c = col;
 			Queue.push([row-1, col]);
@@ -84,7 +83,7 @@ async function BreadthFirstSearch()
 		if(isValidCell(row, col+1) && isPath(row, col+1))
 		{
 			visited[row][col+1] = true;
-			pathDistance[row][col+1] = pathDistance[row][col]+1;
+			//pathDistance[row][col+1] = pathDistance[row][col]+1;
 			predecessor[row][col+1].r = row;
 			predecessor[row][col+1].c = col;
 			Queue.push([row, col+1]);
@@ -92,7 +91,7 @@ async function BreadthFirstSearch()
 		if(isValidCell(row, col-1) && isPath(row, col-1))
 		{
 			visited[row][col-1] = true;
-			pathDistance[row][col-1] = pathDistance[row][col]+1;
+			//pathDistance[row][col-1] = pathDistance[row][col]+1;
 			predecessor[row][col-1].r = row;
 			predecessor[row][col-1].c = col;
 			Queue.push([row, col-1]);
