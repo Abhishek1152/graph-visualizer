@@ -2,11 +2,11 @@ var StartclosedList = [];
 var StopclosedList = [];
 var StartcellDetails = [];
 var StopcellDetails = [];
-var predecessor = [];
+var predecessor1 = [];
+var predecessor2 = [];
 
 function checkIntersection(row, col)
 {
-    //console.log(StartclosedList[row][col], StopclosedList[row][col]);
     return (StartclosedList[row][col] && StopclosedList[row][col]);
 }
 
@@ -15,6 +15,46 @@ function isPathforBidirAStar(row, col, closedList)
     return (!closedList[row][col] && !getCell(row, col).classList.contains("wall") 
         || getCell(row, col).classList.contains("stop"));
 }
+
+async function drawPathforAStar(row, col, pred1, pred2)
+{
+    var path1 = [], path2 = [];
+    var crawl = {row: row, col: col};
+    path1.push({r: row, c: col});
+    while(pred1[crawl.row][crawl.col].r != -1 && 
+            pred1[crawl.row][crawl.col].c != -1)
+    {
+        path1.push(pred1[crawl.row][crawl.col]);
+        var tempRow = pred1[crawl.row][crawl.col].r, tempCol = pred1[crawl.row][crawl.col].c; 
+        crawl.row = tempRow;
+        crawl.col = tempCol;
+    }
+
+    crawl = {row: row, col: col};
+    while(pred2[crawl.row][crawl.col].r != -1 && 
+            pred2[crawl.row][crawl.col].c != -1)
+    {
+        path2.push(pred2[crawl.row][crawl.col]);
+        var tempRow = pred2[crawl.row][crawl.col].r, tempCol = pred2[crawl.row][crawl.col].c; 
+        crawl.row = tempRow;
+        crawl.col = tempCol;
+    }
+
+
+    for(var i = path1.length - 1; i >= 0; i--)
+    {
+        getCell(path1[i].r, path1[i].c).classList.remove("animateCell");
+        getCell(path1[i].r, path1[i].c).classList.add("animatePath");
+        await sleep(50);
+    }
+    for(var i = 0; i < path2.length; i++)
+    {
+        getCell(path2[i].r, path2[i].c).classList.remove("animateCell");
+        getCell(path2[i].r, path2[i].c).classList.add("animatePath");
+        await sleep(50);
+    }
+}
+
 
 async function bidirectionalAStar()
 {
@@ -45,7 +85,7 @@ async function bidirectionalAStar()
             StartclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
             {
-                await drawPath(predecessor);
+                await drawPathforAStar(row1, col1, predecessor1, predecessor2);
                 break;
             }
             var gNew, hNew, fNew;
@@ -66,8 +106,8 @@ async function bidirectionalAStar()
                             StartcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].f = fNew;
                             StartcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].g = gNew;
                             StartcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].h = hNew;
-                            predecessor[row1+neighbours[i][0]][col1+neighbours[i][1]].r = row1;
-                            predecessor[row1+neighbours[i][0]][col1+neighbours[i][1]].c = col1;
+                            predecessor1[row1+neighbours[i][0]][col1+neighbours[i][1]].r = row1;
+                            predecessor1[row1+neighbours[i][0]][col1+neighbours[i][1]].c = col1;
                         }
                     }
                 }
@@ -83,7 +123,7 @@ async function bidirectionalAStar()
             StopclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
             {
-                await drawPath(predecessor);
+                await drawPathforAStar(row1, col1, predecessor1, predecessor2);
                 break;
             }
             var gNew, hNew, fNew;
@@ -104,21 +144,14 @@ async function bidirectionalAStar()
                             StopcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].f = fNew;
                             StopcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].g = gNew;
                             StopcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].h = hNew;
-                            predecessor[row1+neighbours[i][0]][col1+neighbours[i][1]].r = row1;
-                            predecessor[row1+neighbours[i][0]][col1+neighbours[i][1]].c = col1;
+                            predecessor2[row1+neighbours[i][0]][col1+neighbours[i][1]].r = row1;
+                            predecessor2[row1+neighbours[i][0]][col1+neighbours[i][1]].c = col1;
                         }
                     }
                 }
             }
         }
     }
-
-
-
-
-
-
-
 }
 
 
@@ -133,7 +166,8 @@ async function bidirectionalAStarUtil()
         StopclosedList[i] = [];
         StartcellDetails[i] = [];
         StopcellDetails[i] = [];
-        predecessor[i] = [];
+        predecessor1[i] = [];
+        predecessor2[i] = [];
 
         for(var j=0; j<gridCols; j++) 
         {
@@ -146,7 +180,8 @@ async function bidirectionalAStarUtil()
             StopcellDetails[i][j] = {f: INT_MAX,
                                 g: INT_MAX,
                                 h: INT_MAX};
-            predecessor[i][j] = {r: -1, c: -1};
+            predecessor1[i][j] = {r: -1, c: -1};
+            predecessor2[i][j] = {r: -1, c: -1};
         }
     }
     await bidirectionalAStar();
