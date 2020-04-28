@@ -1,63 +1,50 @@
-var visited = [];
-var pathDistance = [];
-var predecessor = [];
+var found;
+const neigh = [{R: 1, C: 0}, {R: 0, C: 1}, {R: -1, C: 0}, {R: 0, C: -1}];
 
+/*
+** Standard recursive Depth First Search algorithm
+*/
 async function DepthFirstSearch(row, col)
 {
-	if(found || row >= gridRows || col >= gridCols || row < 0 || col < 0 || visited[row][col])
-		return;
-
+	// Reached goal
 	if(getCell(row, col).classList.contains("stop"))
 	{
 		await drawPath(predecessor);
 		found = true;
 		return;
 	}
-	if(getCell(row, col).classList.contains("wall"))
-		return;
+
 	visited[row][col] = true;
-	var currentCell = getCell(row, col);
+
+	getCell(row, col).classList.add("animateCell");
 	await sleep(ms);
-	currentCell.classList.add("animateCell");
-	await sleep(ms);
-	if(!found && row+1 < gridRows && col < gridCols && row+1 >= 0 && col >= 0 && !visited[row+1][col])
-	{
-		pathDistance[row+1][col] = pathDistance[row][col]+1;
-		predecessor[row+1][col].r = row;
-		predecessor[row+1][col].c = col;
-		await DepthFirstSearch(row+1, col);
-	}
 
-	if(!found && row < gridRows && col+1 < gridCols && row >= 0 && col+1 >= 0 && !visited[row][col+1])
+	// Recursively checking all the neighbours
+	for(var i in neigh)
 	{
-		pathDistance[row][col+1] = pathDistance[row][col]+1;
-		predecessor[row][col+1].r = row;
-		predecessor[row][col+1].c = col;
-		await DepthFirstSearch(row, col+1);
-	}
-
-	if(!found && row-1 < gridRows && col < gridCols && row-1 >= 0 && col >= 0 && !visited[row-1][col])
-	{
-		pathDistance[row-1][col] = pathDistance[row][col]+1;
-		predecessor[row-1][col].r = row;
-		predecessor[row-1][col].c = col;
-		await DepthFirstSearch(row-1, col);
-	}
-
-	if(!found && row < gridRows && col-1 < gridCols && row >= 0 && col-1 >= 0 && !visited[row][col-1])
-	{
-		pathDistance[row][col-1] = pathDistance[row][col]+1;
-		predecessor[row][col-1].r = row;
-		predecessor[row][col-1].c = col;
-		await DepthFirstSearch(row, col-1);
+		if(!found && isValidCell(row+neigh[i].R, col+neigh[i].C) && isPath(row+neigh[i].R, col+neigh[i].C))
+		{
+			pathDistance[row+neigh[i].R][col+neigh[i].C] = pathDistance[row][col]+1;
+			predecessor[row+neigh[i].R][col+neigh[i].C].r = row;
+			predecessor[row+neigh[i].R][col+neigh[i].C].c = col;
+			await DepthFirstSearch(row+neigh[i].R, col+neigh[i].C);
+		}
 	}
 }
 
+
+/*
+** Utlity function of DFS to initialize values and grid
+*/
 async function DFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
 	found = false;
+	visited.length = 0;
+	pathDistance.length = 0;
+	predecessor.length = 0;
+
 	for(var i=0; i<gridRows; i++) 
 	{
 	    visited[i] = [];
@@ -70,6 +57,7 @@ async function DFSUtil()
 	        visited[i][j] = false;
 	    }
 	}
+
 	await DepthFirstSearch(startRow, startCol);
 	isRunning = false;
 }

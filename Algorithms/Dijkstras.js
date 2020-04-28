@@ -1,11 +1,4 @@
 var dist = [];
-var predecessor = [];
-
-function isValidPath(row, col)
-{
-	return (!getCell(row, col).classList.contains("wall") 
-		|| getCell(row, col).classList.contains("stop"));
-}
 
 async function Dijkstras()
 {
@@ -83,6 +76,7 @@ async function DijkstrasUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+	predecessor.length = 0;
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];

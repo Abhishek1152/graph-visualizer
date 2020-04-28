@@ -1,48 +1,6 @@
 /*
-** visited - Boolean matrix to keep track of visited or unvisited cell
-** pathDistance - To construct path from source to destination
-** predecessor - Stores predecessor for every cell
+** Standard iterative Breadth First Search algorithm
 */
-var visited = []; 
-var pathDistance = [];
-var predecessor = [];
-
-function isValidCell(row, col)
-{
-	return (row >= 0 && row < gridRows && col >= 0 && col < gridCols);
-}
-
-function isPath(row, col)
-{
-	return (!visited[row][col] && !getCell(row, col).classList.contains("wall") 
-		|| getCell(row, col).classList.contains("stop"));
-}
-
-/*
-** @param - pred: Takes predecessor matrix which has predecessor for every grid cells
-** Draws the path from source to destination
-*/
-async function drawPath(pred)
-{
-	var path = [];
-	var crawl = {row: stopRow, col: stopCol};
-	while(pred[crawl.row][crawl.col].r != -1 && 
-			pred[crawl.row][crawl.col].c != -1)
-	{
-		path.push(pred[crawl.row][crawl.col]);
-		var tempRow = pred[crawl.row][crawl.col].r, tempCol = pred[crawl.row][crawl.col].c;	
-		crawl.row = tempRow;
-		crawl.col = tempCol;
-	}
-
-	for(var i = path.length - 1; i >= 0; i--)
-	{
-		getCell(path[i].r, path[i].c).classList.remove("animateCell");
-		getCell(path[i].r, path[i].c).classList.add("animatePath");
-		await sleep(50);
-	}
-}
-
 async function BreadthFirstSearch()
 {
 	var Queue = [];
@@ -54,55 +12,44 @@ async function BreadthFirstSearch()
 	while(Queue.length != 0)
 	{
 		var row = Queue[0][0], col = Queue[0][1];
+
+		// Reached goal
 		if(getCell(row, col).classList.contains("stop"))
 		{
 			await drawPath(predecessor);
 			break;
 		}
-		currentCell = getCell(row, col);
-		await sleep(ms);
-		currentCell.classList.add("animateCell");
+
+		getCell(row, col).classList.add("animateCell");
 		await sleep(ms);
 		Queue.splice(0, 1);
-		if(isValidCell(row+1, col) && isPath(row+1, col))
+
+		// Checking for all valid neighbours
+		for(var i in neighbours)
 		{
-			visited[row+1][col] = true;
-			//pathDistance[row+1][col] = pathDistance[row][col]+1;
-			predecessor[row+1][col].r = row;
-			predecessor[row+1][col].c = col;
-			Queue.push([row+1, col]);
-		}
-		if(isValidCell(row-1, col) && isPath(row-1, col))
-		{
-			visited[row-1][col] = true;
-			//pathDistance[row-1][col] = pathDistance[row][col]+1;
-			predecessor[row-1][col].r = row;
-			predecessor[row-1][col].c = col;
-			Queue.push([row-1, col]);
-		}
-		if(isValidCell(row, col+1) && isPath(row, col+1))
-		{
-			visited[row][col+1] = true;
-			//pathDistance[row][col+1] = pathDistance[row][col]+1;
-			predecessor[row][col+1].r = row;
-			predecessor[row][col+1].c = col;
-			Queue.push([row, col+1]);
-		}
-		if(isValidCell(row, col-1) && isPath(row, col-1))
-		{
-			visited[row][col-1] = true;
-			//pathDistance[row][col-1] = pathDistance[row][col]+1;
-			predecessor[row][col-1].r = row;
-			predecessor[row][col-1].c = col;
-			Queue.push([row, col-1]);
+			if(isValidCell(row+neighbours[i].R, col+neighbours[i].C) && isPath(row+neighbours[i].R, col+neighbours[i].C))
+			{
+				visited[row+neighbours[i].R][col+neighbours[i].C] = true;
+				predecessor[row+neighbours[i].R][col+neighbours[i].C].r = row;
+				predecessor[row+neighbours[i].R][col+neighbours[i].C].c = col;
+				Queue.push([row+neighbours[i].R, col+neighbours[i].C]);
+			}
 		}
 	}
 }
 
+
+/*
+** Utlity function of BFS to initialize values and grid
+*/
 async function BFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+	visited.length = 0;
+	pathDistance.length = 0;
+	predecessor.length = 0;
+
 	for(var i=0; i<gridRows; i++) 
 	{
 	    visited[i] = [];
@@ -119,5 +66,3 @@ async function BFSUtil()
 	await BreadthFirstSearch();
 	isRunning = false;
 }
-
-//async function drawPathBFS()
