@@ -31,8 +31,6 @@ async function KruskalMazeUtil()
 }
 
 
-
-
 // Node with edges
 function NodeKl(x, y, size) 
 {
