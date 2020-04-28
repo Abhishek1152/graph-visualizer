@@ -20,7 +20,6 @@ async function AStar()
 
 	var openList = new PriorityQueue();
 	openList.enqueue([i, j], 1);
-	var foundDest = false;
 	while(!openList.isEmpty())
 	{
 		var p = openList.dequeue();
@@ -28,7 +27,6 @@ async function AStar()
 		i = p.element[0];
 		j = p.element[1];
 		currentCell = getCell(i, j);
-		await sleep(ms);
 		currentCell.classList.add("animateCell");
 		await sleep(ms);
 		closedList[i][j] = true;
