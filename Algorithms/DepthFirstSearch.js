@@ -1,4 +1,3 @@
-var found;
 var visited = [];
 var pathDistance = [];
 var predecessor = [];

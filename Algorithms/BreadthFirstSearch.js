@@ -19,7 +19,7 @@ function isPath(row, col)
 }
 
 /*
-** @param pred - Takes predecessor matrix which has predecessor for every grid cells
+** @param - pred: Takes predecessor matrix which has predecessor for every grid cells
 ** Draws the path from source to destination
 */
 async function drawPath(pred)
