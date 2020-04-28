@@ -229,7 +229,6 @@ function prim()
     
     if (count === (iSize * jSize) - 1) 
     {    // algorithm complete. stop execution.
-    	console.log("done");
     	//min.b.current = false;
     	min.b.graphics();
         clearInterval(startTimer);
