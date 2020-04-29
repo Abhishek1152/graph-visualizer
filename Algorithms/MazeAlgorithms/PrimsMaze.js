@@ -19,8 +19,8 @@ async function PrimsMazeUtil()
 	}
 	getCell(startRow, startCol).classList.remove("wall");
     getCell(stopRow, stopCol).classList.remove("wall");
-	iSize = (gridRows+1)/2;
-    jSize = (gridCols+1)/2;
+	iSize = (gridRows-1)/2;
+    jSize = (gridCols-1)/2;
     speed = 30;
     array.length = 0;
     father.length = 0;
@@ -53,7 +53,7 @@ function Node(x, y, size, value)
         {
         	if (this.path || this.current);
         	else
-        		getCell(this.y, this.x).classList.remove("wall");      
+        		getCell(this.y+1, this.x+1).classList.remove("wall");      
         		//ctx.fillStyle = "white";
             //ctx.fillRect(this.x, this.y, this.size, this.size);            
         }
@@ -93,7 +93,7 @@ function Edge(a, b, edge)
 
             if (a.path && b.path);
             else
-            	getCell(Math.floor((a.y+b.y)/2), Math.floor((a.x+b.x)/2)).classList.remove("wall"); 
+            	getCell(Math.floor((a.y+b.y)/2)+1, Math.floor((a.x+b.x)/2)+1).classList.remove("wall"); 
             	//ctx.fillStyle = "white";
             
             // ctx.fillRect((a.x + b.x) / 2, (a.y + b.y) / 2, size, size);            
@@ -107,7 +107,7 @@ function startExec()
     setup();
 
     running = true;
-    getCell(0, 0).classList.remove("wall");
+    getCell(1, 1).classList.remove("wall");
     startTimer = setInterval(function () 
     {
         prim();

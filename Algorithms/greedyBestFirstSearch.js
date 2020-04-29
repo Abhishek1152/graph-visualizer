@@ -6,12 +6,6 @@ function isValidCell(row, col)
 	return (row >= 0 && row < gridRows && col >= 0 && col < gridCols);
 }
 
-// function isPath(row, col)
-// {
-// 	return (!visited[row][col] && !getCell(row, col).classList.contains("wall") 
-// 		|| getCell(row, col).classList.contains("stop"));
-// }
-
 async function BestFirstSearch()
 {
 	var priorityQueue = new PriorityQueue();
@@ -31,41 +25,18 @@ async function BestFirstSearch()
 		await sleep(ms);
 		currentCell.classList.add("animateCell");
 		await sleep(ms);
-		if(isValidCell(row+1, col) && isPath(row+1, col))
+		for(var i in neighbours)
 		{
-			visited[row+1][col] = true;
-			var priority = Math.abs(stopRow-(row+1)) + Math.abs(stopCol - col);
-			var weight = getCell(row+1, col).classList.contains("weight")? 5 : 1;
-			predecessor[row+1][col].r = row;
-			predecessor[row+1][col].c = col;
-			priorityQueue.enqueue([row+1, col], weight+priority);
-		}
-		if(isValidCell(row-1, col) && isPath(row-1, col))
-		{
-			visited[row-1][col] = true;
-			var priority = Math.abs(stopRow-(row-1)) + Math.abs(stopCol - col);
-			var weight = getCell(row-1, col).classList.contains("weight")? 5 : 1;
-			predecessor[row-1][col].r = row;
-			predecessor[row-1][col].c = col;
-			priorityQueue.enqueue([row-1, col], weight+priority);
-		}
-		if(isValidCell(row, col+1) && isPath(row, col+1))
-		{
-			visited[row][col+1] = true;
-			var priority = Math.abs(stopRow-row) + Math.abs(stopCol - (col+1));
-			var weight = getCell(row, col+1).classList.contains("weight")? 5 : 1;
-			predecessor[row][col+1].r = row;
-			predecessor[row][col+1].c = col;
-			priorityQueue.enqueue([row, col+1], weight+priority);
-		}
-		if(isValidCell(row, col-1) && isPath(row, col-1))
-		{
-			visited[row][col-1] = true;
-			var priority = Math.abs(stopRow-row) + Math.abs(stopCol - (col-1));
-			var weight = getCell(row, col-1).classList.contains("weight")? 5 : 1;
-			predecessor[row][col-1].r = row;
-			predecessor[row][col-1].c = col;
-			priorityQueue.enqueue([row, col-1], weight+priority);
+			if(isValidCell(row+neighbours[i].R, col+neighbours[i].C) 
+				&& isPath(row+neighbours[i].R, col+neighbours[i].C))
+			{
+				visited[row+neighbours[i].R][col+neighbours[i].C] = true;
+				var priority = Math.abs(stopRow-(row+neighbours[i].R)) + Math.abs(stopCol - (col+neighbours[i].C));
+				var weight = getCell(row+neighbours[i].R, col+neighbours[i].C).classList.contains("weight")? 5 : 1;
+				predecessor[row+neighbours[i].R][col+neighbours[i].C].r = row;
+				predecessor[row+neighbours[i].R][col+neighbours[i].C].c = col;
+				priorityQueue.enqueue([row+neighbours[i].R, col+neighbours[i].C], weight+priority);
+			}
 		}
 	}
 }

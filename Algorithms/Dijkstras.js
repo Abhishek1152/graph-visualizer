@@ -1,4 +1,14 @@
 var dist = [];
+var predecessor = [];
+
+/*
+** Helper function for Dijkstras algorithm
+*/
+function isPathDijkstras(row, col)
+{
+	return (!getCell(row, col).classList.contains("wall") 
+		|| getCell(row, col).classList.contains("stop"));
+}
 
 async function Dijkstras()
 {
@@ -15,57 +25,24 @@ async function Dijkstras()
 			await drawPath(predecessor);
 			break;
 		}
-		currentCell = getCell(uRow, uCol);
-		await sleep(ms);
-		currentCell.classList.add("animateCell");
+		
+		getCell(uRow, uCol).classList.add("animateCell");
 		await sleep(ms);
 
-		if(isValidCell(uRow+1, uCol) && isValidPath(uRow+1, uCol))
+		for(var i in neighbours)
 		{
-			var vRow = uRow+1, vCol = uCol,
-			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
-			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
+			if(isValidCell(uRow+neighbours[i].R, uCol+neighbours[i].C) 
+				&& isPathDijkstras(uRow+neighbours[i].R, uCol+neighbours[i].C))
 			{
-				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
-				predecessor[vRow][vCol].r = uRow;
-				predecessor[vRow][vCol].c = uCol;
-			}
-		}
-		if(isValidCell(uRow-1, uCol) && isValidPath(uRow-1, uCol))
-		{
-			var vRow = uRow-1, vCol = uCol,
-			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
-			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
-			{
-				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
-				predecessor[vRow][vCol].r = uRow;
-				predecessor[vRow][vCol].c = uCol;
-			}
-		}
-		if(isValidCell(uRow, uCol+1) && isValidPath(uRow, uCol+1))
-		{
-			var vRow = uRow, vCol = uCol+1,
-			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
-			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
-			{
-				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
-				predecessor[vRow][vCol].r = uRow;
-				predecessor[vRow][vCol].c = uCol;
-			}
-		}
-		if(isValidCell(uRow, uCol-1) && isValidPath(uRow, uCol-1))
-		{
-			var vRow = uRow, vCol = uCol-1,
-			weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
-			if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
-			{
-				dist[vRow][vCol] = dist[uRow][uCol] + weight;
-				setds.enqueue([vRow, vCol], dist[vRow][vCol]);
-				predecessor[vRow][vCol].r = uRow;
-				predecessor[vRow][vCol].c = uCol;
+				var vRow = uRow+neighbours[i].R, vCol = uCol+neighbours[i].C,
+				weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
+				if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
+				{
+					dist[vRow][vCol] = dist[uRow][uCol] + weight;
+					setds.enqueue([vRow, vCol], dist[vRow][vCol]);
+					predecessor[vRow][vCol].r = uRow;
+					predecessor[vRow][vCol].c = uCol;
+				}
 			}
 		}
 	}
@@ -76,7 +53,6 @@ async function DijkstrasUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
-	predecessor.length = 0;
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];

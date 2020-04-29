@@ -61,15 +61,22 @@
 			animation-timing-function: ease-out;
 			
 		}
+		.weight
+		{
+			background-image: url("weight.png");
+			animation-name: animateWeight;
+			margin: auto;
+		}
 		.start
 		{
 			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
-			background-color: green;
+			background-image: url("start.png");
 		}
 		.stop
 		{
 			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
-			background-color: red;
+			background-image: url("stop.png");
+			background-repeat: no-repeat;
 		}
 
 		@keyframes animateVisited 
@@ -95,6 +102,23 @@
 			}
 		}
 
+		@keyframes animateWeight
+		{
+			0%
+			{
+				transform: scale(.3);
+
+			}
+			50%
+			{
+				transform: scale(1.2);
+			}
+			100%
+			{
+				transform: scale(1);
+			}
+		}
+
 		@keyframes animatePath
 		{
 			0% 
@@ -115,9 +139,13 @@
 		}
 		@keyframes animateWall
 		{
-			50%
+			40%
 			{
-				transform: scale(1.2);
+				transform: scale(0.8);
+			}
+			70%
+			{
+				transform: scale(1.1);
 			}
 			100%
 			{
@@ -139,6 +167,7 @@
 		<button onclick="DFSMazeUtil()">DFS Maze</button>
 		<button onclick="KruskalMazeUtil()">Kruskal Maze</button>
 		<button onclick="PrimsMazeUtil()">Prims Maze</button>
+		<input autocomplete="off" type="range" width="20px" id="WeightWallSlider" min="1" max="2" value="2" step = "1" oninput="toggleWallWeight(this.value)" />
 
 
 	</div>

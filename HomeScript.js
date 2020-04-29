@@ -9,7 +9,7 @@ const INT_MAX = Number.MAX_SAFE_INTEGER;
 var gridCols = Math.floor(vw/26), gridRows = Math.floor((vh-120)/26);
 var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
-var isRunning = false
+var isRunning = false, isWall = false;
 var ms = 10;
 
 /*
@@ -146,6 +146,7 @@ async function drawPath(pred)
 {
 	var path = [];
 	var crawl = {row: stopRow, col: stopCol};
+	path.push({r: stopRow, c: stopCol});
 	while(pred[crawl.row][crawl.col].r != -1 && 
 			pred[crawl.row][crawl.col].c != -1)
 	{
@@ -161,6 +162,15 @@ async function drawPath(pred)
 		getCell(path[i].r, path[i].c).classList.add("animatePath");
 		await sleep(50);
 	}
+}
+
+
+/*
+**
+*/
+function toggleWallWeight(val)
+{
+	isWall = (val == 1);
 }
 
 genDivs(gridRows, gridCols);

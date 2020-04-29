@@ -1,5 +1,6 @@
 var grid = document.querySelector("#gridContainer"), isDragging = false, draggingStartCell = false, draggingStopCell = false;
 var prevMS;
+
 function getRowandCol(e)
 {
 	for(var i=0; i<gridRows; i++) 
@@ -23,10 +24,27 @@ grid.onmousedown = function(e)
 		else
 		{
 			e.target.classList.remove("animateCell");
-			if(e.target.classList.contains("wall"))
-				e.target.classList.remove("wall");
+			e.target.classList.remove("animatePath");
+			if(isWall)
+			{
+				if(e.target.classList.contains("wall"))
+					e.target.classList.remove("wall");
+				else
+				{
+					e.target.classList.remove("weight");
+					e.target.classList.add("wall");
+				}
+			}
 			else
-				e.target.classList.add("wall");
+			{
+				if(e.target.classList.contains("weight"))
+					e.target.classList.remove("weight");
+				else
+				{
+					e.target.classList.remove("wall");
+					e.target.classList.add("weight");
+				}
+			}
 		}
 
 		isDragging = true;
@@ -81,10 +99,27 @@ grid.onmouseover = function(e)
 		if(e.target == getCell(startRow, startCol) || e.target == getCell(stopRow, stopCol))
 			return;
 		e.target.classList.remove("animateCell");
-		if(e.target.classList.contains("wall"))
-			e.target.classList.remove("wall");
+		e.target.classList.remove("animatePath");
+		if(isWall)
+		{
+			if(e.target.classList.contains("wall"))
+				e.target.classList.remove("wall");
+			else
+			{
+				e.target.classList.remove("weight");
+				e.target.classList.add("wall");
+			}
+		}
 		else
-			e.target.classList.add("wall");
+		{
+			if(e.target.classList.contains("weight"))
+				e.target.classList.remove("weight");
+			else
+			{
+				e.target.classList.remove("wall");
+				e.target.classList.add("weight");
+			}
+		}
 
 	}
 }

@@ -18,8 +18,8 @@ async function KruskalMazeUtil()
 	}
     getCell(startRow, startCol).classList.remove("wall");
     getCell(stopRow, stopCol).classList.remove("wall");
-	iSizeKl = (gridRows+1)/2;
-    jSizeKl = (gridCols+1)/2;
+	iSizeKl = (gridRows-1)/2;
+    jSizeKl = (gridCols-1)/2;
     speedKl = 10;
     sizeKl = 1;
     countKl = 0;
@@ -44,7 +44,7 @@ function NodeKl(x, y, size)
 
     function graphics() 
     {
-    	getCell(this.y, this.x).classList.remove("wall");        
+    	getCell(this.y+1, this.x+1).classList.remove("wall");        
     }
 }
 
@@ -59,7 +59,7 @@ function EdgeKl(a, b)
 
     function graphics() 
     {
-    	getCell(Math.floor((a.y+b.y)/2), Math.floor((a.x+b.x)/2)).classList.remove("wall");         
+    	getCell(Math.floor((a.y+b.y)/2)+1, Math.floor((a.x+b.x)/2)+1).classList.remove("wall");         
     }
 }
 

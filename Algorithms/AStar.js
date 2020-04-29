@@ -37,11 +37,36 @@ async function AStar()
 		}
 
 		var gNew, hNew, fNew;
+		// for(var k in neighbours)
+		// {
+		// 	if(isValidCell(i+neighbours[k].R, j+neighbours[k].C) 
+		// 		&& isPathforAStar(i+neighbours[k].R, j+neighbours[k].C))
+		// 	{
+		// 		if(!closedList[i+neighbours[k].R][j+neighbours[k].C])
+		// 		{
+		// 			gNew = parseInt(cellDetails[i][j].g) + getCell(i+neighbours[k].R, j+neighbours[k].C).classList.contains("weight")? 5 : 1;
+		// 			console.log(gNew);
+		// 			hNew = Math.abs(stopRow-(i+neighbours[k].R)) + Math.abs(stopCol - (j+neighbours[k].C));
+		// 			fNew = gNew + hNew;
+
+		// 			if(cellDetails[i+neighbours[k].R][j+neighbours[k].C].f == Number.MAX_SAFE_INTEGER
+		// 				|| cellDetails[i+neighbours[k].R][j+neighbours[k].C].f > fNew)
+		// 			{
+		// 				openList.enqueue([i+neighbours[k].R, j+neighbours[k].C], fNew);
+		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].f = fNew;
+		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].g = gNew;
+		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].h = hNew;
+		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].r = i;
+		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].c = j;
+		// 			}
+		// 		}
+		// 	}
+		// }
 		if(isValidCell(i+1, j) && isPathforAStar(i+1, j))
 		{
 			if(!closedList[i+1][j])
 			{
-				gNew = cellDetails[i][j].g + 1;//getCell(i+1, j).classList.contains("weight")? 5 : 1;
+				gNew = parseInt(cellDetails[i][j].g) + 1;//getCell(i+1, j).classList.contains("weight")? 5 : 1;
 				hNew = Math.abs(stopRow-(i+1)) + Math.abs(stopCol - j);
 				fNew = gNew + hNew;
 
@@ -61,7 +86,7 @@ async function AStar()
 		{
 			if(!closedList[i-1][j])
 			{
-				gNew = cellDetails[i][j].g + 1;//getCell(i-1, j).classList.contains("weight")? 5 : 1;
+				gNew = parseInt(cellDetails[i][j].g) + 1;//getCell(i-1, j).classList.contains("weight")? 5 : 1;
 				hNew = Math.abs(stopRow-(i-1)) + Math.abs(stopCol - j);
 				fNew = gNew + hNew;
 
@@ -81,7 +106,7 @@ async function AStar()
 		{
 			if(!closedList[i][j+1])
 			{
-				gNew = cellDetails[i][j].g + 1;//getCell(i, j+1).classList.contains("weight")? 5 : 1;
+				gNew = parseInt(cellDetails[i][j].g) + 1;//getCell(i, j+1).classList.contains("weight")? 5 : 1;
 				hNew = Math.abs(stopRow-i) + Math.abs(stopCol - (j+1));
 				fNew = gNew + hNew;
 
@@ -101,7 +126,7 @@ async function AStar()
 		{
 			if(!closedList[i][j-1])
 			{
-				gNew = cellDetails[i][j].g + 1;//getCell(i, j-1).classList.contains("weight")? 5 : 1;
+				gNew = parseInt(cellDetails[i][j].g) + 1;//getCell(i, j-1).classList.contains("weight")? 5 : 1;
 				hNew = Math.abs(stopRow-i) + Math.abs(stopCol - (j-1));
 				fNew = gNew + hNew;
 
