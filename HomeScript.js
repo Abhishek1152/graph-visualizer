@@ -31,65 +31,72 @@ if(gridCols % 2 == 0)
 if(gridRows % 2 == 0)
 	gridRows++;
 
-// TODO: Implement arrow directions
 
+document.getElementById("algobtn").onclick = function toggleAlgoDropdown()
+{
+	document.getElementById("algoDropdown").classList.add("show-dropdown");
+	document.getElementById("mazeDropdown").classList.remove("show-dropdown");
+}
+
+document.getElementById("mazebtn").onclick = function toggleMazeDropdown()
+{
+	document.getElementById("mazeDropdown").classList.add("show-dropdown");
+	document.getElementById("algoDropdown").classList.remove("show-dropdown");
+
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) 
+{
+	if (!e.target.matches(".dropbtn")) 
+	{
+		document.getElementById("algoDropdown").classList.remove("show-dropdown");
+		document.getElementById("mazeDropdown").classList.remove("show-dropdown");	
+  	}
+}
 
 document.getElementById("astar").onclick = function()
 {
 	currentalgo = "astar";
 	document.getElementById("visualizebtn").innerHTML = "Visualize A*";
 }
+
 document.getElementById("bidir-astar").onclick = function()
 {
 	currentalgo = "bisir-astar";
 	document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
 }
+
 document.getElementById("dijkstras").onclick = function()
 {
 	currentalgo = "dijkstras";
 	document.getElementById("visualizebtn").innerHTML = "Visualize Dijkstra's";
 }
+
 document.getElementById("jps").onclick = function()
 {
 	currentalgo = "jps";
 	document.getElementById("visualizebtn").innerHTML = "Visualize JPS";
 }
+
 document.getElementById("greedy-bfs").onclick = function()
 {
 	currentalgo = "greedy-bfs";
 	document.getElementById("visualizebtn").innerHTML = "Visualize Greedy BFS";
 }
+
 document.getElementById("bfs").onclick = function()
 {
 	currentalgo = "bfs";
 	document.getElementById("visualizebtn").innerHTML = "Visualize BFS";
 }
+
 document.getElementById("dfs").onclick = function()
 {
 	currentalgo = "dfs";
 	document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
 }
-function currentAlgo(algo)
-{
-	currentalgo = algo;
-	if(currentalgo == "astar")
-		document.getElementById("visualizebtn").innerHTML = "Visualize A*";
-	else if(currentalgo == "bidir-astar")
-		document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
-	else if(currentalgo == "dijkstras")
-		document.getElementById("visualizebtn").innerHTML = "Visualize Dijkstra's";
-	else if(currentalgo == "jps")
-		document.getElementById("visualizebtn").innerHTML = "Visualize JPS";
-	else if(currentalgo == "greedy-bfs")
-		document.getElementById("visualizebtn").innerHTML = "Visualize Greedy BFS";
-	else if(currentalgo == "bfs")
-		document.getElementById("visualizebtn").innerHTML = "Visualize BFS";
-	else if(currentalgo == "dfs")
-		document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
-	else
-		console.log("How did you even reach here?");
 
-}
 
 async function visualizeAlgo()
 {
@@ -107,7 +114,8 @@ async function visualizeAlgo()
 		await BFSUtil();
 	else if(currentalgo == "dfs")
 		await DFSUtil();
-	else;
+	else
+		document.getElementById("visualizebtn").innerHTML = "Select an Algorithm";
 }
 
 
@@ -256,3 +264,6 @@ genDivs(gridRows, gridCols);
 
 // Nerd fix for centralizing grid horizontally
 document.getElementById("gridContainer").style.left = (vw-document.getElementById("gridContainer").offsetWidth)/2+"px";
+
+
+// TODO: Implement arrow directions

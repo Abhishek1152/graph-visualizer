@@ -26,7 +26,7 @@
 			font-size: 16px;
 			color: white;
 			text-align: center;
-			padding: 14px 16px;
+			padding: 14px 14px;
 			text-decoration: none;
 		}
 		.dropdown 
@@ -47,7 +47,7 @@
 			margin: 0; /* Important for vertical align on mobile phones */
 		}
 
-		.navbar a:hover, .dropdown:hover .dropbtn 
+		.navbar a:hover, .dropdown:hover .dropbtn , dropbtn:focus
 		{
 			color: red;
 			cursor: pointer;
@@ -78,7 +78,7 @@
 			background-color: #ddd;
 		}
 
-		.dropdown:hover .dropdown-content 
+		.show-dropdown
 		{
 			display: block;
 		}
@@ -93,7 +93,7 @@
 			left: 0;
 			right: 0;
 			text-align: center;
-			min-width: 160px;
+			min-width: 100px;
 			top: 10%;
 			height: 80%;
 			font-size: 16px;
@@ -270,9 +270,9 @@
 		<a href="#"><b>Graph Visualizer </b></a>
 
 		<div class="dropdown">
-			<button class="dropbtn" onclick="to">Algorithms 
+			<button class="dropbtn" id="algobtn">Algorithms 
 			</button>
-			<div class="dropdown-content">
+			<div class="dropdown-content" id="algoDropdown">
 	  			<a id="astar"> A* Algorithm </a>
 				<a id="bidir-astar"> Bidirectional A* </a>
 				<a id="dijkstras"> Dijkstra's Algorithm </a>
@@ -284,9 +284,9 @@
 		</div>
 
 		<div class="dropdown">
-			<button class="dropbtn">Maze Algorithms 
+			<button class="dropbtn" id="mazebtn">Maze Algorithms 
 			</button>
-			<div class="dropdown-content">
+			<div class="dropdown-content" id="mazeDropdown">
 	  			<a onclick="recursiveDivisionUtil()"> Recursive Division </a>
 				<a onclick="KruskalMazeUtil()"> Kruskal's Maze </a>
 				<a onclick="DFSMazeUtil()"> Flood Fill/DFS Maze </a>
