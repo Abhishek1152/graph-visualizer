@@ -63,7 +63,7 @@ document.getElementById("astar").onclick = function()
 
 document.getElementById("bidir-astar").onclick = function()
 {
-	currentalgo = "bisir-astar";
+	currentalgo = "bidir-astar";
 	document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
 }
 
@@ -115,7 +115,7 @@ async function visualizeAlgo()
 	else if(currentalgo == "dfs")
 		await DFSUtil();
 	else
-		document.getElementById("visualizebtn").innerHTML = "Select an Algorithm";
+		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
 }
 
 
