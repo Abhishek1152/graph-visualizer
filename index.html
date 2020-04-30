@@ -15,8 +15,8 @@
 		.navbar
 		{
 		    position: absolute;
-		    width: 100%;
-		    height: 120px;
+		    width: 100vw;
+		    height: 46px;
 		    background-color: #0c1d59;
 		    font-family: Arial;
 		}
@@ -35,10 +35,6 @@
 			overflow: hidden;
 		}
 
-/* The dropdown container */
-
-
-/* Dropdown button */
 		.dropdown .dropbtn 
 		{
 			font-size: 16px;
@@ -51,13 +47,12 @@
 			margin: 0; /* Important for vertical align on mobile phones */
 		}
 
-/* Add a red background color to navbar links on hover */
 		.navbar a:hover, .dropdown:hover .dropbtn 
 		{
-			background-color: red;
+			color: red;
+			cursor: pointer;
 		}
 
-/* Dropdown content (hidden by default) */
 		.dropdown-content 
 		{
 			display: none;
@@ -68,7 +63,6 @@
 			z-index: 1;
 		}
 
-/* Links inside the dropdown */
 		.dropdown-content a 
 		{
 			float: none;
@@ -79,16 +73,39 @@
 			text-align: left;
 		}
 
-/* Add a grey background color to dropdown links on hover */
 		.dropdown-content a:hover 
 		{
 			background-color: #ddd;
 		}
 
-/* Show the dropdown menu on hover */
 		.dropdown:hover .dropdown-content 
 		{
 			display: block;
+		}
+
+		#visualizebtn
+		{
+			padding: 6px 10px;
+			cursor: pointer;
+			position: absolute;
+			margin-left: auto;
+			margin-right: auto;
+			left: 0;
+			right: 0;
+			text-align: center;
+			min-width: 160px;
+			top: 10%;
+			height: 80%;
+			font-size: 16px;
+			background-color: #00afc9;
+			border: none;
+			color: #fff;
+			border-radius: 10px;
+			outline: none;
+		}
+		#visualizebtn:hover
+		{
+			background-color: #0ddbd4;
 		}
 
 		#gridContainer
@@ -250,19 +267,19 @@
 <body>
 	<div class="navbar">
 
-		<a href="#"> Graph Visualizer </a>
+		<a href="#"><b>Graph Visualizer </b></a>
 
 		<div class="dropdown">
-			<button class="dropbtn">Algorithms 
+			<button class="dropbtn" onclick="to">Algorithms 
 			</button>
 			<div class="dropdown-content">
-	  			<a href="#"> A* Algorithm </a>
-				<a href="#"> Bidirectional A* </a>
-				<a href="#"> Dijkstra's Algorithm </a>
-				<a href="#"> Jump Point Search </a>
-				<a href="#"> Greedy BFS </a>
-				<a href="#"> BFS </a>
-				<a href="#"> DFS </a>
+	  			<a onclick="currentAlgo('astar')"> A* Algorithm </a>
+				<a onclick="currentAlgo('bidir-astar')"> Bidirectional A* </a>
+				<a onclick="currentAlgo('dijkstras')"> Dijkstra's Algorithm </a>
+				<a onclick="currentAlgo('jps')"> Jump Point Search </a>
+				<a onclick="currentAlgo('greedy-bfs')"> Greedy BFS </a>
+				<a onclick="currentAlgo('bfs')"> BFS </a>
+				<a onclick="currentAlgo('dfs')"> DFS </a>
 			</div>
 		</div>
 
@@ -270,49 +287,16 @@
 			<button class="dropbtn">Maze Algorithms 
 			</button>
 			<div class="dropdown-content">
-	  			<a href="#"> Recursive Division </a>
-				<a href="#"> Kruskal's Maze </a>
-				<a href="#"> Flood Fill/DFS Maze </a>
-				<a href="#"> Prim's Maze </a>
+	  			<a onclick="recursiveDivisionUtil()"> Recursive Division </a>
+				<a onclick="KruskalMazeUtil()"> Kruskal's Maze </a>
+				<a onclick="DFSMazeUtil()"> Flood Fill/DFS Maze </a>
+				<a onclick="PrimsMazeUtil()"> Prim's Maze </a>
 			</div>
 		</div>
-		<!-- <div class="dropdown">
-			<button class="dropbtn">Algorithms
-				<i class="fa fa-caret-down"> </i>
-			</button>
-			<div class="algoDropContent">
-				<a href="#"> A* Algorithm </a>
-				<a href="#"> Bidirectional A* </a>
-				<a href="#"> Dijkstra's Algorithm </a>
-				<a href="#"> Jump Point Search </a>
-				<a href="#"> Greedy BFS </a>
-				<a href="#"> BFS </a>
-				<a href="#"> DFS </a>
-			</div>
-		</div>
-		<div class="dropdown">
-			<button class="dropbtn">Maze Algorithms
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="mazealgoDropCOntent">
-				<a href="#"> Recursive Division </a>
-				<a href="#"> Kruskal's Maze </a>
-				<a href="#"> Flood Fill/DFS Maze </a>
-				<a href="#"> Prim's Maze </a>
-			</div>
-		</div>
- -->
-		<!-- <button onclick="DFSUtil()"> DFS </button>
-		<button onclick="BFSUtil()"> BFS </button>
-		<button onclick="DijkstrasUtil()">Dijkstra’s</button>
-		<button onclick="BestFirstSearchUtil()">Best First Search</button>
-		<button onclick="AStarUtil()">A* Algorithm</button>
-		<button onclick="bidirectionalAStarUtil()">Bidirectional A*</button>
-		<button onclick="recursiveDivision()">Recursive Division</button>
-		<button onclick="DFSMazeUtil()">DFS Maze</button>
-		<button onclick="KruskalMazeUtil()">Kruskal Maze</button>
-		<button onclick="PrimsMazeUtil()">Prims Maze</button> 
-		<input autocomplete="off" type="range" width="20px" id="WeightWallSlider" min="1" max="2" value="2" step = "1" oninput="toggleWallWeight(this.value)" /> -->
+
+		<button id="visualizebtn" onclick="visualizeAlgo()">Visualize</button>
+		
+		<!-- <input autocomplete="off" type="range" width="20px" id="WeightWallSlider" min="1" max="2" value="2" step = "1" oninput="toggleWallWeight(this.value)" /> -->
 
 
 	</div>

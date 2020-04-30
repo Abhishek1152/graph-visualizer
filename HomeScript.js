@@ -10,7 +10,9 @@ var gridCols = Math.floor(vw/26), gridRows = Math.floor((vh-120)/26);
 var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 var isRunning = false, isWall = false;
+var currentalgo, currentmazeAlgo;
 var ms = 10;
+
 
 /*
 ** visited - Boolean matrix to keep track of visited or unvisited cell
@@ -31,6 +33,52 @@ if(gridRows % 2 == 0)
 
 // TODO: Implement arrow directions
 
+
+function currentAlgo(algo)
+{
+	currentalgo = algo;
+	if(currentalgo == "astar")
+		document.getElementById("visualizebtn").innerHTML = "Visualize A*";
+	else if(currentalgo == "bidir-astar")
+		document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
+	else if(currentalgo == "dijkstras")
+		document.getElementById("visualizebtn").innerHTML = "Visualize Dijkstra's";
+	else if(currentalgo == "jps")
+		document.getElementById("visualizebtn").innerHTML = "Visualize JPS";
+	else if(currentalgo == "greedy-bfs")
+		document.getElementById("visualizebtn").innerHTML = "Visualize Greedy BFS";
+	else if(currentalgo == "bfs")
+		document.getElementById("visualizebtn").innerHTML = "Visualize BFS";
+	else if(currentalgo == "dfs")
+		document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
+	else
+		console.log("How did you even reach here?");
+
+}
+
+async function visualizeAlgo()
+{
+	if(currentalgo == "astar")
+		await AStarUtil();
+	else if(currentalgo == "bidir-astar")
+		await bidirectionalAStarUtil();
+	else if(currentalgo == "dijkstras")
+		await DijkstrasUtil();
+	else if(currentalgo == "jps")
+		return;
+	else if(currentalgo == "greedy-bfs")
+		await BestFirstSearchUtil();
+	else if(currentalgo == "bfs")
+		await BFSUtil();
+	else if(currentalgo == "dfs")
+		await DFSUtil();
+	else;
+}
+
+
+
+
+
 /*
 ** @param - ms: Takes number of milliseconds
 ** @return: new Promise that will timeout after ms 
@@ -39,7 +87,6 @@ function sleep(ms)
 {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 
 /*
 ** @param - row: 0 base row index of a cell
@@ -165,9 +212,6 @@ async function drawPath(pred)
 }
 
 
-/*
-**
-*/
 function toggleWallWeight(val)
 {
 	isWall = (val == 1);

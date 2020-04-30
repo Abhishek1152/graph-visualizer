@@ -86,7 +86,7 @@ async function addVerticalWall(minY, maxY, x)
 	}
 }
 
-async function recursiveDivision()
+async function recursiveDivisionUtil()
 {
 	isRunning = true;
 	clearGrid();
