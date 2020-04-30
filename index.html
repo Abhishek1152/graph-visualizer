@@ -12,12 +12,83 @@
 		{
 			margin: 0;
 		}
-		#toolbar
+		.navbar
 		{
 		    position: absolute;
 		    width: 100%;
 		    height: 120px;
 		    background-color: #0c1d59;
+		    font-family: Arial;
+		}
+		.navbar a 
+		{
+			float: left;
+			font-size: 16px;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+		.dropdown 
+		{
+			float: left;
+			overflow: hidden;
+		}
+
+/* The dropdown container */
+
+
+/* Dropdown button */
+		.dropdown .dropbtn 
+		{
+			font-size: 16px;
+			border: none;
+			outline: none;
+			color: white;
+			padding: 14px 16px;
+			background-color: inherit;
+			font-family: inherit; /* Important for vertical align on mobile phones */
+			margin: 0; /* Important for vertical align on mobile phones */
+		}
+
+/* Add a red background color to navbar links on hover */
+		.navbar a:hover, .dropdown:hover .dropbtn 
+		{
+			background-color: red;
+		}
+
+/* Dropdown content (hidden by default) */
+		.dropdown-content 
+		{
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+
+/* Links inside the dropdown */
+		.dropdown-content a 
+		{
+			float: none;
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			text-align: left;
+		}
+
+/* Add a grey background color to dropdown links on hover */
+		.dropdown-content a:hover 
+		{
+			background-color: #ddd;
+		}
+
+/* Show the dropdown menu on hover */
+		.dropdown:hover .dropdown-content 
+		{
+			display: block;
 		}
 
 		#gridContainer
@@ -64,19 +135,25 @@
 		.weight
 		{
 			background-image: url("weight.png");
-			animation-name: animateWeight;
 			margin: auto;
+			animation-name: animateWeight;
+			animation-duration: .3s; 
+			animation-timing-function: ease-out; 
 		}
 		.start
 		{
-			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
 			background-image: url("start.png");
+			animation-name: animateStartStop;
+			animation-duration: 0.5s;
+			animation-timing-function: ease-out;
 		}
 		.stop
 		{
-			box-shadow: 0 1px 0 rgb(175, 216, 248) inset, 1px 0px 0px rgb(175, 216, 248) inset;
 			background-image: url("stop.png");
 			background-repeat: no-repeat;
+			animation-name: animateStartStop;
+			animation-duration: 0.5s;
+			animation-timing-function: ease-out;
 		}
 
 		@keyframes animateVisited 
@@ -104,12 +181,12 @@
 
 		@keyframes animateWeight
 		{
-			0%
+			40%
 			{
-				transform: scale(.3);
+				transform: scale(.6);
 
 			}
-			50%
+			70%
 			{
 				transform: scale(1.2);
 			}
@@ -152,12 +229,80 @@
 				transform: scale(1);
 			}
 		}
+		@keyframes animateStartStop
+		{
+			0% 
+			{
+				transform: scale(.3);
+				border-radius: 100%;
+			}
+			80% 
+			{
+				transform: scale(1.2);
+			}
+			100%
+			{
+				transform: scale(1)
+			}
+		}
 	</style>
 </head>
 <body>
-	<div id='toolbar'>
-		
-		<button onclick="DFSUtil()"> DFS </button>
+	<div class="navbar">
+
+		<a href="#"> Graph Visualizer </a>
+
+		<div class="dropdown">
+			<button class="dropbtn">Algorithms 
+			</button>
+			<div class="dropdown-content">
+	  			<a href="#"> A* Algorithm </a>
+				<a href="#"> Bidirectional A* </a>
+				<a href="#"> Dijkstra's Algorithm </a>
+				<a href="#"> Jump Point Search </a>
+				<a href="#"> Greedy BFS </a>
+				<a href="#"> BFS </a>
+				<a href="#"> DFS </a>
+			</div>
+		</div>
+
+		<div class="dropdown">
+			<button class="dropbtn">Maze Algorithms 
+			</button>
+			<div class="dropdown-content">
+	  			<a href="#"> Recursive Division </a>
+				<a href="#"> Kruskal's Maze </a>
+				<a href="#"> Flood Fill/DFS Maze </a>
+				<a href="#"> Prim's Maze </a>
+			</div>
+		</div>
+		<!-- <div class="dropdown">
+			<button class="dropbtn">Algorithms
+				<i class="fa fa-caret-down"> </i>
+			</button>
+			<div class="algoDropContent">
+				<a href="#"> A* Algorithm </a>
+				<a href="#"> Bidirectional A* </a>
+				<a href="#"> Dijkstra's Algorithm </a>
+				<a href="#"> Jump Point Search </a>
+				<a href="#"> Greedy BFS </a>
+				<a href="#"> BFS </a>
+				<a href="#"> DFS </a>
+			</div>
+		</div>
+		<div class="dropdown">
+			<button class="dropbtn">Maze Algorithms
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="mazealgoDropCOntent">
+				<a href="#"> Recursive Division </a>
+				<a href="#"> Kruskal's Maze </a>
+				<a href="#"> Flood Fill/DFS Maze </a>
+				<a href="#"> Prim's Maze </a>
+			</div>
+		</div>
+ -->
+		<!-- <button onclick="DFSUtil()"> DFS </button>
 		<button onclick="BFSUtil()"> BFS </button>
 		<button onclick="DijkstrasUtil()">Dijkstra’s</button>
 		<button onclick="BestFirstSearchUtil()">Best First Search</button>
@@ -166,8 +311,8 @@
 		<button onclick="recursiveDivision()">Recursive Division</button>
 		<button onclick="DFSMazeUtil()">DFS Maze</button>
 		<button onclick="KruskalMazeUtil()">Kruskal Maze</button>
-		<button onclick="PrimsMazeUtil()">Prims Maze</button>
-		<input autocomplete="off" type="range" width="20px" id="WeightWallSlider" min="1" max="2" value="2" step = "1" oninput="toggleWallWeight(this.value)" />
+		<button onclick="PrimsMazeUtil()">Prims Maze</button> 
+		<input autocomplete="off" type="range" width="20px" id="WeightWallSlider" min="1" max="2" value="2" step = "1" oninput="toggleWallWeight(this.value)" /> -->
 
 
 	</div>
