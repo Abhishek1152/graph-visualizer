@@ -34,6 +34,41 @@ if(gridRows % 2 == 0)
 // TODO: Implement arrow directions
 
 
+document.getElementById("astar").onclick = function()
+{
+	currentalgo = "astar";
+	document.getElementById("visualizebtn").innerHTML = "Visualize A*";
+}
+document.getElementById("bidir-astar").onclick = function()
+{
+	currentalgo = "bisir-astar";
+	document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
+}
+document.getElementById("dijkstras").onclick = function()
+{
+	currentalgo = "dijkstras";
+	document.getElementById("visualizebtn").innerHTML = "Visualize Dijkstra's";
+}
+document.getElementById("jps").onclick = function()
+{
+	currentalgo = "jps";
+	document.getElementById("visualizebtn").innerHTML = "Visualize JPS";
+}
+document.getElementById("greedy-bfs").onclick = function()
+{
+	currentalgo = "greedy-bfs";
+	document.getElementById("visualizebtn").innerHTML = "Visualize Greedy BFS";
+}
+document.getElementById("bfs").onclick = function()
+{
+	currentalgo = "bfs";
+	document.getElementById("visualizebtn").innerHTML = "Visualize BFS";
+}
+document.getElementById("dfs").onclick = function()
+{
+	currentalgo = "dfs";
+	document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
+}
 function currentAlgo(algo)
 {
 	currentalgo = algo;
