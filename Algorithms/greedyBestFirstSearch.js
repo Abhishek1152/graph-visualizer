@@ -32,7 +32,7 @@ async function BestFirstSearch()
 			{
 				visited[row+neighbours[i].R][col+neighbours[i].C] = true;
 				var priority = Math.abs(stopRow-(row+neighbours[i].R)) + Math.abs(stopCol - (col+neighbours[i].C));
-				var weight = getCell(row+neighbours[i].R, col+neighbours[i].C).classList.contains("weight")? 5 : 1;
+				var weight = (getCell(row+neighbours[i].R, col+neighbours[i].C).classList.contains("weight")? 5 : 1);
 				predecessor[row+neighbours[i].R][col+neighbours[i].C].r = row;
 				predecessor[row+neighbours[i].R][col+neighbours[i].C].c = col;
 				priorityQueue.enqueue([row+neighbours[i].R, col+neighbours[i].C], weight+priority);

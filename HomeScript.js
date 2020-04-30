@@ -119,9 +119,6 @@ async function visualizeAlgo()
 }
 
 
-
-
-
 /*
 ** @param - ms: Takes number of milliseconds
 ** @return: new Promise that will timeout after ms 
@@ -197,9 +194,12 @@ function clearGrid()
 	{
 	    for(var j=0; j<gridCols; j++) 
 	    {
-	        getCell(i, j).classList.remove("animateCell");
-	        getCell(i, j).classList.remove("wall");
-	        getCell(i, j).classList.remove("animatePath");
+	    	var cell = getCell(i, j);
+	        cell.classList.remove("animateCell");
+	        cell.classList.remove("wall");
+	        cell.classList.remove("animatePath");
+	        cell.classList.remove("weight");
+
 	    }
 	}
 }

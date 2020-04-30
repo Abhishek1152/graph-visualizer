@@ -96,7 +96,7 @@ async function bidirectionalAStar()
                 {
                     if(!StartclosedList[row1+neighbours[i][0]][col1+neighbours[i][1]])
                     {
-                        gNew = StartcellDetails[row1][col1].g + 1 //getCell(i+1, j).classList.contains("weight")? 5 : 1;
+                        gNew = StartcellDetails[row1][col1].g + (getCell(row1, col1).classList.contains("weight")? 5 : 1);
                         hNew = Math.abs(stopRow-(row1+neighbours[i][0])) + Math.abs(stopCol - (col1+neighbours[i][1]));
                         fNew = gNew + hNew;
                         if(StartcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].f == INT_MAX
@@ -134,7 +134,7 @@ async function bidirectionalAStar()
                 {
                     if(!StopclosedList[row1+neighbours[i][0]][col1+neighbours[i][1]])
                     {
-                        gNew = StopcellDetails[row1][col1].g + 1 //getCell(i+1, j).classList.contains("weight")? 5 : 1;
+                        gNew = StopcellDetails[row1][col1].g + (getCell(row1, col1).classList.contains("weight")? 5 : 1);
                         hNew = Math.abs(startRow-(row1+neighbours[i][0])) + Math.abs(startCol-(col1+neighbours[i][1]));
                         fNew = gNew + hNew;
                         if(StopcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].f == INT_MAX
@@ -154,7 +154,9 @@ async function bidirectionalAStar()
     }
 }
 
-
+/*
+**  Compatible with uniform weighted graph
+*/
 async function bidirectionalAStarUtil()
 {
     isRunning = true;

@@ -57,7 +57,8 @@ async function addHorizontalWall(minX, maxX, y)
 	var hole = Math.floor(randomNumber(minX, maxX)/2)*2 + 1;
 	for(var i = minX; i <= maxX; i++)
 	{
-		if(y==0||y==gridRows-1||i==0||i==gridCols-1)
+		if(y==0||y==gridRows-1||i==0||i==gridCols-1||getCell(y, i).classList.contains("start")
+			|| getCell(y, i).classList.contains("stop"))
 			continue;
 		if(i == hole)
 			getCell(y, i).classList.remove("wall");
@@ -74,7 +75,8 @@ async function addVerticalWall(minY, maxY, x)
 	var hole = Math.floor(randomNumber(minY, maxY)/2)*2+1;
 	for(var i = minY; i <= maxY; i++)
 	{
-		if(i==0||i==gridRows-1||x==0||x==gridCols-1)
+		if(i==0||i==gridRows-1||x==0||x==gridCols-1 || getCell(i, x).classList.contains("start")
+			|| getCell(i, x).classList.contains("stop"))
 			continue;
 		if(i == hole)
 			getCell(i, x).classList.remove("wall");
