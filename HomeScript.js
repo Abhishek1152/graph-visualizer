@@ -10,7 +10,7 @@ var gridCols = Math.floor(vw/26), gridRows = Math.floor((vh-120)/26);
 var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 var isRunning = false, isWall = true;
-var currentalgo = "jps", currentmazeAlgo;
+var currentalgo = "", currentmazeAlgo;
 var ms = 10;
 
 
