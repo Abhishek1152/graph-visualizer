@@ -9,8 +9,8 @@ const INT_MAX = Number.MAX_SAFE_INTEGER;
 var gridCols = Math.floor(vw/26), gridRows = Math.floor((vh-120)/26);
 var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
-var isRunning = false, isWall = false;
-var currentalgo, currentmazeAlgo;
+var isRunning = false, isWall = true;
+var currentalgo = "jps", currentmazeAlgo;
 var ms = 10;
 
 
@@ -107,7 +107,7 @@ async function visualizeAlgo()
 	else if(currentalgo == "dijkstras")
 		await DijkstrasUtil();
 	else if(currentalgo == "jps")
-		return;
+		await JPSUtil();
 	else if(currentalgo == "greedy-bfs")
 		await BestFirstSearchUtil();
 	else if(currentalgo == "bfs")
