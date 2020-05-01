@@ -17,7 +17,7 @@
 		    position: absolute;
 		    width: 100vw;
 		    height: 46px;
-		    background-color: #0c1d59;
+		    background-color: #fc52ff;
 		    font-family: Arial;
 		}
 		.navbar a 
@@ -107,6 +107,32 @@
 		{
 			background-color: #0ddbd4;
 		}
+		.WallWeightSelector
+		{
+			position: relative;
+			float: right;
+			right: 20px;
+			color: white;
+			font-size: 14px;
+		}
+		.navbarsquare
+		{
+			width: 25px;
+			height: 25px;
+			display: inline-block;
+			position: relative;
+			top: 10px;
+			cursor: pointer;
+		}
+		#navbarWall
+		{
+			background-color: black;
+			border: 2px solid white;
+		}
+		#navbarWeight
+		{
+			background-image: url("./Resources/weight.png");
+		}
 
 		#gridContainer
 		{
@@ -151,7 +177,7 @@
 		}
 		.weight
 		{
-			background-image: url("weight.png");
+			background-image: url("./Resources/weight.png");
 			margin: auto;
 			animation-name: animateWeight;
 			animation-duration: .3s; 
@@ -159,14 +185,14 @@
 		}
 		.start
 		{
-			background-image: url("start.png");
+			background-image: url("./Resources/start.png");
 			animation-name: animateStartStop;
 			animation-duration: 0.5s;
 			animation-timing-function: ease-out;
 		}
 		.stop
 		{
-			background-image: url("stop.png");
+			background-image: url("./Resources/stop.png");
 			background-repeat: no-repeat;
 			animation-name: animateStartStop;
 			animation-duration: 0.5s;
@@ -201,7 +227,6 @@
 			40%
 			{
 				transform: scale(.6);
-
 			}
 			70%
 			{
@@ -295,8 +320,19 @@
 		</div>
 
 		<button id="visualizebtn" onclick="visualizeAlgo()">Visualize</button>
+
+		<div class="WallWeightSelector">
+			<span>
+				Select: Wall
+				<div class="navbarsquare" id="navbarWall"></div>
+				<div class="navbarsquare" id="navbarWeight"></div>
+				Weight
+			</span>
+		</div>
+
+
 		
-		<!-- <input autocomplete="off" type="range" width="20px" id="WeightWallSlider" min="1" max="2" value="2" step = "1" oninput="toggleWallWeight(this.value)" /> -->
+		
 
 
 	</div>

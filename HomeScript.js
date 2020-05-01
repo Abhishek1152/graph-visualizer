@@ -118,6 +118,19 @@ async function visualizeAlgo()
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
 }
 
+document.getElementById("navbarWall").onclick = function()
+{
+	isWall = true;
+	document.getElementById("navbarWall").style.border = "2px solid white";
+	document.getElementById("navbarWeight").style.border = "none";
+}
+
+document.getElementById("navbarWeight").onclick = function()
+{
+	isWall = false;
+	document.getElementById("navbarWall").style.border = "none";
+	document.getElementById("navbarWeight").style.border =  "2px solid white";
+}
 
 /*
 ** @param - ms: Takes number of milliseconds
