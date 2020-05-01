@@ -107,14 +107,15 @@
 		{
 			background-color: #0ddbd4;
 		}
+
 		.WallWeightSelector
 		{
-			position: relative;
-			float: right;
-			right: 20px;
+			position: absolute;
 			color: white;
+			left: 60%;
 			font-size: 14px;
 		}
+
 		.navbarsquare
 		{
 			width: 25px;
@@ -124,14 +125,22 @@
 			top: 10px;
 			cursor: pointer;
 		}
+
 		#navbarWall
 		{
 			background-color: black;
 			border: 2px solid white;
 		}
+
 		#navbarWeight
 		{
 			background-image: url("./Resources/weight.png");
+		}
+
+		#resetGrid
+		{
+			position: absolute; 
+			right: 3%;
 		}
 
 		#gridContainer
@@ -160,7 +169,7 @@
 		}
 		.animatePath
 		{
-			box-shadow: 0 1px 0 rgb(237, 12, 0) inset, 1px 0px 0px rgb(237, 12, 0) inset;
+			box-shadow: 0 1px 0 rgb(0,255,255) inset, 1px 0px 0px rgb(0,255,255) inset;
 			background-color: cyan;
 			animation-name: animatePath;
 			animation-duration: .5s; 
@@ -321,6 +330,7 @@
 
 		<button id="visualizebtn" onclick="visualizeAlgo()">Visualize</button>
 
+		<button onclick="clearGrid()" id="resetGrid">Clear Grid</button>
 		<div class="WallWeightSelector">
 			<span>
 				Select: Wall
