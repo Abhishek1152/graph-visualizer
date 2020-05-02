@@ -141,14 +141,13 @@ async function visualizeAlgo()
 		var timeStamp0 = performance.now();
 		DijkstrasUtil();
 		var timeStamp1 = performance.now();
-		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");		
+		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");
 	}
 	else if(currentalgo == "jps")
 	{
 		var timeStamp0 = performance.now();
 		JPSUtil();
 		var timeStamp1 = performance.now();
-
 		console.log("Jump Point Search - ",timeStamp1 - timeStamp0," ms");
 	}
 	else if(currentalgo == "greedy-bfs")
@@ -325,6 +324,7 @@ async function drawShortestPath(pred)
 		getCell(path[i].r, path[i].c).classList.add("animatePath");
 		await sleep(50);
 	}
+	isRunning = false;
 }
 
 

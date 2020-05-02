@@ -59,6 +59,7 @@ async function drawPathforJPS(pred)
 			await sleep(40);
 		}
 	}
+	isRunning = false;
 }
 
 async function JumpPointSearch()
@@ -278,6 +279,4 @@ function JPSUtil()
 	    }
 	}
 	JumpPointSearch();
-
-	isRunning = false;
 }

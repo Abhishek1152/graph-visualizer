@@ -67,5 +67,4 @@ function DijkstrasUtil()
 	    }
 	}
 	Dijkstras();
-	isRunning = false;
 }

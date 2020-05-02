@@ -58,5 +58,4 @@ function DFSUtil()
 	}
 
 	DepthFirstSearch(startRow, startCol);
-	isRunning = false;
 }

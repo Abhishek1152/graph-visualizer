@@ -57,6 +57,7 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
             await sleep(40);
         }
     }
+    isRunning = false;
 }
 
 
@@ -198,7 +199,4 @@ async function bidirectionalAStarUtil()
 
     
     bidirectionalAStar();
-
-    isRunning = false;
-
 }

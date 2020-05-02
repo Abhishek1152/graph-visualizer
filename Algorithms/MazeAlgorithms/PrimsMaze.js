@@ -16,9 +16,10 @@ async function PrimsMazeUtil()
 		for(var j=0; j<gridCols; j++)
 			getCell(i, j).classList.add("wall");
 		await sleep(50);
+        getCell(startRow, startCol).classList.remove("wall");
+        getCell(stopRow, stopCol).classList.remove("wall");
 	}
-	getCell(startRow, startCol).classList.remove("wall");
-    getCell(stopRow, stopCol).classList.remove("wall");
+	
 	iSize = (gridRows-1)/2;
     jSize = (gridCols-1)/2;
     speed = 30;

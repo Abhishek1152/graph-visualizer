@@ -66,5 +66,4 @@ function BFSUtil()
 	}
 	
 	BreadthFirstSearch();
-	isRunning = false;
 }

@@ -172,6 +172,4 @@ function AStarUtil()
 	}
 
 	AStar();
-	isRunning = false;
-
 }
