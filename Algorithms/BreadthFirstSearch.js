@@ -1,7 +1,7 @@
 /*
 ** Standard iterative Breadth First Search algorithm
 */
-async function BreadthFirstSearch()
+function BreadthFirstSearch()
 {
 	var Queue = [];
 	
@@ -16,12 +16,11 @@ async function BreadthFirstSearch()
 		// Reached goal
 		if(getCell(row, col).classList.contains("stop"))
 		{
-			await drawPath(predecessor);
+			found = true;
 			break;
 		}
 
-		getCell(row, col).classList.add("animateCell");
-		await sleep(ms);
+		pathToAnimate.push({r: row, c: col});
 		Queue.splice(0, 1);
 
 		// Checking for all valid neighbours
@@ -42,13 +41,14 @@ async function BreadthFirstSearch()
 /*
 ** Utlity function of BFS to initialize values and grid
 */
-async function BFSUtil()
+function BFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
 	visited.length = 0;
 	pathDistance.length = 0;
 	predecessor.length = 0;
+	found = false;
 
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -62,7 +62,7 @@ async function BFSUtil()
 	        predecessor[i][j] = {r: -1, c: -1};
 	    }
 	}
-	 
-	await BreadthFirstSearch();
+	
+	BreadthFirstSearch();
 	isRunning = false;
 }

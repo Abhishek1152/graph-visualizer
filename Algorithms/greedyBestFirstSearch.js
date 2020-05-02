@@ -6,7 +6,7 @@ function isValidCell(row, col)
 	return (row >= 0 && row < gridRows && col >= 0 && col < gridCols);
 }
 
-async function BestFirstSearch()
+function BestFirstSearch()
 {
 	var priorityQueue = new PriorityQueue();
 	priorityQueue.enqueue([startRow, startCol], 1);
@@ -18,13 +18,12 @@ async function BestFirstSearch()
 		var row = temp.element[0], col = temp.element[1];
 		if(getCell(row, col).classList.contains("stop"))
 		{
-			await drawPath(predecessor);
+			found = true;
 			break;
 		}
 		currentCell = getCell(row, col);
-		await sleep(ms);
-		currentCell.classList.add("animateCell");
-		await sleep(ms);
+		pathToAnimate.push({r: row, c: col});
+		
 		for(var i in neighbours)
 		{
 			if(isValidCell(row+neighbours[i].R, col+neighbours[i].C) 
@@ -43,10 +42,11 @@ async function BestFirstSearch()
 
 
 
-async function BestFirstSearchUtil()
+function BestFirstSearchUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+	found = false;
 	for(var i=0; i<gridRows; i++) 
 	{
 	    visited[i] = [];
@@ -58,7 +58,6 @@ async function BestFirstSearchUtil()
 	    }
 	}
 	 
-	await BestFirstSearch();
-	// drawPath();
+	BestFirstSearch();
 	isRunning = false;
 }

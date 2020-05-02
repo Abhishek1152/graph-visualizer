@@ -4,6 +4,7 @@ var StartcellDetails = [];
 var StopcellDetails = [];
 var predecessor1 = [];
 var predecessor2 = [];
+var arg1, arg2;
 
 function checkIntersection(row, col)
 {
@@ -16,47 +17,57 @@ function isPathforBidirAStar(row, col, closedList)
         || getCell(row, col).classList.contains("stop"));
 }
 
-async function drawPathforAStar(row, col, pred1, pred2)
+async function drawPathforBiDirAStar(row, col, pred1, pred2)
 {
-    var path1 = [], path2 = [];
-    var crawl = {row: row, col: col};
-    path1.push({r: row, c: col});
-    while(pred1[crawl.row][crawl.col].r != -1 && 
-            pred1[crawl.row][crawl.col].c != -1)
+    for(var i=0; i<pathToAnimate.length; i++)
     {
-        path1.push(pred1[crawl.row][crawl.col]);
-        var tempRow = pred1[crawl.row][crawl.col].r, tempCol = pred1[crawl.row][crawl.col].c; 
-        crawl.row = tempRow;
-        crawl.col = tempCol;
+        var row = pathToAnimate[i].r;
+        var col = pathToAnimate[i].c;
+        getCell(row, col).classList.add("animateCell");
+        await sleep(ms);
     }
-
-    crawl = {row: row, col: col};
-    while(pred2[crawl.row][crawl.col].r != -1 && 
-            pred2[crawl.row][crawl.col].c != -1)
+    if(found)
     {
-        path2.push(pred2[crawl.row][crawl.col]);
-        var tempRow = pred2[crawl.row][crawl.col].r, tempCol = pred2[crawl.row][crawl.col].c; 
-        crawl.row = tempRow;
-        crawl.col = tempCol;
-    }
+        var path1 = [], path2 = [];
+        var crawl = {row: row, col: col};
+        path1.push({r: row, c: col});
+        while(pred1[crawl.row][crawl.col].r != -1 && 
+                pred1[crawl.row][crawl.col].c != -1)
+        {
+            path1.push(pred1[crawl.row][crawl.col]);
+            var tempRow = pred1[crawl.row][crawl.col].r, tempCol = pred1[crawl.row][crawl.col].c; 
+            crawl.row = tempRow;
+            crawl.col = tempCol;
+        }
+
+        crawl = {row: row, col: col};
+        while(pred2[crawl.row][crawl.col].r != -1 && 
+                pred2[crawl.row][crawl.col].c != -1)
+        {
+            path2.push(pred2[crawl.row][crawl.col]);
+            var tempRow = pred2[crawl.row][crawl.col].r, tempCol = pred2[crawl.row][crawl.col].c; 
+            crawl.row = tempRow;
+            crawl.col = tempCol;
+        }
 
 
-    for(var i = path1.length - 1; i >= 0; i--)
-    {
-        getCell(path1[i].r, path1[i].c).classList.remove("animateCell");
-        getCell(path1[i].r, path1[i].c).classList.add("animatePath");
-        await sleep(50);
-    }
-    for(var i = 0; i < path2.length; i++)
-    {
-        getCell(path2[i].r, path2[i].c).classList.remove("animateCell");
-        getCell(path2[i].r, path2[i].c).classList.add("animatePath");
-        await sleep(50);
+        for(var i = path1.length - 1; i >= 0; i--)
+        {
+            getCell(path1[i].r, path1[i].c).classList.remove("animateCell");
+            getCell(path1[i].r, path1[i].c).classList.add("animatePath");
+            await sleep(40);
+        }
+        for(var i = 0; i < path2.length; i++)
+        {
+            getCell(path2[i].r, path2[i].c).classList.remove("animateCell");
+            getCell(path2[i].r, path2[i].c).classList.add("animatePath");
+            await sleep(40);
+        }
     }
 }
 
 
-async function bidirectionalAStar()
+function bidirectionalAStar()
 {
     var row1 = startRow, col1 = startCol;
     var row2 = stopRow, col2 = stopCol;
@@ -79,13 +90,14 @@ async function bidirectionalAStar()
         {
             var p1 = StartopenList.dequeue();
             row1 = p1.element[0], col1 = p1.element[1];
-            currentCell = getCell(row1, col1);
-            currentCell.classList.add("animateCell");
-            await sleep(ms);
+            
+            pathToAnimate.push({r: row1, c: col1});
+
             StartclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
             {
-                await drawPathforAStar(row1, col1, predecessor1, predecessor2);
+                found = true;
+                arg1 = row1, arg2 = col1;
                 break;
             }
             var gNew, hNew, fNew;
@@ -117,13 +129,14 @@ async function bidirectionalAStar()
         {
             var p1 = StopopenList.dequeue();
             row1 = p1.element[0], col1 = p1.element[1];
-            currentCell = getCell(row1, col1);
-            currentCell.classList.add("animateCell");
-            await sleep(ms);
+
+            pathToAnimate.push({r: row1, c: col1});
+
             StopclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
             {
-                await drawPathforAStar(row1, col1, predecessor1, predecessor2);
+                found = true;
+                arg1 = row1, arg2 = col1;
                 break;
             }
             var gNew, hNew, fNew;
@@ -159,6 +172,7 @@ async function bidirectionalAStar()
 */
 async function bidirectionalAStarUtil()
 {
+    var ts0 = performance.now();
     isRunning = true;
     clearAnimatedCells();
     for(var i=0; i<gridRows; i++) 
@@ -170,6 +184,7 @@ async function bidirectionalAStarUtil()
         StopcellDetails[i] = [];
         predecessor1[i] = [];
         predecessor2[i] = [];
+        found = true;
 
         for(var j=0; j<gridCols; j++) 
         {
@@ -186,7 +201,15 @@ async function bidirectionalAStarUtil()
             predecessor2[i][j] = {r: -1, c: -1};
         }
     }
-    await bidirectionalAStar();
+
+    
+    bidirectionalAStar();
+    
+    var ts1 = performance.now();
+
+    await drawPathforBiDirAStar(arg1, arg2, predecessor1, predecessor2);
+
     isRunning = false;
+    return (ts1 - ts0);
 
 }

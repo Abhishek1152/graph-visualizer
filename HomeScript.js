@@ -11,7 +11,10 @@ var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 var isRunning = false, isWall = true;
 var currentalgo = "", currentmazeAlgo;
-var ms = 10;
+var pathToAnimate = [];
+var found;
+
+var ms = 30;
 
 
 /*
@@ -36,13 +39,22 @@ document.getElementById("algobtn").onclick = function toggleAlgoDropdown()
 {
 	document.getElementById("algoDropdown").classList.add("show-dropdown");
 	document.getElementById("mazeDropdown").classList.remove("show-dropdown");
+	document.getElementById("speedDropdown").classList.remove("show-dropdown");
 }
 
 document.getElementById("mazebtn").onclick = function toggleMazeDropdown()
 {
 	document.getElementById("mazeDropdown").classList.add("show-dropdown");
 	document.getElementById("algoDropdown").classList.remove("show-dropdown");
+	document.getElementById("speedDropdown").classList.remove("show-dropdown");
 
+}
+
+document.getElementById("speedbtn").onclick = function toggleSpeedDropdown()
+{
+	document.getElementById("speedDropdown").classList.add("show-dropdown");
+	document.getElementById("mazeDropdown").classList.remove("show-dropdown");
+	document.getElementById("algoDropdown").classList.remove("show-dropdown");
 }
 
 // Close the dropdown if the user clicks outside of it
@@ -52,6 +64,7 @@ window.onclick = function(e)
 	{
 		document.getElementById("algoDropdown").classList.remove("show-dropdown");
 		document.getElementById("mazeDropdown").classList.remove("show-dropdown");	
+		document.getElementById("speedDropdown").classList.remove("show-dropdown");
   	}
 }
 
@@ -97,25 +110,82 @@ document.getElementById("dfs").onclick = function()
 	document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
 }
 
+function changeSpeed(val)
+{
+	if(val == "slow")
+		ms = 300;
+	else if(val == "medium")
+		ms = 80;
+	else
+		ms = 30;
+}
+
 
 async function visualizeAlgo()
 {
 	if(currentalgo == "astar")
-		await AStarUtil();
+	{
+		pathToAnimate.length = 0;
+		var timeStamp0 = performance.now();
+		AStarUtil();
+		var timeStamp1 = performance.now();
+		console.log("A* - ",timeStamp1 - timeStamp0," ms");
+		await drawVisited();
+	}
 	else if(currentalgo == "bidir-astar")
-		await bidirectionalAStarUtil();
+	{
+		pathToAnimate.length = 0;
+		var executionTime = await bidirectionalAStarUtil();
+		console.log("Bidirectional A* - ", executionTime," ms");
+	}
 	else if(currentalgo == "dijkstras")
-		await DijkstrasUtil();
+	{
+		pathToAnimate.length = 0;
+		var timeStamp0 = performance.now()
+		DijkstrasUtil();
+		var timeStamp1 = performance.now()
+		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");
+		await drawVisited();
+		
+	}
 	else if(currentalgo == "jps")
-		await JPSUtil();
+	{
+		pathToAnimate.length = 0;
+		found = false;
+		var executionTIme = await JPSUtil();
+		console.log("Jump Point Search - ",executionTIme," ms");
+	}
 	else if(currentalgo == "greedy-bfs")
-		await BestFirstSearchUtil();
+	{
+		pathToAnimate.length = 0;
+		var timeStamp0 = performance.now()
+		BestFirstSearchUtil();
+		var timeStamp1 = performance.now()
+		console.log("Greedy BFS - ", timeStamp1 - timeStamp0," ms");
+		await drawVisited();
+	}
 	else if(currentalgo == "bfs")
-		await BFSUtil();
+	{
+		pathToAnimate.length = 0;
+		var timeStamp0 = performance.now()
+		BFSUtil();
+		var timeStamp1 = performance.now()
+		console.log("BFS - ", timeStamp1 - timeStamp0," ms");
+		await drawVisited();
+	}
 	else if(currentalgo == "dfs")
-		await DFSUtil();
-	else
+	{
+		pathToAnimate.length = 0;
+		var timeStamp0 = performance.now()
+		DFSUtil();
+		var timeStamp1 = performance.now()
+		console.log("DFS - ", timeStamp1 - timeStamp0," ms");
+		await drawVisited();
+	}
+	else if(currentalgo == "")
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
+	else
+		console.log("How did you even reach here?");
 }
 
 document.getElementById("navbarWall").onclick = function()
@@ -245,7 +315,7 @@ function isPath(row, col)
 ** @param - pred: Takes predecessor matrix which has predecessor for every grid cells
 ** Draws the path from source to destination
 */
-async function drawPath(pred)
+async function drawShortestPath(pred)
 {
 	var path = [];
 	var crawl = {row: stopRow, col: stopCol};
@@ -264,6 +334,21 @@ async function drawPath(pred)
 		getCell(path[i].r, path[i].c).classList.remove("animateCell");
 		getCell(path[i].r, path[i].c).classList.add("animatePath");
 		await sleep(50);
+	}
+}
+
+async function drawVisited()
+{
+	for(var i=0; i<pathToAnimate.length; i++)
+	{
+		var row = pathToAnimate[i].r;
+		var col = pathToAnimate[i].c;
+		getCell(row, col).classList.add("animateCell");
+		await sleep(ms);
+	}
+	if(found)
+	{
+		await drawShortestPath(predecessor);
 	}
 }
 

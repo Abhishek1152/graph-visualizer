@@ -1,89 +1,76 @@
 var closedList = [];
 var cellDetails = [];
 var predecessor = [];
+var ts1;
 
 async function drawPathforJPS(pred)
 {
-	var i = stopRow;
-	var j = stopCol;
-	var path = [];
-	path.push({r: i, c: j});
-	while(pred[i][j] != null)
+	for(var i=0; i<pathToAnimate.length; i++)
 	{
-		var prevCell = pred[i][j];
-		x = prevCell[0];
-		y = prevCell[1];
-		// Horizontal
-		if((i-x) == 0)
-		{
-			// Move right
-			if(j < y)
-			{
-				for(var k=j; k<y; k++)
-					path.push({r: i, c: k});
-			}
-			// Move left
-			else
-			{
-				for(var k=j; k>y; k--)
-					path.push({r: i, c: k});
-			}
-		}
-		// Vertical
-		else
-		{
-			// Move down
-			if(i < x)
-			{
-				for(var k=i; k<x; k++)
-					path.push({r: k, c: j});
-			}
-			// Move uo
-			else
-			{
-				for(var k=i; k>x; k--)
-					path.push({r: k, c: j});
-			}
-		}
-		i = prevCell[0];
-		j = prevCell[1];
+		var row = pathToAnimate[i].r;
+		var col = pathToAnimate[i].c;
+		getCell(row, col).classList.add("animateCell");
+		await sleep(ms);
+	}
+	if(found)
+	{
+		var i = stopRow;
+		var j = stopCol;
+		var path = [];
 		path.push({r: i, c: j});
+		while(pred[i][j] != null)
+		{
+			var prevCell = pred[i][j];
+			x = prevCell[0];
+			y = prevCell[1];
+			// Horizontal
+			if((i-x) == 0)
+			{
+				// Move right
+				if(j < y)
+				{
+					for(var k=j; k<y; k++)
+						path.push({r: i, c: k});
+				}
+				// Move left
+				else
+				{
+					for(var k=j; k>y; k--)
+						path.push({r: i, c: k});
+				}
+			}
+			// Vertical
+			else
+			{
+				// Move down
+				if(i < x)
+				{
+					for(var k=i; k<x; k++)
+						path.push({r: k, c: j});
+				}
+				// Move up
+				else
+				{
+					for(var k=i; k>x; k--)
+						path.push({r: k, c: j});
+				}
+			}
+			i = prevCell[0];
+			j = prevCell[1];
+			path.push({r: i, c: j});
+		}
+		for(var i = path.length - 1; i >= 0; i--)
+		{
+			getCell(path[i].r, path[i].c).classList.remove("animateCell");
+			getCell(path[i].r, path[i].c).classList.add("animatePath");
+			await sleep(40);
+		}
 	}
-	for(var i = path.length - 1; i >= 0; i--)
-	{
-		getCell(path[i].r, path[i].c).classList.remove("animateCell");
-		getCell(path[i].r, path[i].c).classList.add("animatePath");
-		await sleep(50);
-	}
-}
-
-async function JPSUtil()
-{
-	isRunning = true;
-	clearAnimatedCells();
-	for(var i=0; i<gridRows; i++) 
-	{
-	    dist[i] = [];
-	    closedList[i] = [];
-	    cellDetails[i] = [];
-	    predecessor[i] = [];
-	    for(var j=0; j<gridCols; j++) 
-	    {
-	        dist[i][j] = Number.MAX_SAFE_INTEGER;
-	        closedList[i][j] = false;
-	        cellDetails[i][j] = {distance: INT_MAX,
-	        					 cost: INT_MAX};
-	        predecessor[i][j] = null;
-	    }
-	}
-	await JumpPointSearch();
-	isRunning = false;
 }
 
 async function JumpPointSearch()
 {
 	var i = startRow, j = startCol;
-	var found = false;
 	cellDetails[i][j].distance = 0;
 	cellDetails[i][j].cost = 0;
 	cellDetails[i][j].parent_i = i;
@@ -96,13 +83,14 @@ async function JumpPointSearch()
 		var p = openList.dequeue();
 		i = p.element[0];
 		j = p.element[1];
-		getCell(i, j).classList.add("animateCell");
-		await sleep(ms);
+		
+		pathToAnimate.push({r: i, c: j});
+
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
 		{
-			console.log("found");
 			found = true;
+			ts1 = performance.now();
 			break;
 		}
 		var neigh = pruneNeighbors(i, j);
@@ -135,11 +123,10 @@ async function JumpPointSearch()
 		if (closedList[i][j])
 			continue;
 		closedList[i][j] = true;
-		getCell(i, j).classList.add("animateCell");
-		await sleep(ms);
+		pathToAnimate.push({r: i, c: j});
 	}
-	if(found)
-		await drawPathforJPS(predecessor);
+
+	await drawPathforJPS(predecessor);
 }
 
 function pruneNeighbors(i, j)
@@ -273,4 +260,32 @@ function checkForcedNeighbor(i, j, direction, neighbors, stored)
 		neighbors.push(neighbor);
 		stored[xy] = true;
 	} 
+}
+
+
+
+function JPSUtil()
+{
+	var timeStamp0 = performance.now();
+	isRunning = true;
+	clearAnimatedCells();
+	for(var i=0; i<gridRows; i++) 
+	{
+	    dist[i] = [];
+	    closedList[i] = [];
+	    cellDetails[i] = [];
+	    predecessor[i] = [];
+	    for(var j=0; j<gridCols; j++) 
+	    {
+	        dist[i][j] = Number.MAX_SAFE_INTEGER;
+	        closedList[i][j] = false;
+	        cellDetails[i][j] = {distance: INT_MAX,
+	        					 cost: INT_MAX};
+	        predecessor[i][j] = null;
+	    }
+	}
+	JumpPointSearch();
+
+	isRunning = false;
+	return (ts1 - timeStamp0);
 }

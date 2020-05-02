@@ -8,7 +8,7 @@ function isPathforAStar(row, col)
 		|| getCell(row, col).classList.contains("stop"));
 }
 
-async function AStar()
+function AStar()
 {
 	// Check if source is same as destination
 	var i = startRow, j = startCol;
@@ -26,13 +26,13 @@ async function AStar()
 
 		i = p.element[0];
 		j = p.element[1];
-		currentCell = getCell(i, j);
-		currentCell.classList.add("animateCell");
-		await sleep(ms);
+		
+		pathToAnimate.push({r: i, c: j});
+
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
 		{
-			await drawPath(predecessor);
+			found = true;
 			break;
 		}
 
@@ -145,7 +145,7 @@ async function AStar()
 }
 
 
-async function AStarUtil() 
+function AStarUtil() 
 {
 	isRunning = true;
 	clearAnimatedCells();
@@ -155,6 +155,8 @@ async function AStarUtil()
 	    closedList[i] = [];
 	    cellDetails[i] = [];
 	    predecessor[i] = [];
+	    found = true;
+
 	    for(var j=0; j<gridCols; j++) 
 	    {
 	        dist[i][j] = Number.MAX_SAFE_INTEGER;
@@ -167,7 +169,7 @@ async function AStarUtil()
 	    }
 	}
 
-	await AStar();
+	AStar();
 	isRunning = false;
 
 }

@@ -331,13 +331,24 @@
 		<button id="visualizebtn" onclick="visualizeAlgo()">Visualize</button>
 
 		<button onclick="clearGrid()" id="resetGrid">Clear Grid</button>
+
 		<div class="WallWeightSelector">
 			<span>
-				Select: Wall
+				Wall &nbsp;
 				<div class="navbarsquare" id="navbarWall"></div>
 				<div class="navbarsquare" id="navbarWeight"></div>
-				Weight
+				&nbsp;Weight
 			</span>
+		</div>
+
+		<div class="dropdown">
+			<button class="dropbtn" id="speedbtn">Speed
+			</button>
+			<div class="dropdown-content" id="speedDropdown">
+	  			<a onclick="changeSpeed('slow')"> Slow </a>
+				<a onclick="changeSpeed('medium')"> Medium </a>
+				<a onclick="changeSpeed('fast')"> Fast </a>
+			</div>
 		</div>
 
 

@@ -10,7 +10,7 @@ function isPathDijkstras(row, col)
 		|| getCell(row, col).classList.contains("stop"));
 }
 
-async function Dijkstras()
+function Dijkstras()
 {
 	var setds = new PriorityQueue();
 	setds.enqueue([startRow, startCol], 1);
@@ -22,12 +22,11 @@ async function Dijkstras()
 
 		if(getCell(uRow, uCol).classList.contains("stop"))
 		{
-			await drawPath(predecessor);
+			found = true;
 			break;
 		}
 		
-		getCell(uRow, uCol).classList.add("animateCell");
-		await sleep(ms);
+		pathToAnimate.push({r: uRow, c: uCol});
 
 		for(var i in neighbours)
 		{
@@ -49,10 +48,12 @@ async function Dijkstras()
 }
 
 
-async function DijkstrasUtil() 
+function DijkstrasUtil() 
 {
 	isRunning = true;
 	clearAnimatedCells();
+	found = true;
+
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];
@@ -63,7 +64,7 @@ async function DijkstrasUtil()
 	        predecessor[i][j] = {r: -1, c: -1};
 	    }
 	}
-	await Dijkstras();
+	Dijkstras();
 	isRunning = false;
 
 }
