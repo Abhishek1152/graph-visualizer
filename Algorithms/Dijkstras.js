@@ -10,7 +10,7 @@ function isPathDijkstras(row, col)
 		|| getCell(row, col).classList.contains("stop"));
 }
 
-function Dijkstras()
+async function Dijkstras()
 {
 	var setds = new PriorityQueue();
 	setds.enqueue([startRow, startCol], 1);
@@ -22,11 +22,13 @@ function Dijkstras()
 
 		if(getCell(uRow, uCol).classList.contains("stop"))
 		{
+			drawShortestPath(pred);
 			found = true;
 			break;
 		}
 		
-		pathToAnimate.push({r: uRow, c: uCol});
+		getCell(uRow, uCol).classList.add("animateCell");
+		await sleep(ms);
 
 		for(var i in neighbours)
 		{
@@ -66,5 +68,4 @@ function DijkstrasUtil()
 	}
 	Dijkstras();
 	isRunning = false;
-
 }

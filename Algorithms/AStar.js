@@ -8,7 +8,7 @@ function isPathforAStar(row, col)
 		|| getCell(row, col).classList.contains("stop"));
 }
 
-function AStar()
+async function AStar()
 {
 	// Check if source is same as destination
 	var i = startRow, j = startCol;
@@ -27,12 +27,14 @@ function AStar()
 		i = p.element[0];
 		j = p.element[1];
 		
-		pathToAnimate.push({r: i, c: j});
+		
+		getCell(i, j).classList.add("animateCell");
+		await sleep(ms);
 
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
 		{
-			found = true;
+			await drawShortestPath(predecessor);
 			break;
 		}
 

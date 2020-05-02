@@ -125,28 +125,24 @@ async function visualizeAlgo()
 {
 	if(currentalgo == "astar")
 	{
-		pathToAnimate.length = 0;
 		var timeStamp0 = performance.now();
 		AStarUtil();
 		var timeStamp1 = performance.now();
 		console.log("A* - ",timeStamp1 - timeStamp0," ms");
-		await drawVisited();
 	}
 	else if(currentalgo == "bidir-astar")
 	{
-		pathToAnimate.length = 0;
-		var executionTime = await bidirectionalAStarUtil();
-		console.log("Bidirectional A* - ", executionTime," ms");
+		var timeStamp0 = performance.now();
+		bidirectionalAStarUtil();
+		var timeStamp1 = performance.now();
+		console.log("Bidirectional A* - ", timeStamp1 - timeStamp0," ms");
 	}
 	else if(currentalgo == "dijkstras")
 	{
-		pathToAnimate.length = 0;
-		var timeStamp0 = performance.now()
+		var timeStamp0 = performance.now();
 		DijkstrasUtil();
-		var timeStamp1 = performance.now()
-		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");
-		await drawVisited();
-		
+		var timeStamp1 = performance.now();
+		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");		
 	}
 	else if(currentalgo == "jps")
 	{
@@ -158,27 +154,27 @@ async function visualizeAlgo()
 	else if(currentalgo == "greedy-bfs")
 	{
 		pathToAnimate.length = 0;
-		var timeStamp0 = performance.now()
+		var timeStamp0 = performance.now();
 		BestFirstSearchUtil();
-		var timeStamp1 = performance.now()
+		var timeStamp1 = performance.now();
 		console.log("Greedy BFS - ", timeStamp1 - timeStamp0," ms");
 		await drawVisited();
 	}
 	else if(currentalgo == "bfs")
 	{
 		pathToAnimate.length = 0;
-		var timeStamp0 = performance.now()
+		var timeStamp0 = performance.now();
 		BFSUtil();
-		var timeStamp1 = performance.now()
+		var timeStamp1 = performance.now();
 		console.log("BFS - ", timeStamp1 - timeStamp0," ms");
 		await drawVisited();
 	}
 	else if(currentalgo == "dfs")
 	{
 		pathToAnimate.length = 0;
-		var timeStamp0 = performance.now()
+		var timeStamp0 = performance.now();
 		DFSUtil();
-		var timeStamp1 = performance.now()
+		var timeStamp1 = performance.now();
 		console.log("DFS - ", timeStamp1 - timeStamp0," ms");
 		await drawVisited();
 	}

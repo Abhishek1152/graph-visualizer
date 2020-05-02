@@ -19,13 +19,6 @@ function isPathforBidirAStar(row, col, closedList)
 
 async function drawPathforBiDirAStar(row, col, pred1, pred2)
 {
-    for(var i=0; i<pathToAnimate.length; i++)
-    {
-        var row = pathToAnimate[i].r;
-        var col = pathToAnimate[i].c;
-        getCell(row, col).classList.add("animateCell");
-        await sleep(ms);
-    }
     if(found)
     {
         var path1 = [], path2 = [];
@@ -67,7 +60,7 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
 }
 
 
-function bidirectionalAStar()
+async function bidirectionalAStar()
 {
     var row1 = startRow, col1 = startCol;
     var row2 = stopRow, col2 = stopCol;
@@ -91,13 +84,14 @@ function bidirectionalAStar()
             var p1 = StartopenList.dequeue();
             row1 = p1.element[0], col1 = p1.element[1];
             
-            pathToAnimate.push({r: row1, c: col1});
+            getCell(row1, col1).classList.add("animateCell");
+            await sleep(ms);
 
             StartclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
             {
                 found = true;
-                arg1 = row1, arg2 = col1;
+                drawPathforBiDirAStar(row1, col1, predecessor1, predecessor2);
                 break;
             }
             var gNew, hNew, fNew;
@@ -130,13 +124,14 @@ function bidirectionalAStar()
             var p1 = StopopenList.dequeue();
             row1 = p1.element[0], col1 = p1.element[1];
 
-            pathToAnimate.push({r: row1, c: col1});
+            getCell(row1, col1).classList.add("animateCell");
+            await sleep(ms);
 
             StopclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
             {
                 found = true;
-                arg1 = row1, arg2 = col1;
+                drawPathforBiDirAStar(row1, col1, predecessor1, predecessor2);
                 break;
             }
             var gNew, hNew, fNew;
@@ -172,7 +167,6 @@ function bidirectionalAStar()
 */
 async function bidirectionalAStarUtil()
 {
-    var ts0 = performance.now();
     isRunning = true;
     clearAnimatedCells();
     for(var i=0; i<gridRows; i++) 
@@ -204,12 +198,7 @@ async function bidirectionalAStarUtil()
 
     
     bidirectionalAStar();
-    
-    var ts1 = performance.now();
-
-    await drawPathforBiDirAStar(arg1, arg2, predecessor1, predecessor2);
 
     isRunning = false;
-    return (ts1 - ts0);
 
 }
