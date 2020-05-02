@@ -3,18 +3,20 @@ const neigh = [{R: 1, C: 0}, {R: 0, C: 1}, {R: -1, C: 0}, {R: 0, C: -1}];
 /*
 ** Standard recursive Depth First Search algorithm
 */
-function DepthFirstSearch(row, col)
+async function DepthFirstSearch(row, col)
 {
 	// Reached goal
 	if(getCell(row, col).classList.contains("stop"))
 	{
+		drawShortestPath(predecessor);
 		found = true;
 		return;
 	}
 
 	visited[row][col] = true;
 
-	pathToAnimate.push({r: row, c: col});
+	getCell(row, col).classList.add("animateCell");
+	await sleep(ms);
 	
 	// Recursively checking all the neighbours
 	for(var i in neigh)
@@ -24,7 +26,7 @@ function DepthFirstSearch(row, col)
 			pathDistance[row+neigh[i].R][col+neigh[i].C] = pathDistance[row][col]+1;
 			predecessor[row+neigh[i].R][col+neigh[i].C].r = row;
 			predecessor[row+neigh[i].R][col+neigh[i].C].c = col;
-			DepthFirstSearch(row+neigh[i].R, col+neigh[i].C);
+			await DepthFirstSearch(row+neigh[i].R, col+neigh[i].C);
 		}
 	}
 }

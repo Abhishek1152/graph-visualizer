@@ -11,7 +11,6 @@ var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 var isRunning = false, isWall = true;
 var currentalgo = "", currentmazeAlgo;
-var pathToAnimate = [];
 var found;
 
 var ms = 30;
@@ -146,37 +145,32 @@ async function visualizeAlgo()
 	}
 	else if(currentalgo == "jps")
 	{
-		pathToAnimate.length = 0;
-		found = false;
-		var executionTIme = await JPSUtil();
-		console.log("Jump Point Search - ",executionTIme," ms");
+		var timeStamp0 = performance.now();
+		JPSUtil();
+		var timeStamp1 = performance.now();
+
+		console.log("Jump Point Search - ",timeStamp1 - timeStamp0," ms");
 	}
 	else if(currentalgo == "greedy-bfs")
 	{
-		pathToAnimate.length = 0;
 		var timeStamp0 = performance.now();
 		BestFirstSearchUtil();
 		var timeStamp1 = performance.now();
 		console.log("Greedy BFS - ", timeStamp1 - timeStamp0," ms");
-		await drawVisited();
 	}
 	else if(currentalgo == "bfs")
 	{
-		pathToAnimate.length = 0;
 		var timeStamp0 = performance.now();
 		BFSUtil();
 		var timeStamp1 = performance.now();
 		console.log("BFS - ", timeStamp1 - timeStamp0," ms");
-		await drawVisited();
 	}
 	else if(currentalgo == "dfs")
 	{
-		pathToAnimate.length = 0;
 		var timeStamp0 = performance.now();
 		DFSUtil();
 		var timeStamp1 = performance.now();
 		console.log("DFS - ", timeStamp1 - timeStamp0," ms");
-		await drawVisited();
 	}
 	else if(currentalgo == "")
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
@@ -330,21 +324,6 @@ async function drawShortestPath(pred)
 		getCell(path[i].r, path[i].c).classList.remove("animateCell");
 		getCell(path[i].r, path[i].c).classList.add("animatePath");
 		await sleep(50);
-	}
-}
-
-async function drawVisited()
-{
-	for(var i=0; i<pathToAnimate.length; i++)
-	{
-		var row = pathToAnimate[i].r;
-		var col = pathToAnimate[i].c;
-		getCell(row, col).classList.add("animateCell");
-		await sleep(ms);
-	}
-	if(found)
-	{
-		await drawShortestPath(predecessor);
 	}
 }
 

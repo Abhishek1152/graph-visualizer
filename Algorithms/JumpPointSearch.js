@@ -5,13 +5,6 @@ var ts1;
 
 async function drawPathforJPS(pred)
 {
-	for(var i=0; i<pathToAnimate.length; i++)
-	{
-		var row = pathToAnimate[i].r;
-		var col = pathToAnimate[i].c;
-		getCell(row, col).classList.add("animateCell");
-		await sleep(ms);
-	}
 	if(found)
 	{
 		var i = stopRow;
@@ -84,13 +77,13 @@ async function JumpPointSearch()
 		i = p.element[0];
 		j = p.element[1];
 		
-		pathToAnimate.push({r: i, c: j});
+		getCell(i, j).classList.add("animateCell");
+		await sleep(ms);
 
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
 		{
 			found = true;
-			ts1 = performance.now();
 			break;
 		}
 		var neigh = pruneNeighbors(i, j);
@@ -123,10 +116,11 @@ async function JumpPointSearch()
 		if (closedList[i][j])
 			continue;
 		closedList[i][j] = true;
-		pathToAnimate.push({r: i, c: j});
+		getCell(i, j).classList.add("animateCell");
+		await sleep(ms);
 	}
 
-	await drawPathforJPS(predecessor);
+	drawPathforJPS(predecessor);
 }
 
 function pruneNeighbors(i, j)
@@ -266,7 +260,6 @@ function checkForcedNeighbor(i, j, direction, neighbors, stored)
 
 function JPSUtil()
 {
-	var timeStamp0 = performance.now();
 	isRunning = true;
 	clearAnimatedCells();
 	for(var i=0; i<gridRows; i++) 
@@ -287,5 +280,4 @@ function JPSUtil()
 	JumpPointSearch();
 
 	isRunning = false;
-	return (ts1 - timeStamp0);
 }

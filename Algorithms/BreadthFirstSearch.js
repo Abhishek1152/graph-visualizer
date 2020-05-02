@@ -1,7 +1,7 @@
 /*
 ** Standard iterative Breadth First Search algorithm
 */
-function BreadthFirstSearch()
+async function BreadthFirstSearch()
 {
 	var Queue = [];
 	
@@ -16,11 +16,13 @@ function BreadthFirstSearch()
 		// Reached goal
 		if(getCell(row, col).classList.contains("stop"))
 		{
-			found = true;
+			drawShortestPath(predecessor);
 			break;
 		}
 
-		pathToAnimate.push({r: row, c: col});
+		getCell(row, col).classList.add("animateCell");
+		await sleep(ms);
+		
 		Queue.splice(0, 1);
 
 		// Checking for all valid neighbours

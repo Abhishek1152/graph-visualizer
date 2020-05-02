@@ -6,7 +6,7 @@ function isValidCell(row, col)
 	return (row >= 0 && row < gridRows && col >= 0 && col < gridCols);
 }
 
-function BestFirstSearch()
+async function BestFirstSearch()
 {
 	var priorityQueue = new PriorityQueue();
 	priorityQueue.enqueue([startRow, startCol], 1);
@@ -18,12 +18,12 @@ function BestFirstSearch()
 		var row = temp.element[0], col = temp.element[1];
 		if(getCell(row, col).classList.contains("stop"))
 		{
-			found = true;
+			drawShortestPath(predecessor);
 			break;
 		}
-		currentCell = getCell(row, col);
-		pathToAnimate.push({r: row, c: col});
-		
+		getCell(row, col).classList.add("animateCell");
+		await sleep(ms);
+
 		for(var i in neighbours)
 		{
 			if(isValidCell(row+neighbours[i].R, col+neighbours[i].C) 

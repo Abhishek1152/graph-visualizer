@@ -22,7 +22,7 @@ async function Dijkstras()
 
 		if(getCell(uRow, uCol).classList.contains("stop"))
 		{
-			drawShortestPath(pred);
+			drawShortestPath(predecessor);
 			found = true;
 			break;
 		}
