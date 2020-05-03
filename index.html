@@ -3,7 +3,7 @@
 <head>
 	<meta name="theme-color" content="#fc52ff">
 	<title> Graph Visualizer</title>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  
 	<style>
 		html
 		{
@@ -139,10 +139,118 @@
 			background-image: url("./Resources/weight.png");
 		}
 
+		#compareAlgobtn
+		{
+			padding: 6px 10px;
+			cursor: pointer;
+			text-align: center;
+			min-width: 80px;
+			top: 20%;
+			height: 60%;
+			font-size: 14px;
+			background-color: #f542bc;
+			border: none;
+			color: #fff;
+			border-radius: 5px;
+			outline: none;
+			position: absolute;;
+			left: 80%;
+		}
+
+
+
+
+
+
+
+.modal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0; top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content
+{
+    background-color: #fefefe;
+    margin: 2% auto 2% auto;
+    border: 1px solid #888;
+    width: 40%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}
+
+.animate
+{
+    animation: zoom 0.5s;
+}
+@keyframes zoom
+{
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+#imgcontainer
+{
+    text-align: center;
+    margin: 20px 0 10px 0;
+    position: relative;
+}
+
+.close 
+{
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus 
+{
+    color: red;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 		#resetGrid
 		{
+			padding: 6px 10px;
+			cursor: pointer;
+			text-align: center;
+			min-width: 80px;
+			top: 20%;
+			height: 60%;
+			font-size: 16px;
+			background-color: inherit;
+			border: none;
+			color: #fff;
+			border-radius: 5px;
+			outline: none;
 			position: absolute; 
 			right: 3%;
+		}
+		#resetGrid:hover
+		{
+			color: red;
+			cursor: pointer;
 		}
 
 		#gridContainer
@@ -306,7 +414,7 @@
 		<a href="#"><b>Pathfinder</b></a>
 
 		<div class="dropdown">
-			<button class="dropbtn" id="algobtn">Algorithms 
+			<button class="dropbtn" id="algobtn">Algorithms <i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-content" id="algoDropdown">
 	  			<a id="astar"> A* Algorithm </a>
@@ -320,7 +428,7 @@
 		</div>
 
 		<div class="dropdown">
-			<button class="dropbtn" id="mazebtn">Mazes
+			<button class="dropbtn" id="mazebtn">Mazes <i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-content" id="mazeDropdown">
 	  			<a onclick="recursiveDivisionUtil()"> Recursive Division </a>
@@ -330,9 +438,17 @@
 			</div>
 		</div>
 
-		<button id="visualizebtn" onclick="visualizeAlgo()">Visualize</button>
+		<div class="dropdown">
+			<button class="dropbtn" id="speedbtn">Speed <i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content" id="speedDropdown">
+	  			<a onclick="changeSpeed('slow')"> Slow </a>
+				<a onclick="changeSpeed('medium')"> Medium </a>
+				<a onclick="changeSpeed('fast')"> Fast </a>
+			</div>
+		</div>
 
-		<button onclick="clearGrid()" id="resetGrid">Clear Grid</button>
+		<button id="visualizebtn" onclick="visualizeAlgo()">Visualize</button>
 
 		<div class="WallWeightSelector">
 			<span>
@@ -343,19 +459,21 @@
 			</span>
 		</div>
 
-		<div class="dropdown">
-			<button class="dropbtn" id="speedbtn">Speed
-			</button>
-			<div class="dropdown-content" id="speedDropdown">
-	  			<a onclick="changeSpeed('slow')"> Slow </a>
-				<a onclick="changeSpeed('medium')"> Medium </a>
-				<a onclick="changeSpeed('fast')"> Fast </a>
-			</div>
+
+
+		<button onclick="document.getElementById('modal-wrapper').style.display='block'" id="compareAlgobtn">Compare</button>
+
+		<div id='modal-wrapper' class='modal'>
+			<div class='modal-content animate'>
+				<div id='imgcontainer'>
+					<span onclick="document.getElementById('modal-wrapper').style.display='none'" class='close' title='Close'>&times;</span>
+				</div>
+				<h1> Compare the pathfinding algorithms </h1>
+			</div>					
 		</div>
 
+		<button onclick="clearGrid()" id="resetGrid">Clear Grid</button>
 
-		
-		
 
 
 	</div>

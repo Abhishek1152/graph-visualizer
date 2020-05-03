@@ -65,6 +65,9 @@ window.onclick = function(e)
 		document.getElementById("mazeDropdown").classList.remove("show-dropdown");	
 		document.getElementById("speedDropdown").classList.remove("show-dropdown");
   	}
+  	var modal = document.getElementById('modal-wrapper');
+  	if (event.target == modal) 
+        modal.style.display = "none";
 }
 
 document.getElementById("astar").onclick = function()
@@ -340,3 +343,11 @@ document.getElementById("gridContainer").style.left = (vw-document.getElementByI
 
 
 // TODO: Implement arrow directions
+
+
+
+
+
+
+
+

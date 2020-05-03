@@ -24,7 +24,7 @@ class PriorityQueue
 	  
 	    for (var i = 0; i < this.items.length; i++) 
 	    { 
-	        if (this.items[i].priority > qElement.priority) 
+	        if (this.items[i].priority >= qElement.priority) 
 	        { 
 	            this.items.splice(i, 0, qElement); 
 	            contain = true; 
