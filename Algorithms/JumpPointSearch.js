@@ -52,13 +52,18 @@ async function drawPathforJPS(pred)
 			j = prevCell[1];
 			path.push({r: i, c: j});
 		}
+		pathCost = -2;
 		for(var i = path.length - 1; i >= 0; i--)
 		{
-			getCell(path[i].r, path[i].c).classList.remove("animateCell");
-			getCell(path[i].r, path[i].c).classList.add("animatePath");
-			await sleep(40);
+			var cell = getCell(path[i].r, path[i].c);
+			cell.classList.remove("animateCell");
+			cell.classList.add("animatePath");
+			pathCost += (cell.classList.contains("weight")? 5 : 1);
+			await sleep(50);
 		}
 	}
+
+	showTimeandCost();
 	isRunning = false;
 }
 

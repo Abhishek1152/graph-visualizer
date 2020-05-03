@@ -11,7 +11,7 @@ var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 var isRunning = false, isWall = true;
 var currentalgo = "", currentmazeAlgo;
-var found;
+var found, pathCost, executionTime;
 
 var ms = 30;
 
@@ -131,6 +131,7 @@ async function visualizeAlgo()
 		AStarUtil();
 		var timeStamp1 = performance.now();
 		console.log("A* - ",timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "bidir-astar")
 	{
@@ -138,6 +139,8 @@ async function visualizeAlgo()
 		bidirectionalAStarUtil();
 		var timeStamp1 = performance.now();
 		console.log("Bidirectional A* - ", timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
+
 	}
 	else if(currentalgo == "dijkstras")
 	{
@@ -145,6 +148,7 @@ async function visualizeAlgo()
 		DijkstrasUtil();
 		var timeStamp1 = performance.now();
 		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "jps")
 	{
@@ -152,6 +156,7 @@ async function visualizeAlgo()
 		JPSUtil();
 		var timeStamp1 = performance.now();
 		console.log("Jump Point Search - ",timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "greedy-bfs")
 	{
@@ -159,6 +164,7 @@ async function visualizeAlgo()
 		BestFirstSearchUtil();
 		var timeStamp1 = performance.now();
 		console.log("Greedy BFS - ", timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "bfs")
 	{
@@ -166,6 +172,7 @@ async function visualizeAlgo()
 		BFSUtil();
 		var timeStamp1 = performance.now();
 		console.log("BFS - ", timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "dfs")
 	{
@@ -173,12 +180,15 @@ async function visualizeAlgo()
 		DFSUtil();
 		var timeStamp1 = performance.now();
 		console.log("DFS - ", timeStamp1 - timeStamp0," ms");
+		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "")
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
 	else
 		console.log("How did you even reach here?");
 }
+
+
 
 document.getElementById("navbarWall").onclick = function()
 {
@@ -320,16 +330,24 @@ async function drawShortestPath(pred)
 		crawl.row = tempRow;
 		crawl.col = tempCol;
 	}
-
+	pathCost = -1;
 	for(var i = path.length - 1; i >= 0; i--)
 	{
-		getCell(path[i].r, path[i].c).classList.remove("animateCell");
-		getCell(path[i].r, path[i].c).classList.add("animatePath");
+		var cell = getCell(path[i].r, path[i].c);
+		cell.classList.remove("animateCell");
+		cell.classList.add("animatePath");
+		pathCost += (cell.classList.contains("weight")? 5 : 1);
 		await sleep(50);
 	}
+
+	showTimeandCost();
 	isRunning = false;
 }
 
+function showTimeandCost()
+{
+	document.getElementById("execTime").innerHTML = "Execution time: "+Math.floor(executionTime)+" ms <br> Cost: "+pathCost;
+}
 
 function toggleWallWeight(val)
 {

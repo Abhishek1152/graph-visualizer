@@ -43,20 +43,26 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
             crawl.col = tempCol;
         }
 
-
+        pathCost = -1;
         for(var i = path1.length - 1; i >= 0; i--)
         {
-            getCell(path1[i].r, path1[i].c).classList.remove("animateCell");
-            getCell(path1[i].r, path1[i].c).classList.add("animatePath");
-            await sleep(40);
+            var cell = getCell(path1[i].r, path1[i].c);
+            cell.classList.remove("animateCell");
+            cell.classList.add("animatePath");
+            pathCost += (cell.classList.contains("weight")? 5 : 1);
+            await sleep(50);
         }
         for(var i = 0; i < path2.length; i++)
         {
-            getCell(path2[i].r, path2[i].c).classList.remove("animateCell");
-            getCell(path2[i].r, path2[i].c).classList.add("animatePath");
-            await sleep(40);
+            var cell = getCell(path2[i].r, path2[i].c);
+            cell.classList.remove("animateCell");
+            cell.classList.add("animatePath");
+            pathCost += (cell.classList.contains("weight")? 5 : 1);
+            await sleep(50);
         }
     }
+
+    showTimeandCost();
     isRunning = false;
 }
 
@@ -136,7 +142,7 @@ async function bidirectionalAStar()
                 break;
             }
             var gNew, hNew, fNew;
-            var neighbours = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+            var neighbours = [[0, 1], [0, -1], [-1, 0], [1, 0]];
             for(var i=0; i<neighbours.length; i++)
             {
                 if(isValidCell(row1+neighbours[i][0], col1+neighbours[i][1]) && isPathforBidirAStar(row1+neighbours[i][0], col1+neighbours[i][1], StopclosedList))
