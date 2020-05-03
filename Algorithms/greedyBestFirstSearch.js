@@ -22,7 +22,9 @@ async function BestFirstSearch()
 			break;
 		}
 		getCell(row, col).classList.add("animateCell");
+		var timeStamp = performance.now();
 		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
 
 		for(var i in neighbours)
 		{
@@ -42,12 +44,13 @@ async function BestFirstSearch()
 
 
 
-function BestFirstSearchUtil()
+async function BestFirstSearchUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
 
 	var timeStamp0 = performance.now();
+	totalTimeSlept = 0;
 
 	found = false;
 	for(var i=0; i<gridRows; i++) 
@@ -61,7 +64,7 @@ function BestFirstSearchUtil()
 	    }
 	}
 	 
-	BestFirstSearch();
+	await BestFirstSearch();
 	var timeStamp1 = performance.now();
-	executionTime = (timeStamp1-timeStamp0);
+	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 }

@@ -21,7 +21,10 @@ async function BreadthFirstSearch()
 		}
 
 		getCell(row, col).classList.add("animateCell");
+
+		var timeStamp = performance.now();
 		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
 		
 		Queue.splice(0, 1);
 
@@ -43,12 +46,13 @@ async function BreadthFirstSearch()
 /*
 ** Utlity function of BFS to initialize values and grid
 */
-function BFSUtil()
+async function BFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
 
 	var timeStamp0 = performance.now();
+	totalTimeSlept = 0;
 
 	visited.length = 0;
 	pathDistance.length = 0;
@@ -68,7 +72,7 @@ function BFSUtil()
 	    }
 	}
 	
-	BreadthFirstSearch();
+	await BreadthFirstSearch();
 	var timeStamp1 = performance.now();
-	executionTime = (timeStamp1-timeStamp0);
+	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 }

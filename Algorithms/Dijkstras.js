@@ -28,7 +28,10 @@ async function Dijkstras()
 		}
 		
 		getCell(uRow, uCol).classList.add("animateCell");
+
+		var timeStamp = performance.now();
 		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
 
 		for(var i in neighbours)
 		{
@@ -50,7 +53,7 @@ async function Dijkstras()
 }
 
 
-function DijkstrasUtil() 
+async function DijkstrasUtil() 
 {
 
 
@@ -59,6 +62,7 @@ function DijkstrasUtil()
 	found = true;
 
 	var timeStamp0 = performance.now();
+	totalTimeSlept = 0;
 
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -71,8 +75,9 @@ function DijkstrasUtil()
 	    }
 	}
 
-	Dijkstras();
+
+	await Dijkstras();
 	var timeStamp1 = performance.now();
-	executionTime = (timeStamp1-timeStamp0);
+	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 	
 }

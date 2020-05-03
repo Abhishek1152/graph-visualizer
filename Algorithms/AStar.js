@@ -7,7 +7,6 @@ function isPathforAStar(row, col)
 	return (!closedList[row][col] && !getCell(row, col).classList.contains("wall") 
 		|| getCell(row, col).classList.contains("stop"));
 }
-
 async function AStar()
 {
 	// Check if source is same as destination
@@ -29,7 +28,10 @@ async function AStar()
 		
 		
 		getCell(i, j).classList.add("animateCell");
+
+		var timeStamp = performance.now();
 		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
 
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
@@ -147,12 +149,13 @@ async function AStar()
 }
 
 
-function AStarUtil() 
+async function AStarUtil() 
 {
 	isRunning = true;
 	clearAnimatedCells();
 
 	var timeStamp0 = performance.now();
+	totalTimeSlept = 0;
 
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -174,7 +177,7 @@ function AStarUtil()
 	    }
 	}
 
-	AStar();
+	await AStar();
 	var timeStamp1 = performance.now();
-	executionTime = (timeStamp1-timeStamp0);
+	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 }

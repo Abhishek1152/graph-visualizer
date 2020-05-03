@@ -11,6 +11,7 @@ var startRow = Math.floor(gridRows/2), startCol = Math.floor(1/5*gridCols);
 var stopRow = Math.floor(gridRows/2), stopCol = Math.ceil(4/5*gridCols);
 var isRunning = false, isWall = true;
 var currentalgo = "", currentmazeAlgo;
+var totalTimeSlept;
 var found, pathCost, executionTime;
 
 var ms = 30;
@@ -318,7 +319,7 @@ async function drawShortestPath(pred)
 
 function showTimeandCost()
 {
-	document.getElementById("execTime").innerHTML = "Execution time: "+(executionTime.toFixed(3))+" ms <br> Cost: "+pathCost;
+	document.getElementById("execTime").innerHTML = "Execution time: "+(executionTime)+" ms <br> Cost: "+pathCost;
 }
 
 function toggleWallWeight(val)

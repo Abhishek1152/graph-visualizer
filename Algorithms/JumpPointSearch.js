@@ -84,7 +84,9 @@ async function JumpPointSearch()
 		j = p.element[1];
 		
 		getCell(i, j).classList.add("animateCell");
+		var timeStamp = performance.now();
 		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
 
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
@@ -123,7 +125,9 @@ async function JumpPointSearch()
 			continue;
 		closedList[i][j] = true;
 		getCell(i, j).classList.add("animateCell");
+		var timeStamp = performance.now();
 		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
 	}
 
 	drawPathforJPS(predecessor);
@@ -264,12 +268,13 @@ function checkForcedNeighbor(i, j, direction, neighbors, stored)
 
 
 
-function JPSUtil()
+async function JPSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
 
 	var timeStamp0 = performance.now();
+	totalTimeSlept = 0;
 
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -287,8 +292,8 @@ function JPSUtil()
 	    }
 	}
 
-	JumpPointSearch();
+	await JumpPointSearch();
 
 	var timeStamp1 = performance.now();
-    executionTime = (timeStamp1-timeStamp0);
+    executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 }

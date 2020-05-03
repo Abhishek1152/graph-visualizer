@@ -92,7 +92,9 @@ async function bidirectionalAStar()
             row1 = p1.element[0], col1 = p1.element[1];
             
             getCell(row1, col1).classList.add("animateCell");
+            var timeStamp = performance.now();
             await sleep(ms);
+            totalTimeSlept += (performance.now() - timeStamp);
 
             StartclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
@@ -132,7 +134,10 @@ async function bidirectionalAStar()
             row1 = p1.element[0], col1 = p1.element[1];
 
             getCell(row1, col1).classList.add("animateCell");
+
+            var timeStamp = performance.now();
             await sleep(ms);
+            totalTimeSlept += (performance.now() - timeStamp);
 
             StopclosedList[row1][col1] = true;
             if(checkIntersection(row1, col1))
@@ -178,6 +183,7 @@ async function bidirectionalAStarUtil()
     clearAnimatedCells();
 
     var timeStamp0 = performance.now();
+    totalTimeSlept = 0;
 
     for(var i=0; i<gridRows; i++) 
     {
@@ -206,8 +212,8 @@ async function bidirectionalAStarUtil()
         }
     }
 
-    bidirectionalAStar();
+    await bidirectionalAStar();
     var timeStamp1 = performance.now();
 
-    executionTime = (timeStamp1-timeStamp0);
+    executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 }

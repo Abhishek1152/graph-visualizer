@@ -16,8 +16,11 @@ async function DepthFirstSearch(row, col)
 	visited[row][col] = true;
 
 	getCell(row, col).classList.add("animateCell");
+
+	var timeStamp = performance.now();
 	await sleep(ms);
-	
+	totalTimeSlept += (performance.now() - timeStamp);
+
 	// Recursively checking all the neighbours
 	for(var i in neigh)
 	{
@@ -35,12 +38,13 @@ async function DepthFirstSearch(row, col)
 /*
 ** Utlity function of DFS to initialize values and grid
 */
-function DFSUtil()
+async function DFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
 
 	var timeStamp0 = performance.now();
+	totalTimeSlept = 0;
 
 	found = false;
 	visited.length = 0;
@@ -60,7 +64,7 @@ function DFSUtil()
 	    }
 	}
 
-	DepthFirstSearch(startRow, startCol);
+	await DepthFirstSearch(startRow, startCol);
 	var timeStamp1 = performance.now();
-	executionTime = (timeStamp1-timeStamp0);
+	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
 }
