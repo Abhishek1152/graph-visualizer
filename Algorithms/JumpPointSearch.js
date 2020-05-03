@@ -268,6 +268,9 @@ function JPSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+
+	var timeStamp0 = performance.now();
+
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];
@@ -283,5 +286,9 @@ function JPSUtil()
 	        predecessor[i][j] = null;
 	    }
 	}
+
 	JumpPointSearch();
+
+	var timeStamp1 = performance.now();
+    executionTime = (timeStamp1-timeStamp0);
 }

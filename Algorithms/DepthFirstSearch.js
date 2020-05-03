@@ -39,6 +39,9 @@ function DFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+
+	var timeStamp0 = performance.now();
+
 	found = false;
 	visited.length = 0;
 	pathDistance.length = 0;
@@ -58,4 +61,6 @@ function DFSUtil()
 	}
 
 	DepthFirstSearch(startRow, startCol);
+	var timeStamp1 = performance.now();
+	executionTime = (timeStamp1-timeStamp0);
 }

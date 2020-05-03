@@ -52,9 +52,13 @@ async function Dijkstras()
 
 function DijkstrasUtil() 
 {
+
+
 	isRunning = true;
 	clearAnimatedCells();
 	found = true;
+
+	var timeStamp0 = performance.now();
 
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -66,5 +70,9 @@ function DijkstrasUtil()
 	        predecessor[i][j] = {r: -1, c: -1};
 	    }
 	}
+
 	Dijkstras();
+	var timeStamp1 = performance.now();
+	executionTime = (timeStamp1-timeStamp0);
+	
 }

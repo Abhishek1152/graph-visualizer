@@ -34,7 +34,7 @@ async function AStar()
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
 		{
-			await drawShortestPath(predecessor);
+			drawShortestPath(predecessor);
 			break;
 		}
 
@@ -151,6 +151,9 @@ function AStarUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+
+	var timeStamp0 = performance.now();
+
 	for(var i=0; i<gridRows; i++) 
 	{
 	    dist[i] = [];
@@ -172,4 +175,6 @@ function AStarUtil()
 	}
 
 	AStar();
+	var timeStamp1 = performance.now();
+	executionTime = (timeStamp1-timeStamp0);
 }

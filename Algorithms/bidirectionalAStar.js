@@ -176,6 +176,9 @@ async function bidirectionalAStarUtil()
 {
     isRunning = true;
     clearAnimatedCells();
+
+    var timeStamp0 = performance.now();
+
     for(var i=0; i<gridRows; i++) 
     {
         dist[i] = [];
@@ -203,6 +206,8 @@ async function bidirectionalAStarUtil()
         }
     }
 
-    
     bidirectionalAStar();
+    var timeStamp1 = performance.now();
+
+    executionTime = (timeStamp1-timeStamp0);
 }

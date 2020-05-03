@@ -46,6 +46,9 @@ function BestFirstSearchUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+
+	var timeStamp0 = performance.now();
+
 	found = false;
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -59,4 +62,6 @@ function BestFirstSearchUtil()
 	}
 	 
 	BestFirstSearch();
+	var timeStamp1 = performance.now();
+	executionTime = (timeStamp1-timeStamp0);
 }

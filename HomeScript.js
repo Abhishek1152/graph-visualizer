@@ -127,60 +127,31 @@ async function visualizeAlgo()
 {
 	if(currentalgo == "astar")
 	{
-		var timeStamp0 = performance.now();
 		AStarUtil();
-		var timeStamp1 = performance.now();
-		console.log("A* - ",timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "bidir-astar")
 	{
-		var timeStamp0 = performance.now();
 		bidirectionalAStarUtil();
-		var timeStamp1 = performance.now();
-		console.log("Bidirectional A* - ", timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
-
 	}
 	else if(currentalgo == "dijkstras")
 	{
-		var timeStamp0 = performance.now();
 		DijkstrasUtil();
-		var timeStamp1 = performance.now();
-		console.log("Dijkstra's - ", timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "jps")
 	{
-		var timeStamp0 = performance.now();
 		JPSUtil();
-		var timeStamp1 = performance.now();
-		console.log("Jump Point Search - ",timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "greedy-bfs")
 	{
-		var timeStamp0 = performance.now();
 		BestFirstSearchUtil();
-		var timeStamp1 = performance.now();
-		console.log("Greedy BFS - ", timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "bfs")
 	{
-		var timeStamp0 = performance.now();
 		BFSUtil();
-		var timeStamp1 = performance.now();
-		console.log("BFS - ", timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "dfs")
 	{
-		var timeStamp0 = performance.now();
 		DFSUtil();
-		var timeStamp1 = performance.now();
-		console.log("DFS - ", timeStamp1 - timeStamp0," ms");
-		executionTime = (timeStamp1-timeStamp0);
 	}
 	else if(currentalgo == "")
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
@@ -262,8 +233,9 @@ function clearAnimatedCells()
 	{
 	    for(var j=0; j<gridCols; j++) 
 	    {
-	        getCell(i, j).classList.remove("animateCell");
-	        getCell(i, j).classList.remove("animatePath");
+	    	var cell = getCell(i, j);
+	        cell.classList.remove("animateCell");
+	        cell.classList.remove("animatePath");
 	    }
 
 	}
@@ -346,7 +318,7 @@ async function drawShortestPath(pred)
 
 function showTimeandCost()
 {
-	document.getElementById("execTime").innerHTML = "Execution time: "+Math.floor(executionTime)+" ms <br> Cost: "+pathCost;
+	document.getElementById("execTime").innerHTML = "Execution time: "+(executionTime.toFixed(3))+" ms <br> Cost: "+pathCost;
 }
 
 function toggleWallWeight(val)

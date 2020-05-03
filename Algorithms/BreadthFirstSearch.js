@@ -47,6 +47,9 @@ function BFSUtil()
 {
 	isRunning = true;
 	clearAnimatedCells();
+
+	var timeStamp0 = performance.now();
+
 	visited.length = 0;
 	pathDistance.length = 0;
 	predecessor.length = 0;
@@ -66,4 +69,6 @@ function BFSUtil()
 	}
 	
 	BreadthFirstSearch();
+	var timeStamp1 = performance.now();
+	executionTime = (timeStamp1-timeStamp0);
 }
