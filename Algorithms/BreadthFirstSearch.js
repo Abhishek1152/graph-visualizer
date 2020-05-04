@@ -13,6 +13,7 @@ async function BreadthFirstSearch()
 	{
 		var row = Queue[0][0], col = Queue[0][1];
 
+		getCell(row, col).classList.add("animateVisited");
 		// Reached goal
 		if(getCell(row, col).classList.contains("stop"))
 		{
@@ -20,7 +21,7 @@ async function BreadthFirstSearch()
 			break;
 		}
 
-		getCell(row, col).classList.add("animateVisited");
+		
 
 		var timeStamp = performance.now();
 		await sleep(ms);

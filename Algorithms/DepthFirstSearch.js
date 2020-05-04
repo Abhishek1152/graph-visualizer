@@ -6,6 +6,9 @@ const neigh = [{R: 1, C: 0}, {R: 0, C: 1}, {R: -1, C: 0}, {R: 0, C: -1}];
 async function DepthFirstSearch(row, col)
 {
 	// Reached goal
+	visited[row][col] = true;
+	getCell(row, col).classList.add("animateVisited");
+	
 	if(getCell(row, col).classList.contains("stop"))
 	{
 		drawShortestPath(predecessor);
@@ -13,9 +16,7 @@ async function DepthFirstSearch(row, col)
 		return;
 	}
 
-	visited[row][col] = true;
-
-	getCell(row, col).classList.add("animateVisited");
+	
 
 	var timeStamp = performance.now();
 	await sleep(ms);

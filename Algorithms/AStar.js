@@ -41,107 +41,27 @@ async function AStar()
 		}
 
 		var gNew, hNew, fNew;
-		// for(var k in neighbours)
-		// {
-		// 	if(isValidCell(i+neighbours[k].R, j+neighbours[k].C) 
-		// 		&& isPathforAStar(i+neighbours[k].R, j+neighbours[k].C))
-		// 	{
-		// 		if(!closedList[i+neighbours[k].R][j+neighbours[k].C])
-		// 		{
-		// 			gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
-		// 			hNew = Math.abs(stopRow-(i+neighbours[k].R)) + Math.abs(stopCol - (j+neighbours[k].C));
-		// 			fNew = gNew + hNew;
-
-		// 			if(cellDetails[i+neighbours[k].R][j+neighbours[k].C].f == Number.MAX_SAFE_INTEGER
-		// 				|| cellDetails[i+neighbours[k].R][j+neighbours[k].C].f > fNew)
-		// 			{
-		// 				openList.enqueue([i+neighbours[k].R, j+neighbours[k].C], fNew);
-		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].f = fNew;
-		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].g = gNew;
-		// 				cellDetails[i+neighbours[k].R][j+neighbours[k].C].h = hNew;
-		// 				predecessor[i+neighbours[k].R][j+neighbours[k].C].r = i;
-		// 				predecessor[i+neighbours[k].R][j+neighbours[k].C].c = j;
-		// 			}
-		// 		}
-		// 	}
-		// }
-		if(isValidCell(i+1, j) && isPathforAStar(i+1, j))
+		for(var k in neighbours)
 		{
-			if(!closedList[i+1][j])
+			if(isValidCell(i+neighbours[k].R, j+neighbours[k].C) 
+				&& isPathforAStar(i+neighbours[k].R, j+neighbours[k].C))
 			{
-				gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
-				hNew = Math.abs(stopRow-(i+1)) + Math.abs(stopCol - j);
-				fNew = gNew + hNew;
-
-				if(cellDetails[i+1][j].f == Number.MAX_SAFE_INTEGER
-					|| cellDetails[i+1][j].f > fNew)
+				if(!closedList[i+neighbours[k].R][j+neighbours[k].C])
 				{
-					openList.enqueue([i+1, j], fNew);
-					cellDetails[i+1][j].f = fNew;
-					cellDetails[i+1][j].g = gNew;
-					cellDetails[i+1][j].h = hNew;
-					predecessor[i+1][j].r = i;
-					predecessor[i+1][j].c = j;
-				}
-			}
-		}
-		if(isValidCell(i-1, j) && isPathforAStar(i-1, j))
-		{
-			if(!closedList[i-1][j])
-			{
-				gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
-				hNew = Math.abs(stopRow-(i-1)) + Math.abs(stopCol - j);
-				fNew = gNew + hNew;
+					gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
+					hNew = Math.abs(stopRow-(i+neighbours[k].R)) + Math.abs(stopCol - (j+neighbours[k].C));
+					fNew = gNew + hNew;
 
-				if(cellDetails[i-1][j].f == INT_MAX
-					|| cellDetails[i-1][j].f > fNew)
-				{
-					openList.enqueue([i-1, j], fNew);
-					cellDetails[i-1][j].f = fNew;
-					cellDetails[i-1][j].g = gNew;
-					cellDetails[i-1][j].h = hNew;
-					predecessor[i-1][j].r = i;
-					predecessor[i-1][j].c = j;
-				}
-			}
-		}
-		if(isValidCell(i, j+1) && isPathforAStar(i, j+1))
-		{
-			if(!closedList[i][j+1])
-			{
-				gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
-				hNew = Math.abs(stopRow-i) + Math.abs(stopCol - (j+1));
-				fNew = gNew + hNew;
-
-				if(cellDetails[i][j+1].f == INT_MAX
-					|| cellDetails[i][j+1].f > fNew)
-				{
-					openList.enqueue([i, j+1], fNew);
-					cellDetails[i][j+1].f = fNew;
-					cellDetails[i][j+1].g = gNew;
-					cellDetails[i][j+1].h = hNew;
-					predecessor[i][j+1].r = i;
-					predecessor[i][j+1].c = j;
-				}
-			}
-		}
-		if(isValidCell(i, j-1) && isPathforAStar(i, j-1))
-		{
-			if(!closedList[i][j-1])
-			{
-				gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
-				hNew = Math.abs(stopRow-i) + Math.abs(stopCol - (j-1));
-				fNew = gNew + hNew;
-
-				if(cellDetails[i][j-1].f == INT_MAX
-					|| cellDetails[i][j-1].f > fNew)
-				{
-					openList.enqueue([i, j-1], fNew);
-					cellDetails[i][j-1].f = fNew;
-					cellDetails[i][j-1].g = gNew;
-					cellDetails[i][j-1].h = hNew;
-					predecessor[i][j-1].r = i;
-					predecessor[i][j-1].c = j;
+					if(cellDetails[i+neighbours[k].R][j+neighbours[k].C].f == INT_MAX
+						|| cellDetails[i+neighbours[k].R][j+neighbours[k].C].f > fNew)
+					{
+						openList.enqueue([i+neighbours[k].R, j+neighbours[k].C], fNew);
+						cellDetails[i+neighbours[k].R][j+neighbours[k].C].f = fNew;
+						cellDetails[i+neighbours[k].R][j+neighbours[k].C].g = gNew;
+						cellDetails[i+neighbours[k].R][j+neighbours[k].C].h = hNew;
+						predecessor[i+neighbours[k].R][j+neighbours[k].C].r = i;
+						predecessor[i+neighbours[k].R][j+neighbours[k].C].c = j;
+					}
 				}
 			}
 		}

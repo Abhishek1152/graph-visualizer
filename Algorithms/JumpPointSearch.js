@@ -53,13 +53,35 @@ async function drawPathforJPS(pred)
 			path.push({r: i, c: j});
 		}
 		pathCost = -2;
+		var prevRow = path[path.length-1].r, prevCol = path[path.length-1].c;
+
 		for(var i = path.length - 1; i >= 0; i--)
 		{
 			var cell = getCell(path[i].r, path[i].c);
-			cell.classList.remove("animateVisited");
-			cell.classList.add("animatePath");
-			pathCost += (cell.classList.contains("weight")? 5 : 1);
-			await sleep(50);
+		var direction;
+		if(path[i].r - prevRow == 0)
+		{
+			if(prevCol - path[i].c > 0)
+				direction = "pathLeft";
+			else
+				direction = "pathRight";
+		}
+		else
+		{
+			if(prevRow - path[i].r > 0)
+				direction = "pathUp";
+			else
+				direction = "pathDown";
+		}
+		
+		cell.classList.remove("animateVisited");
+		cell.classList.add(direction);
+		await sleep(50);
+		prevRow = path[i].r, prevCol = path[i].c;
+		cell.classList.remove(direction);
+
+		cell.classList.add("animatePath");
+		pathCost += (cell.classList.contains("weight")? 5 : 1);
 		}
 	}
 

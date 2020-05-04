@@ -44,21 +44,63 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
         }
 
         pathCost = -1;
+        var prevRow = path1[path1.length-1].r, prevCol = path1[path1.length-1].c;
+
         for(var i = path1.length - 1; i >= 0; i--)
         {
+            var direction;
             var cell = getCell(path1[i].r, path1[i].c);
+
+            if(path1[i].r - prevRow == 0)
+            {
+                if(prevCol - path1[i].c > 0)
+                    direction = "pathLeft";
+                else
+                    direction = "pathRight";
+            }
+            else
+            {
+                if(prevRow - path1[i].r > 0)
+                    direction = "pathUp";
+                else
+                    direction = "pathDown";
+            }
             cell.classList.remove("animateVisited");
+            cell.classList.add(direction);
+            await sleep(50);
+            prevRow = path1[i].r, prevCol = path1[i].c;
+            cell.classList.remove(direction);
+
             cell.classList.add("animatePath");
             pathCost += (cell.classList.contains("weight")? 5 : 1);
-            await sleep(50);
         }
         for(var i = 0; i < path2.length; i++)
         {
+            var direction;
             var cell = getCell(path2[i].r, path2[i].c);
+
+            if(path2[i].r - prevRow == 0)
+            {
+                if(prevCol - path2[i].c > 0)
+                    direction = "pathLeft";
+                else
+                    direction = "pathRight";
+            }
+            else
+            {
+                if(prevRow - path2[i].r > 0)
+                    direction = "pathUp";
+                else
+                    direction = "pathDown";
+            }
             cell.classList.remove("animateVisited");
+            cell.classList.add(direction);
+            await sleep(50);
+            prevRow = path2[i].r, prevCol = path2[i].c;
+            cell.classList.remove(direction);
+
             cell.classList.add("animatePath");
             pathCost += (cell.classList.contains("weight")? 5 : 1);
-            await sleep(50);
         }
     }
 

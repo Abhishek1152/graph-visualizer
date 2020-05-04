@@ -178,6 +178,7 @@
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 30px;
+    border-radius: 5px;
 }
 
 .animate
@@ -247,8 +248,6 @@
 			cursor: default;
 		}
 
-
-
 		#resetGrid
 		{
 			padding: 6px 10px;
@@ -303,6 +302,28 @@
 			animation-name: animatePath;
 			animation-duration: .5s; 
 			animation-timing-function: ease-out; 
+		}
+		.pathRight
+		{
+			background-image: url("./Resources/start.png");	
+		}
+		.pathDown
+		{
+			background-image: url("./Resources/start.png");
+			-ms-transform: rotate(90deg); /* IE 9 */
+  			transform: rotate(90deg);
+		}
+		.pathLeft
+		{
+			background-image: url("./Resources/start.png");
+			-ms-transform: rotate(180deg); /* IE 9 */
+  			transform: rotate(180deg);
+		}
+		.pathUp
+		{
+			background-image: url("./Resources/start.png");
+			-ms-transform: rotate(270deg); /* IE 9 */
+  			transform: rotate(270deg);
 		}
 		.wall
 		{
@@ -480,14 +501,17 @@
 
 
 
-		<button onclick="document.getElementById('modal-wrapper').style.display='block'" id="compareAlgobtn">Compare</button>
+		<button onclick="document.getElementById('modal-wrapper').style.display='block'" id="compareAlgobtn">Tutorial</button>
 
 		<div id='modal-wrapper' class='modal'>
 			<div class='modal-content animate'>
 				<div id='imgcontainer'>
 					<span onclick="document.getElementById('modal-wrapper').style.display='none'" class='close' title='Close'>&times;</span>
 				</div>
-				<h1> Compare the pathfinding algorithms </h1>
+				<br>
+				<h1> <center> Welcome to the Pathfinder! </center> </h1>
+				<hr width="100%">
+				<font style="font-size: 14px; font-weight: 1em;"><i> This is a short tutorial to guide you through the working of this Pathfinder. If you want to skip it feel free to press 'X' in the top right corner. </i></font>
 			</div>					
 		</div>
 
@@ -499,10 +523,10 @@
 	<div id="algoPropertyDiv">
 		<center>
 			<span>
-				<div class="legendsquare start"></div> Start Node
-				<div class="legendsquare stop legend"></div> Target Node
+				<div class="legendsquare" style="background-image: url('./Resources/start.png'); margin: auto;"></div> Start Node
+				<div class="legendsquare" style="background-image: url('./Resources/stop.png'); margin: auto; margin-left: 2vw;"></div> Target Node
 				<div class="legendsquare wall legend"></div> Wall
-				<div class="legendsquare weight legend" id="weightLegend" style="margin-left: 2vw;"></div> Weight 
+				<div class="legendsquare weight" id="weightLegend" style="margin-left: 2vw;"></div> Weight 
 				<div class="legendsquare legend"></div> Unvisited
 				<div class="legendsquare animateVisited legend" style="border: 1px solid red;"></div>
 				<div class="legendsquare" style="background-color: orange;"></div> Visited
