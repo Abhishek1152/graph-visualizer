@@ -27,7 +27,7 @@ async function Dijkstras()
 			break;
 		}
 		
-		getCell(uRow, uCol).classList.add("animateCell");
+		getCell(uRow, uCol).classList.add("animateVisited");
 
 		var timeStamp = performance.now();
 		await sleep(ms);

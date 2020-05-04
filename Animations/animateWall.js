@@ -23,7 +23,7 @@ grid.onmousedown = function(e)
 		
 		else
 		{
-			e.target.classList.remove("animateCell");
+			e.target.classList.remove("animateVisited");
 			e.target.classList.remove("animatePath");
 			if(isWall)
 			{
@@ -98,7 +98,7 @@ grid.onmouseover = function(e)
 
 		if(e.target == getCell(startRow, startCol) || e.target == getCell(stopRow, stopCol))
 			return;
-		e.target.classList.remove("animateCell");
+		e.target.classList.remove("animateVisited");
 		e.target.classList.remove("animatePath");
 		if(isWall)
 		{

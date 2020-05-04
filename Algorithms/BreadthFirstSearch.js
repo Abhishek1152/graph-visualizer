@@ -20,7 +20,7 @@ async function BreadthFirstSearch()
 			break;
 		}
 
-		getCell(row, col).classList.add("animateCell");
+		getCell(row, col).classList.add("animateVisited");
 
 		var timeStamp = performance.now();
 		await sleep(ms);

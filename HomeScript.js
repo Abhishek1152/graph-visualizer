@@ -235,7 +235,7 @@ function clearAnimatedCells()
 	    for(var j=0; j<gridCols; j++) 
 	    {
 	    	var cell = getCell(i, j);
-	        cell.classList.remove("animateCell");
+	        cell.classList.remove("animateVisited");
 	        cell.classList.remove("animatePath");
 	    }
 
@@ -253,7 +253,7 @@ function clearGrid()
 	    for(var j=0; j<gridCols; j++) 
 	    {
 	    	var cell = getCell(i, j);
-	        cell.classList.remove("animateCell");
+	        cell.classList.remove("animateVisited");
 	        cell.classList.remove("wall");
 	        cell.classList.remove("animatePath");
 	        cell.classList.remove("weight");
@@ -307,7 +307,7 @@ async function drawShortestPath(pred)
 	for(var i = path.length - 1; i >= 0; i--)
 	{
 		var cell = getCell(path[i].r, path[i].c);
-		cell.classList.remove("animateCell");
+		cell.classList.remove("animateVisited");
 		cell.classList.add("animatePath");
 		pathCost += (cell.classList.contains("weight")? 5 : 1);
 		await sleep(50);
@@ -319,7 +319,7 @@ async function drawShortestPath(pred)
 
 function showTimeandCost()
 {
-	document.getElementById("execTime").innerHTML = "Execution time: "+(executionTime)+" ms <br> Cost: "+pathCost;
+	document.getElementById("execTime").innerHTML = "Execution time: "+(executionTime.toFixed(2))+" ms <br> Cost: "+pathCost;
 }
 
 function toggleWallWeight(val)

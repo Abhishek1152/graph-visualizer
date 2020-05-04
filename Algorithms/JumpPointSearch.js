@@ -56,7 +56,7 @@ async function drawPathforJPS(pred)
 		for(var i = path.length - 1; i >= 0; i--)
 		{
 			var cell = getCell(path[i].r, path[i].c);
-			cell.classList.remove("animateCell");
+			cell.classList.remove("animateVisited");
 			cell.classList.add("animatePath");
 			pathCost += (cell.classList.contains("weight")? 5 : 1);
 			await sleep(50);
@@ -83,7 +83,7 @@ async function JumpPointSearch()
 		i = p.element[0];
 		j = p.element[1];
 		
-		getCell(i, j).classList.add("animateCell");
+		getCell(i, j).classList.add("animateVisited");
 		var timeStamp = performance.now();
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);
@@ -124,7 +124,7 @@ async function JumpPointSearch()
 		if (closedList[i][j])
 			continue;
 		closedList[i][j] = true;
-		getCell(i, j).classList.add("animateCell");
+		getCell(i, j).classList.add("animateVisited");
 		var timeStamp = performance.now();
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);

@@ -27,7 +27,7 @@ async function AStar()
 		j = p.element[1];
 		
 		
-		getCell(i, j).classList.add("animateCell");
+		getCell(i, j).classList.add("animateVisited");
 
 		var timeStamp = performance.now();
 		await sleep(ms);

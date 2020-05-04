@@ -47,7 +47,7 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
         for(var i = path1.length - 1; i >= 0; i--)
         {
             var cell = getCell(path1[i].r, path1[i].c);
-            cell.classList.remove("animateCell");
+            cell.classList.remove("animateVisited");
             cell.classList.add("animatePath");
             pathCost += (cell.classList.contains("weight")? 5 : 1);
             await sleep(50);
@@ -55,7 +55,7 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
         for(var i = 0; i < path2.length; i++)
         {
             var cell = getCell(path2[i].r, path2[i].c);
-            cell.classList.remove("animateCell");
+            cell.classList.remove("animateVisited");
             cell.classList.add("animatePath");
             pathCost += (cell.classList.contains("weight")? 5 : 1);
             await sleep(50);
@@ -91,7 +91,7 @@ async function bidirectionalAStar()
             var p1 = StartopenList.dequeue();
             row1 = p1.element[0], col1 = p1.element[1];
             
-            getCell(row1, col1).classList.add("animateCell");
+            getCell(row1, col1).classList.add("animateVisited");
             var timeStamp = performance.now();
             await sleep(ms);
             totalTimeSlept += (performance.now() - timeStamp);
@@ -133,7 +133,7 @@ async function bidirectionalAStar()
             var p1 = StopopenList.dequeue();
             row1 = p1.element[0], col1 = p1.element[1];
 
-            getCell(row1, col1).classList.add("animateCell");
+            getCell(row1, col1).classList.add("animateVisited");
 
             var timeStamp = performance.now();
             await sleep(ms);

@@ -15,7 +15,7 @@ async function DepthFirstSearch(row, col)
 
 	visited[row][col] = true;
 
-	getCell(row, col).classList.add("animateCell");
+	getCell(row, col).classList.add("animateVisited");
 
 	var timeStamp = performance.now();
 	await sleep(ms);

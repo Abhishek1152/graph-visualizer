@@ -223,12 +223,25 @@
 		#algoPropertyDiv
 		{
 			position: absolute;
+			display: inline-block;
 			margin-left: auto;
 			margin-right: auto;
 			left: 0;
 			right: 0;
 			top: 46px;
-
+		}
+		.legendsquare
+		{
+			width: 25px;
+			height: 25px;
+			display: inline-block;
+			position: relative;
+			top: 10px;
+		}
+		.legend
+		{
+			margin-left: 3vw;
+			cursor: default;
 		}
 
 
@@ -272,7 +285,7 @@
 			display: inline-block;
 		}
 
-		.animateCell
+		.animateVisited
 		{
 			box-shadow: 0 1px 0 rgb(237, 12, 0) inset, 1px 0px 0px rgb(237, 12, 0) inset;
 			background-color: yellow;
@@ -481,7 +494,21 @@
 
 
 	<div id="algoPropertyDiv">
-		<h3 id="execTime"></h3>
+		<center>
+			<span>
+				<div class="legendsquare start"></div> Start Node
+				<div class="legendsquare stop legend"></div> Target Node
+				<div class="legendsquare wall legend"></div> Wall
+				<div class="legendsquare weight legend" id="weightLegend" style="margin-left: 3vw;"></div> Weight 
+				<div class="legendsquare legend" style="border: 1px solid rgb(175, 216, 248);"></div> Unvisited Node 
+				<div class="legendsquare animateVisited legend" style="border: 1px solid red;"></div>
+				<div class="legendsquare" style="border: 1px solid red; background-color: orange;"></div> Visited Node
+				<div class="legendsquare animatePath legend"></div> Shortest Path Node
+			</span>
+		</center>
+		<center>
+			<h5 id="execTime"></h5>
+		</center>
 	</div>
 
 

@@ -21,7 +21,7 @@ async function BestFirstSearch()
 			drawShortestPath(predecessor);
 			break;
 		}
-		getCell(row, col).classList.add("animateCell");
+		getCell(row, col).classList.add("animateVisited");
 		var timeStamp = performance.now();
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);
