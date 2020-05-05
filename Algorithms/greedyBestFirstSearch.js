@@ -16,16 +16,18 @@ async function BestFirstSearch()
 	{
 		var temp = priorityQueue.dequeue();
 		var row = temp.element[0], col = temp.element[1];
-		if(getCell(row, col).classList.contains("stop"))
-		{
-			drawShortestPath(predecessor);
-			break;
-		}
+
 		getCell(row, col).classList.add("animateVisited");
 		var timeStamp = performance.now();
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);
 
+		if(getCell(row, col).classList.contains("stop"))
+		{
+			drawShortestPath(predecessor);
+			break;
+		}
+		
 		for(var i in neighbours)
 		{
 			if(isValidCell(row+neighbours[i].R, col+neighbours[i].C) 

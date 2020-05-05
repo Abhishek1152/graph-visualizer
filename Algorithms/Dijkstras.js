@@ -20,18 +20,18 @@ async function Dijkstras()
 		var tmp = setds.dequeue();
 		var uRow = tmp.element[0], uCol = tmp.element[1];
 
+		getCell(uRow, uCol).classList.add("animateVisited");
+
+		var timeStamp = performance.now();
+		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
+
 		if(getCell(uRow, uCol).classList.contains("stop"))
 		{
 			drawShortestPath(predecessor);
 			found = true;
 			break;
 		}
-		
-		getCell(uRow, uCol).classList.add("animateVisited");
-
-		var timeStamp = performance.now();
-		await sleep(ms);
-		totalTimeSlept += (performance.now() - timeStamp);
 
 		for(var i in neighbours)
 		{
