@@ -214,8 +214,26 @@
     cursor: pointer;
 }
 
-
-
+		#algoCompareTable
+		{
+			border: none;
+			width: 100%;
+			font-size: 14px;
+		}
+		td
+		{
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+		.correct
+		{
+			color: green;
+		}
+		.incorrect
+		{
+			color: red;
+			text-decoration: line-through;
+		}
 
 
 
@@ -501,7 +519,7 @@
 
 
 
-		<button onclick="document.getElementById('modal-wrapper').style.display='block'" id="compareAlgobtn">Tutorial</button>
+		<button onclick="document.getElementById('modal-wrapper').style.display='block'" id="compareAlgobtn">Compare</button>
 
 		<div id='modal-wrapper' class='modal'>
 			<div class='modal-content animate'>
@@ -509,9 +527,42 @@
 					<span onclick="document.getElementById('modal-wrapper').style.display='none'" class='close' title='Close'>&times;</span>
 				</div>
 				<br>
-				<h1> <center> Welcome to the Pathfinder! </center> </h1>
+				<h1> <center> Compare Algorithms! </center> </h1>
 				<hr width="100%">
-				<font style="font-size: 14px; font-weight: 1em;"><i> This is a short tutorial to guide you through the working of this Pathfinder. If you want to skip it feel free to press 'X' in the top right corner. </i></font>
+				<font style="font-size: 14px; font-weight: 1em;"><i> Test the pathfinding algorithms for their performance and find out which one would out-perform in the grid. You can construct your own version of the grid and test accordingly. </i></font>
+				<hr width="90%">
+				<table id="algoCompareTable">
+					<tr>
+						<td><label><input type="checkbox"> A* Algorithm</label></td>
+						<td><font class="correct">Weighted &#10003;</font></td>
+						<td><font class="correct">Shortest path &#10003;</font></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox"> Bidirectional A*</label></td>
+						<td><font class="correct">Weighted &#10003;</font></td>
+						<td><font class="incorrect">Shortest path &#10007;</font></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox"> Dijkstra's</label></td>
+						<td><font class="correct">Weighted &#10003;</font></td>
+						<td><font class="correct">Shortest path &#10003;</font></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox"> Greedy BFS</label></td>
+						<td><font class="correct">Weighted &#10003;</font></td>
+						<td><font class="incorrect">Shortest path &#10007;</font></td>
+					</tr>
+				    <tr>
+						<td><label><input type="checkbox"> BFS</label></td>
+						<td><font class="incorrect">Weighted &#10007;</font></td>
+						<td><font class="correct">Shortest path &#10003;</font></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox"> DFS</label></td>
+						<td><font class="incorrect">Weighted &#10007;</font></td>
+						<td><font class="incorrect">Shortest path &#10007;</font></td>
+					</tr>
+				</table>
 			</div>					
 		</div>
 
