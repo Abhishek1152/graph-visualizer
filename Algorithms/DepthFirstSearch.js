@@ -7,20 +7,24 @@ async function DepthFirstSearch(row, col)
 {
 	// Reached goal
 	visited[row][col] = true;
-	getCell(row, col).classList.add("animateVisited");
 	
 	if(getCell(row, col).classList.contains("stop"))
 	{
-		drawShortestPath(predecessor);
 		found = true;
+		if(showAnimations)
+			drawShortestPath(predecessor);
 		return;
 	}
 
 	
+	if(showAnimations)
+	{
+		var timeStamp = performance.now();
+		getCell(row, col).classList.add("animateVisited");
 
-	var timeStamp = performance.now();
-	await sleep(ms);
-	totalTimeSlept += (performance.now() - timeStamp);
+		await sleep(ms);
+		totalTimeSlept += (performance.now() - timeStamp);
+	}
 
 	// Recursively checking all the neighbours
 	for(var i in neigh)
@@ -66,6 +70,12 @@ async function DFSUtil()
 	}
 
 	await DepthFirstSearch(startRow, startCol);
+
 	var timeStamp1 = performance.now();
 	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
+	if(!showAnimations && found)
+		drawShortestPath(predecessor);
+	
+	if(!found)
+    	isRunning = false;
 }

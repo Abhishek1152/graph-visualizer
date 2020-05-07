@@ -26,17 +26,21 @@ async function AStar()
 		i = p.element[0];
 		j = p.element[1];
 		
-		
-		getCell(i, j).classList.add("animateVisited");
-
-		var timeStamp = performance.now();
-		await sleep(ms);
-		totalTimeSlept += (performance.now() - timeStamp);
+		if(showAnimations)
+		{
+			var timeStamp = performance.now();
+			getCell(i, j).classList.add("animateVisited");
+			await sleep(ms);
+			totalTimeSlept += (performance.now() - timeStamp);
+		}
 
 		closedList[i][j] = true;
 		if(getCell(i, j).classList.contains("stop"))
-		{
-			drawShortestPath(predecessor);
+		{	
+			found = true;
+			if(showAnimations)
+				drawShortestPath(predecessor);
+			
 			break;
 		}
 
@@ -76,6 +80,7 @@ async function AStarUtil()
 
 	var timeStamp0 = performance.now();
 	totalTimeSlept = 0;
+	found = false;
 
 	for(var i=0; i<gridRows; i++) 
 	{
@@ -83,7 +88,6 @@ async function AStarUtil()
 	    closedList[i] = [];
 	    cellDetails[i] = [];
 	    predecessor[i] = [];
-	    found = true;
 
 	    for(var j=0; j<gridCols; j++) 
 	    {
@@ -98,6 +102,11 @@ async function AStarUtil()
 	}
 
 	await AStar();
+
 	var timeStamp1 = performance.now();
 	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
+	if(!showAnimations && found)
+		drawShortestPath(predecessor);
+	if(!found)
+    	isRunning = false;
 }

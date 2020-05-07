@@ -13,20 +13,23 @@ async function BreadthFirstSearch()
 	{
 		var row = Queue[0][0], col = Queue[0][1];
 
-		getCell(row, col).classList.add("animateVisited");
 		// Reached goal
 		if(getCell(row, col).classList.contains("stop"))
 		{
-			drawShortestPath(predecessor);
+			found = true;
+			if(showAnimations)
+				drawShortestPath(predecessor);
 			break;
 		}
 
 		
-
-		var timeStamp = performance.now();
-		await sleep(ms);
-		totalTimeSlept += (performance.now() - timeStamp);
-		
+		if(showAnimations)
+		{
+			var timeStamp = performance.now();
+			getCell(row, col).classList.add("animateVisited");
+			await sleep(ms);
+			totalTimeSlept += (performance.now() - timeStamp);
+		}
 		Queue.splice(0, 1);
 
 		// Checking for all valid neighbours
@@ -76,4 +79,9 @@ async function BFSUtil()
 	await BreadthFirstSearch();
 	var timeStamp1 = performance.now();
 	executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
+	if(!showAnimations && found)
+		drawShortestPath(predecessor);
+
+    if(!found)
+    	isRunning = false;
 }

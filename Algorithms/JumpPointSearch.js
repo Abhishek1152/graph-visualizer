@@ -318,4 +318,6 @@ async function JPSUtil()
 
 	var timeStamp1 = performance.now();
     executionTime = (timeStamp1-timeStamp0) - totalTimeSlept;
+    if(!found)
+    	isRunning = false;
 }

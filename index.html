@@ -154,7 +154,7 @@
 			border-radius: 5px;
 			outline: none;
 			position: absolute;;
-			left: 80%;
+			left: 78%;
 		}
 
 .modal
@@ -232,7 +232,6 @@
 		.incorrect
 		{
 			color: red;
-			text-decoration: line-through;
 		}
 
 
@@ -530,39 +529,11 @@
 				<h1> <center> Compare Algorithms! </center> </h1>
 				<hr width="100%">
 				<font style="font-size: 14px; font-weight: 1em;"><i> Test the pathfinding algorithms for their performance and find out which one would out-perform in the grid. You can construct your own version of the grid and test accordingly. </i></font>
-				<hr width="90%">
-				<table id="algoCompareTable">
-					<tr>
-						<td><label><input type="checkbox"> A* Algorithm</label></td>
-						<td><font class="correct">Weighted &#10003;</font></td>
-						<td><font class="correct">Shortest path &#10003;</font></td>
-					</tr>
-					<tr>
-						<td><label><input type="checkbox"> Bidirectional A*</label></td>
-						<td><font class="correct">Weighted &#10003;</font></td>
-						<td><font class="incorrect">Shortest path &#10007;</font></td>
-					</tr>
-					<tr>
-						<td><label><input type="checkbox"> Dijkstra's</label></td>
-						<td><font class="correct">Weighted &#10003;</font></td>
-						<td><font class="correct">Shortest path &#10003;</font></td>
-					</tr>
-					<tr>
-						<td><label><input type="checkbox"> Greedy BFS</label></td>
-						<td><font class="correct">Weighted &#10003;</font></td>
-						<td><font class="incorrect">Shortest path &#10007;</font></td>
-					</tr>
-				    <tr>
-						<td><label><input type="checkbox"> BFS</label></td>
-						<td><font class="incorrect">Weighted &#10007;</font></td>
-						<td><font class="correct">Shortest path &#10003;</font></td>
-					</tr>
-					<tr>
-						<td><label><input type="checkbox"> DFS</label></td>
-						<td><font class="incorrect">Weighted &#10007;</font></td>
-						<td><font class="incorrect">Shortest path &#10007;</font></td>
-					</tr>
-				</table>
+				<hr width="100%">
+				<table id="algoCompareTable"></table>
+				
+				<button id="compareCheckedAlgo">Compare!</button>
+				<button onclick="resetTable()">Reset</button>
 			</div>					
 		</div>
 
@@ -579,7 +550,7 @@
 				<div class="legendsquare wall legend"></div> Wall
 				<div class="legendsquare weight" id="weightLegend" style="margin-left: 2vw;"></div> Weight 
 				<div class="legendsquare legend"></div> Unvisited
-				<div class="legendsquare animateVisited legend" style="border: 1px solid red;"></div>
+				<div class="legendsquare animateVisited legend" style="border-right: 1px solid red; border-bottom: 1px solid red;"></div>
 				<div class="legendsquare" style="background-color: orange;"></div> Visited
 				<div class="legendsquare animatePath legend"></div> Path Node
 			</span>

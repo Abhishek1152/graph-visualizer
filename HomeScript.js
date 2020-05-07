@@ -13,6 +13,7 @@ var isRunning = false, isWall = true;
 var currentalgo = "", currentmazeAlgo;
 var totalTimeSlept;
 var found, pathCost, executionTime;
+var showAnimations = true;
 
 var ms = 30;
 
@@ -323,18 +324,22 @@ async function drawShortestPath(pred)
 			else
 				direction = "pathDown";
 		}
-
-		cell.classList.remove("animateVisited");
-		cell.classList.add(direction);
-		await sleep(50);
 		prevRow = path[i].r, prevCol = path[i].c;
-		cell.classList.remove(direction);
+		if(showAnimations)
+		{
+			cell.classList.remove("animateVisited");
+			cell.classList.add(direction);
+			await sleep(50);
+			
+			cell.classList.remove(direction);
 
-		cell.classList.add("animatePath");
+			cell.classList.add("animatePath");
+		}
+
 		pathCost += (cell.classList.contains("weight")? 5 : 1);
 	}
-
-	showTimeandCost();
+	if(showAnimations)
+		showTimeandCost();
 	isRunning = false;
 }
 
@@ -348,13 +353,92 @@ function toggleWallWeight(val)
 	isWall = (val == 1);
 }
 
+function resetTable()
+{
+	var table = document.getElementById("algoCompareTable");
+	while(table.rows.length > 0)
+		table.deleteRow(0);
+
+	var algoInfo = [{algo: "A* Algorithm", id: "astarCheckbox", isWeighted: true, isShortest: true}, {algo: "Bidirectional A*", id: "bidir-astarCheckbox", isWeighted: true, isShortest: false},
+					{algo: "Dijkstra's", id: "dijkstrasCheckbox", isWeighted: true, isShortest: true}, {algo: "Greedy BFS", id: "greedy-bfsCheckbox", isWeighted: true, isShortest: false},
+					{algo: "BFS", id: "bfsCheckbox", isWeighted: false, isShortest: true}, {algo: "DFS", id: "dfsCheckbox", isWeighted: false, isShortest: false}];
+	for(var i in algoInfo)
+	{
+		var newRow = table.insertRow(i);
+		var cell0 = newRow.insertCell(0);
+		var cell1 = newRow.insertCell(1);
+		var cell2 = newRow.insertCell(2);
+
+		cell0.innerHTML = "<label><input id='"+algoInfo[i].id+"' type='checkbox'> "+algoInfo[i].algo+"</label>";
+		if(algoInfo[i].isWeighted)
+			cell1.innerHTML = "<font class='correct'>Weighted &#10003;</font>";
+		else
+			cell1.innerHTML = "<font class='incorrect'><strike>Weighted</strike> &#10007;</font>";
+		if(algoInfo[i].isShortest)
+			cell2.innerHTML = "<font class='correct'>Shortest path &#10003;</font>";
+		else
+			cell2.innerHTML = "<font class='incorrect'><strike>Shortest path</strike> &#10007;</font>";
+	}
+}
+
+document.getElementById("compareCheckedAlgo").onclick = async function()
+{
+	showAnimations = false;
+	var execTimeandPath = [{algoName: "A* Algorithm", algo: "astar", id: "astarCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
+					{algoName: "Bidirectional A*", algo: "bidir-astar", id: "bidir-astarCheckbox", executionTime: INT_MAX, pathCost: INT_MAX},
+					{algoName: "Dijkstra's", algo: "dijkstras", id: "dijkstrasCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
+					{algoName: "Greedy BFS", algo: "greedy-bfs", id: "greedy-bfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX},
+					{algoName: "BFS", algo: "bfs", id: "bfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
+					{algoName: "DFS", algo: "dfs", id: "dfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}];
+	
+	for(var i in execTimeandPath)
+	{
+		if(document.getElementById(execTimeandPath[i].id).checked)
+		{
+			currentalgo = execTimeandPath[i].algo;
+			await visualizeAlgo();
+			if(found)
+			{
+				execTimeandPath[i].executionTime = executionTime;
+				execTimeandPath[i].pathCost = pathCost;
+			}
+		}
+		await sleep(50);
+	}
+	showAnimations = true;
+	var table = document.getElementById("algoCompareTable");
+	while(table.rows.length > 0)
+		table.deleteRow(0);
+	for(var i in execTimeandPath)
+	{
+		var newRow = table.insertRow(i);
+		var cell0 = newRow.insertCell(0);
+		var cell1 = newRow.insertCell(1);
+		var cell2 = newRow.insertCell(2);
+
+		cell0.innerHTML = execTimeandPath[i].algoName;
+		if(execTimeandPath[i].executionTime != INT_MAX)
+		{
+			cell1.innerHTML = execTimeandPath[i].executionTime.toFixed(2);
+			cell2.innerHTML = execTimeandPath[i].pathCost;
+		}
+		else
+		{
+			cell1.innerHTML = "Path not found";
+			cell2.innerHTML = "Path not found";
+		}
+	}
+}
+
+
+
 genDivs(gridRows, gridCols);
 
 // Nerd fix for centralizing grid horizontally
 document.getElementById("gridContainer").style.left = (vw-document.getElementById("gridContainer").offsetWidth)/2+"px";
 
+resetTable();
 
-// TODO: Implement arrow directions
 
 
 
