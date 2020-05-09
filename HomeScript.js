@@ -127,33 +127,35 @@ function changeSpeed(val)
 
 async function visualizeAlgo()
 {
+	if(isRunning)
+		return;
 	if(currentalgo == "astar")
 	{
-		AStarUtil();
+		await AStarUtil();
 	}
 	else if(currentalgo == "bidir-astar")
 	{
-		bidirectionalAStarUtil();
+		await bidirectionalAStarUtil();
 	}
 	else if(currentalgo == "dijkstras")
 	{
-		DijkstrasUtil();
+		await DijkstrasUtil();
 	}
 	else if(currentalgo == "jps")
 	{
-		JPSUtil();
+		await JPSUtil();
 	}
 	else if(currentalgo == "greedy-bfs")
 	{
-		BestFirstSearchUtil();
+		await BestFirstSearchUtil();
 	}
 	else if(currentalgo == "bfs")
 	{
-		BFSUtil();
+		await BFSUtil();
 	}
 	else if(currentalgo == "dfs")
 	{
-		DFSUtil();
+		await DFSUtil();
 	}
 	else if(currentalgo == "")
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
@@ -338,6 +340,7 @@ async function drawShortestPath(pred)
 
 		pathCost += (cell.classList.contains("weight")? 5 : 1);
 	}
+
 	if(showAnimations)
 		showTimeandCost();
 	isRunning = false;
@@ -356,6 +359,7 @@ function toggleWallWeight(val)
 function resetTable()
 {
 	var table = document.getElementById("algoCompareTable");
+	document.getElementById("progressBar").style.width = "0%";
 	while(table.rows.length > 0)
 		table.deleteRow(0);
 
@@ -379,6 +383,8 @@ function resetTable()
 		else
 			cell2.innerHTML = "<font class='incorrect'><strike>Shortest path</strike> &#10007;</font>";
 	}
+	document.getElementById("compareCheckedAlgo").style.display = "block";
+	document.getElementById("tableResetbtn").style.display = "none";
 }
 
 document.getElementById("compareCheckedAlgo").onclick = async function()
@@ -391,6 +397,8 @@ document.getElementById("compareCheckedAlgo").onclick = async function()
 					{algoName: "BFS", algo: "bfs", id: "bfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
 					{algoName: "DFS", algo: "dfs", id: "dfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}];
 	
+	var width = 0;
+
 	for(var i in execTimeandPath)
 	{
 		if(document.getElementById(execTimeandPath[i].id).checked)
@@ -403,12 +411,26 @@ document.getElementById("compareCheckedAlgo").onclick = async function()
 				execTimeandPath[i].pathCost = pathCost;
 			}
 		}
+		else
+		{
+			execTimeandPath[i].pathCost = -1;
+		}
 		await sleep(50);
+		width = Math.min(width+16.66, 100);
+		document.getElementById("progressBar").style.width = width+"%";
 	}
+
+	for(var i in execTimeandPath)
+		if(execTimeandPath[i].pathCost != -1)
+			execTimeandPath.push(execTimeandPath[i]);
+
+	execTimeandPath.splice(0, 6);
+
 	showAnimations = true;
 	var table = document.getElementById("algoCompareTable");
 	while(table.rows.length > 0)
 		table.deleteRow(0);
+
 	for(var i in execTimeandPath)
 	{
 		var newRow = table.insertRow(i);
@@ -419,15 +441,18 @@ document.getElementById("compareCheckedAlgo").onclick = async function()
 		cell0.innerHTML = execTimeandPath[i].algoName;
 		if(execTimeandPath[i].executionTime != INT_MAX)
 		{
-			cell1.innerHTML = execTimeandPath[i].executionTime.toFixed(2);
-			cell2.innerHTML = execTimeandPath[i].pathCost;
+			
+			cell1.innerHTML = "<font class='correct'>"+execTimeandPath[i].executionTime.toFixed(2)+" ms &#10003;</font>";
+			cell2.innerHTML = "<font class='correct'>"+execTimeandPath[i].pathCost+" &#10003;</font>";;
 		}
 		else
 		{
-			cell1.innerHTML = "Path not found";
-			cell2.innerHTML = "Path not found";
+			cell1.innerHTML = "<font class='incorrect'>Path not found &#10007;</font>";
 		}
+		
 	}
+	document.getElementById("compareCheckedAlgo").style.display = "none";
+	document.getElementById("tableResetbtn").style.display = "block";
 }
 
 

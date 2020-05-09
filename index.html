@@ -233,10 +233,21 @@
 		{
 			color: red;
 		}
-
-
-
-
+		.tableBtn
+		{
+			padding: 6px 10px;
+			cursor: pointer;
+			text-align: center;
+			min-width: 80px;
+			top: 20%;
+			height: 60%;
+			font-size: 14px;
+			background-color: #f542bc;
+			border: none;
+			color: #fff;
+			border-radius: 5px;
+			outline: none;
+		}
 
 		#algoPropertyDiv
 		{
@@ -528,12 +539,12 @@
 				<br>
 				<h1> <center> Compare Algorithms! </center> </h1>
 				<hr width="100%">
-				<font style="font-size: 14px; font-weight: 1em;"><i> Test the pathfinding algorithms for their performance and find out which one would out-perform in the grid. You can construct your own version of the grid and test accordingly. </i></font>
+				<font style="font-size: 14px; font-weight: 1em;"><i> Test the pathfinding algorithms for their performance and find out which one would out-perform in the grid. You can construct your own version of the grid and test accordingly. [You can expect about 10-20% of performance increase because it doesn't involve animations]</i></font>
 				<hr width="100%">
 				<table id="algoCompareTable"></table>
-				
-				<button id="compareCheckedAlgo">Compare!</button>
-				<button onclick="resetTable()">Reset</button>
+				<hr id="progressBar" width="0%" color="#ff3870">
+				<center><button class="tableBtn" id="compareCheckedAlgo">Compare!</button>
+				<button class="tableBtn" id="tableResetbtn" onclick="resetTable()">Reset</button></center>
 			</div>					
 		</div>
 
