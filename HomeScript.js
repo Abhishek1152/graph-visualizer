@@ -35,7 +35,10 @@ if(gridCols % 2 == 0)
 if(gridRows % 2 == 0)
 	gridRows++;
 
-
+/*
+** Event listener that closes other dropdown (if any) when Algorithm
+** dropdown is clicked
+*/
 document.getElementById("algobtn").onclick = function toggleAlgoDropdown()
 {
 	document.getElementById("algoDropdown").classList.add("show-dropdown");
@@ -58,7 +61,9 @@ document.getElementById("speedbtn").onclick = function toggleSpeedDropdown()
 	document.getElementById("algoDropdown").classList.remove("show-dropdown");
 }
 
-// Close the dropdown if the user clicks outside of it
+/*
+** Function to close the dropdown if user clicks outside of it
+*/
 window.onclick = function(e) 
 {
 	if (!e.target.matches(".dropbtn")) 
@@ -67,11 +72,18 @@ window.onclick = function(e)
 		document.getElementById("mazeDropdown").classList.remove("show-dropdown");	
 		document.getElementById("speedDropdown").classList.remove("show-dropdown");
   	}
-  	var modal = document.getElementById('modal-wrapper');
-  	if (event.target == modal) 
-        modal.style.display = "none";
+  	var compareModal = document.getElementById("compare-wrapper");
+  	if (event.target == compareModal) 
+        compareModal.style.display = "none";
+
+    var tutorialWrapper = document.getElementById("tutorial-wrapper");
+    if(event.target == tutorialWrapper)
+    	tutorialWrapper.style.display = "none";
 }
 
+/*
+** Functions to change algorithm type upon clicked
+*/
 document.getElementById("astar").onclick = function()
 {
 	currentalgo = "astar";
@@ -114,56 +126,64 @@ document.getElementById("dfs").onclick = function()
 	document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
 }
 
+/*
+** @param - val: String values slow, medium or fast
+** Function to change the running speed of algorithm (only for showAnimations == true)
+*/
 function changeSpeed(val)
 {
 	if(val == "slow")
-		ms = 300;
+		ms = 200;
 	else if(val == "medium")
 		ms = 80;
 	else
 		ms = 30;
 }
 
-
+/*
+** Utility function to call appropiate algorithm
+*/
 async function visualizeAlgo()
 {
-	if(isRunning)
+	if(isRunning) // Case where other algorithm is already running
 		return;
+
 	if(currentalgo == "astar")
-	{
 		await AStarUtil();
-	}
+	
 	else if(currentalgo == "bidir-astar")
-	{
 		await bidirectionalAStarUtil();
-	}
+	
 	else if(currentalgo == "dijkstras")
-	{
 		await DijkstrasUtil();
-	}
+	
 	else if(currentalgo == "jps")
-	{
 		await JPSUtil();
-	}
+	
 	else if(currentalgo == "greedy-bfs")
-	{
 		await BestFirstSearchUtil();
-	}
+	
 	else if(currentalgo == "bfs")
-	{
 		await BFSUtil();
-	}
+	
 	else if(currentalgo == "dfs")
-	{
 		await DFSUtil();
-	}
+	
 	else if(currentalgo == "")
 		document.getElementById("visualizebtn").innerHTML = "Pick an Algorithm";
+
 	else
 		console.log("How did you even reach here?");
 }
 
 
+/*
+** Event listener that toggles selection between wall and weight (for drawing)
+*/
+function toggleWallWeight(val)
+{
+	isWall = (val == 1);
+}
 
 document.getElementById("navbarWall").onclick = function()
 {
@@ -178,6 +198,7 @@ document.getElementById("navbarWeight").onclick = function()
 	document.getElementById("navbarWall").style.border = "none";
 	document.getElementById("navbarWeight").style.border =  "2px solid white";
 }
+
 
 /*
 ** @param - ms: Takes number of milliseconds
@@ -346,26 +367,29 @@ async function drawShortestPath(pred)
 	isRunning = false;
 }
 
+/*
+** Function to show algorithm running time and path cost
+*/
 function showTimeandCost()
 {
 	document.getElementById("execTime").innerHTML = "Execution time: "+(executionTime.toFixed(2))+" ms <br> Cost: "+pathCost;
 }
 
-function toggleWallWeight(val)
-{
-	isWall = (val == 1);
-}
-
+/*
+** Function that resets all the values of the table
+*/
 function resetTable()
 {
 	var table = document.getElementById("algoCompareTable");
 	document.getElementById("progressBar").style.width = "0%";
+
 	while(table.rows.length > 0)
 		table.deleteRow(0);
 
 	var algoInfo = [{algo: "A* Algorithm", id: "astarCheckbox", isWeighted: true, isShortest: true}, {algo: "Bidirectional A*", id: "bidir-astarCheckbox", isWeighted: true, isShortest: false},
 					{algo: "Dijkstra's", id: "dijkstrasCheckbox", isWeighted: true, isShortest: true}, {algo: "Greedy BFS", id: "greedy-bfsCheckbox", isWeighted: true, isShortest: false},
 					{algo: "BFS", id: "bfsCheckbox", isWeighted: false, isShortest: true}, {algo: "DFS", id: "dfsCheckbox", isWeighted: false, isShortest: false}];
+	
 	for(var i in algoInfo)
 	{
 		var newRow = table.insertRow(i);
@@ -383,13 +407,19 @@ function resetTable()
 		else
 			cell2.innerHTML = "<font class='incorrect'><strike>Shortest path</strike> &#10007;</font>";
 	}
+
 	document.getElementById("compareCheckedAlgo").style.display = "block";
 	document.getElementById("tableResetbtn").style.display = "none";
 }
 
+/*
+** Event listener that calculates the running time and path cost 
+** of all the checked algorithms of the table
+*/
 document.getElementById("compareCheckedAlgo").onclick = async function()
 {
 	showAnimations = false;
+
 	var execTimeandPath = [{algoName: "A* Algorithm", algo: "astar", id: "astarCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
 					{algoName: "Bidirectional A*", algo: "bidir-astar", id: "bidir-astarCheckbox", executionTime: INT_MAX, pathCost: INT_MAX},
 					{algoName: "Dijkstra's", algo: "dijkstras", id: "dijkstrasCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
@@ -397,7 +427,7 @@ document.getElementById("compareCheckedAlgo").onclick = async function()
 					{algoName: "BFS", algo: "bfs", id: "bfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}, 
 					{algoName: "DFS", algo: "dfs", id: "dfsCheckbox", executionTime: INT_MAX, pathCost: INT_MAX}];
 	
-	var width = 0;
+	var width = 0; // Width of HR tag (progress bar)
 
 	for(var i in execTimeandPath)
 	{
@@ -413,21 +443,22 @@ document.getElementById("compareCheckedAlgo").onclick = async function()
 		}
 		else
 		{
-			execTimeandPath[i].pathCost = -1;
+			execTimeandPath[i].pathCost = -1; // If algo is not checked don't show anything
 		}
 		await sleep(50);
-		width = Math.min(width+16.66, 100);
+		width = Math.min(width+17, 100); // Progress bar's width should not be more than 100%
 		document.getElementById("progressBar").style.width = width+"%";
 	}
 
 	for(var i in execTimeandPath)
-		if(execTimeandPath[i].pathCost != -1)
+		if(execTimeandPath[i].pathCost != -1) // Removing all unchecked algorithms from list
 			execTimeandPath.push(execTimeandPath[i]);
 
 	execTimeandPath.splice(0, 6);
 
 	showAnimations = true;
 	var table = document.getElementById("algoCompareTable");
+
 	while(table.rows.length > 0)
 		table.deleteRow(0);
 

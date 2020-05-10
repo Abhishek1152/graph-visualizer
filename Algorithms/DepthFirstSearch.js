@@ -40,8 +40,6 @@ async function DepthFirstSearch(row, col)
 }
 
 
-
-
 /*
 ** Utlity function of DFS to initialize values and grid
 */
