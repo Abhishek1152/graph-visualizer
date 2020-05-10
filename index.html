@@ -4,6 +4,7 @@
 	<meta name="theme-color" content="#fc52ff">
 	<title> Graph Visualizer</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="shortcut icon" type="image/png" href="./Resources/icon.png" />
  
 	<style>
@@ -259,6 +260,28 @@
 		hr
 		{
 			 transition: all .5s linear;
+		}
+
+		.tutorialDivContent
+		{
+			text-align: left; 
+			border-radius: 6px; 
+			border: 1px solid #d6d6d6; 
+			display: block;
+			padding-top: -5px;
+			padding-bottom: 20px;
+			padding-left: 20px;
+			padding-right: 20px;
+			background-color: #f7f7f7;
+			font-size: 15px;
+			margin-top: 10px;
+			font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+			line-height: 20px;
+		}
+		#brandIcon:hover
+		{
+			cursor: pointer;
+			color: #ff5252;
 		}
 
 		#algoPropertyDiv
@@ -591,7 +614,72 @@
 				<h2> <center> Welcome to the pathfinder! </center> </h2>
 				<font style="font-size: 14px; font-weight: 1em;"><i> This is a short guide to walk you through the working of this Pathfinder. If you want to skip it feel free to press 'X' in the top right corner.</i></font>
 				<hr>
-				<img src="./Resources/icon.jpg" width="300" height="300">
+				<div class="tutorialDivContent"> 
+					<h2> What are pathfinding algorithms? </h2>
+					<i>
+						Pathfinding algorithms are the class of algorithms that usually attempt to solve the shortest path problem in graph theory. They try to find the best path given a starting point and ending point based on some predefined criteria.
+					</i>
+				</div>
+
+				<div class="tutorialDivContent">
+					<h2> What is Pathfinder? </h2>
+					<center><img src="./Resources/icon.jpg" width="180" height="200" style="border-radius: 20%;"></center>
+					<br>
+					<i>
+						Pathfinder is a visualizing tool that shows how different pathfinding algorithms work. The basic idea of it is to begin from the 'Start' and reach the 'Goal' node. A node's horizontal and vertical neighbours are considered the valid neighbours i.e. only UP, DOWN, LEFT, RIGHT movements are allowed (no diagonal crossing).
+						<br><br>
+						Once any algorithm starts searching for the goal node, the visited nodes would be marked in orange color. The algorithm runs untill the goal node is reached or the entire grid is searched. If the path is found it will be marked with blue color. 
+					</i>
+				</div>
+
+				<div class="tutorialDivContent">
+					<h2> Select an algorithms! </h2>
+					<i>Here we primarily have two classes of algorithms: <b>weighted</b> and <b>unweighted</b>.</i>
+					<ul>
+					<li><b> Weighted</b>: These category of algorithms consider the weights of nodes while searching for the goal node.
+					<li><b> Unweighted</b>: These algorithms don't consider the weights of nodes while searching for the goal node.
+					</ul>
+					<i>Also all the algorithms doesn't guarantee the shortest path. You can pick an algorithm from the algorithm drop down menu to visualize it.</i>
+				</div>
+
+				<div class="tutorialDivContent">
+					<h2> Draw walls and weights </h2>
+					<i>You can manipulate the grid according to your wish. If a node is marked as 'Wall' node, then it is not walkable. Weight on the otherhand is a 'walkable' node but you will cost you 5 units (walking through an empty node will cost 1 unit). </i>
+					<br><br>
+					<i>You can create walls or weights by clicking on the grid and dragging over it. You can easily switch between walls and weights from the header. Once you are done just hit 'Visualize' button!</i>
+				</div>
+				
+				<div class="tutorialDivContent">
+					<h2> Generate mazes! </h2>
+					<i>You can play around with mazes to see how the pathfinder locates the goal node inside a maze. You can modify the mazes (by adding walls and weights at the choke points) to see how the path course for the algorithm changes. The standard mazes like recursive division, flood fill, kruskal's and prim's maze are implemented.</i>
+				</div>
+
+				<div class="tutorialDivContent">
+					<h2> Running time and shortest path </h2>
+					<i> I have tried to implement the execution time of the algorithm and tried to make the running time as accurate as possible, but still some of the CPU time is consumed is animation of grid. 
+					<br><br>
+					We also have an additional functionality 'Compare' where you can see the running time of all the algorithms side by side with its path cost (I have not included the Jump point search algorithm for comparision here because an ideal Jump point search algorithm involves diagonal movements aswell. It thrills in such condition, poor Jump point search).</i>
+				</div>
+
+				<div class="tutorialDivContent">
+					<h2> Others </h2>
+					<i>
+						There are some other small features to assist in visualization like: speed change, clearing grid, movable Start and Goal node, etc.
+						I hope you will enjoy playing with it. If you find any issue or unusual behaviour feel free to let me know.
+					</i>
+				</div>
+				<div class="tutorialDivContent">
+					<i>
+						You can find the source code of this project <b><a href="https://github.com/Abhishek1152/graph-visualizer">here</a></b>
+						<br>
+						Liked this? You may also like the related project <b><a href="https://abhishek1152.github.io/sorting-visualizer">sorting visualizer</a></b>
+					</i>
+					<br><br>
+					<center>
+						<i id="brandIcon" class="fa fa-github" style="font-size: 30px;" title="Abhishek"></i> &nbsp;
+						<i id="brandIcon" class="fa fa-linkedin-square" style="font-size: 30px;" title="Abhishek"></i>
+					</center>
+				</div>
 			</div>
 		</div>
 	</div>
