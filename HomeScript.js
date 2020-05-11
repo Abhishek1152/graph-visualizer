@@ -101,7 +101,7 @@ document.getElementById("bidir-astar").onclick = function()
 	if(showAnimations)
 	{
 		document.getElementById("weightLegend").innerHTML = "<font class='correct'> Weight &#10003;</font>";
-		document.getElementById("shortestPathLegend").innerHTML = "<font class='correct'> Shortest Path &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='incorrect'> <strike>Shortest Path</strike> &#10007;</font>";	
 	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
 }
