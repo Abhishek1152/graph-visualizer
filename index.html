@@ -3,7 +3,6 @@
 <head>
 	<meta name="theme-color" content="#fc52ff">
 	<title> Graph Visualizer</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="shortcut icon" type="image/png" href="./Resources/icon.png" />
  
@@ -278,11 +277,13 @@
 			font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 			line-height: 20px;
 		}
-		#brandIcon:hover
+		.brandIcon {color: black;}
+		.brandIcon:hover
 		{
 			cursor: pointer;
 			color: #ff5252;
 		}
+		.brandIconLink:visited {color: black;}
 
 		#algoPropertyDiv
 		{
@@ -594,11 +595,11 @@
 				<div class="legendsquare" style="background-image: url('./Resources/start.png'); margin: auto;"></div> Start Node
 				<div class="legendsquare" style="background-image: url('./Resources/stop.png'); margin: auto; margin-left: 2vw;"></div> Target Node
 				<div class="legendsquare wall legend"></div> Wall
-				<div class="legendsquare weight" id="weightLegend" style="margin-left: 2vw;"></div> Weight 
+				<div class="legendsquare weight" style="margin-left: 2vw;"></div><font  id="weightLegend"> Weight </font>
 				<div class="legendsquare legend"></div> Unvisited
 				<div class="legendsquare animateVisited legend" style="border-right: 1px solid red; border-bottom: 1px solid red;"></div>
 				<div class="legendsquare" style="background-color: orange;"></div> Visited
-				<div class="legendsquare animatePath legend"></div> Path Node
+				<div class="legendsquare animatePath legend"></div><font id="shortestPathLegend"> Shortest Path </font>
 			</span>
 		</center>
 		<center>
@@ -634,6 +635,7 @@
 
 				<div class="tutorialDivContent">
 					<h2> Select an algorithms! </h2>
+					<center><img src="./Resources/selectAlgo.gif"></center>
 					<i>Here we primarily have two classes of algorithms: <b>weighted</b> and <b>unweighted</b>.</i>
 					<ul>
 					<li><b> Weighted</b>: These category of algorithms consider the weights of nodes while searching for the goal node.
@@ -644,6 +646,7 @@
 
 				<div class="tutorialDivContent">
 					<h2> Draw walls and weights </h2>
+					<img src="./Resources/drawWall.gif" width="50%"> <img src="./Resources/drawWeight.gif" width="46%">
 					<i>You can manipulate the grid according to your wish. If a node is marked as 'Wall' node, then it is not walkable. Weight on the otherhand is a 'walkable' node but you will cost you 5 units (walking through an empty node will cost 1 unit). </i>
 					<br><br>
 					<i>You can create walls or weights by clicking on the grid and dragging over it. You can easily switch between walls and weights from the header. Once you are done just hit 'Visualize' button!</i>
@@ -651,11 +654,13 @@
 				
 				<div class="tutorialDivContent">
 					<h2> Generate mazes! </h2>
+					<center><img src="./Resources/selectMaze.gif"></center>
 					<i>You can play around with mazes to see how the pathfinder locates the goal node inside a maze. You can modify the mazes (by adding walls and weights at the choke points) to see how the path course for the algorithm changes. The standard mazes like recursive division, flood fill, kruskal's and prim's maze are implemented.</i>
 				</div>
 
 				<div class="tutorialDivContent">
 					<h2> Running time and shortest path </h2>
+					<img src="./Resources/compareAlgo.gif" width="100%">
 					<i> I have tried to implement the execution time of the algorithm and tried to make the running time as accurate as possible, but still some of the CPU time is consumed is animation of grid. 
 					<br><br>
 					We also have an additional functionality 'Compare' where you can see the running time of all the algorithms side by side with its path cost (I have not included the Jump point search algorithm for comparision here because an ideal Jump point search algorithm involves diagonal movements aswell. It thrills in such condition, poor Jump point search).</i>
@@ -676,8 +681,8 @@
 					</i>
 					<br><br>
 					<center>
-						<i id="brandIcon" class="fa fa-github" style="font-size: 30px;" title="Abhishek"></i> &nbsp;
-						<i id="brandIcon" class="fa fa-linkedin-square" style="font-size: 30px;" title="Abhishek"></i>
+						<a class="brandIconLink" href="https://github.com/Abhishek1152" target="_blank"><i class="fa fa-github brandIcon" style="font-size: 30px;" title="Abhishek"></i></a> &nbsp; 
+						<a class="brandIconLink" href="https://www.linkedin.com/in/abhishek-kumar-singh-207a17172/" target="_blank"><i class="fa fa-linkedin-square brandIcon" style="font-size: 30px;" title="Abhishek"></i></a>
 					</center>
 				</div>
 			</div>

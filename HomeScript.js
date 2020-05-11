@@ -87,42 +87,77 @@ window.onclick = function(e)
 document.getElementById("astar").onclick = function()
 {
 	currentalgo = "astar";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='correct'> Weight &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='correct'> Shortest Path &#10003;</font>";
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize A*";
 }
 
 document.getElementById("bidir-astar").onclick = function()
 {
 	currentalgo = "bidir-astar";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='correct'> Weight &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='correct'> Shortest Path &#10003;</font>";
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize Bidirectional A*";
 }
 
 document.getElementById("dijkstras").onclick = function()
 {
 	currentalgo = "dijkstras";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='correct'> Weight &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='correct'> Shortest Path &#10003;</font>";
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize Dijkstra's";
 }
 
 document.getElementById("jps").onclick = function()
 {
 	currentalgo = "jps";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='incorrect'> <strike>Weight</strike> &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='incorrect'> <strike>Shortest Path</strike> &#10007;</font>";	
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize JPS";
 }
 
 document.getElementById("greedy-bfs").onclick = function()
 {
 	currentalgo = "greedy-bfs";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='correct'> Weight &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='incorrect'> <strike>Shortest Path</strike> &#10007;</font>";	
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize Greedy BFS";
 }
 
 document.getElementById("bfs").onclick = function()
 {
 	currentalgo = "bfs";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='incorrect'> <strike>Weight</strike> &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='correct'> Shortest Path &#10003;</font>";
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize BFS";
 }
 
 document.getElementById("dfs").onclick = function()
 {
 	currentalgo = "dfs";
+	if(showAnimations)
+	{
+		document.getElementById("weightLegend").innerHTML = "<font class='incorrect'> <strike>Weight</strike> &#10003;</font>";
+		document.getElementById("shortestPathLegend").innerHTML = "<font class='incorrect'> <strike>Shortest Path</strike> &#10007;</font>";	
+	}
 	document.getElementById("visualizebtn").innerHTML = "Visualize DFS";
 }
 
