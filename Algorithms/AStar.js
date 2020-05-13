@@ -62,7 +62,7 @@ async function AStar()
 			{
 				if(!closedList[i+neighbours[k].R][j+neighbours[k].C])
 				{
-					// If current cell contains weight add 5 else it is empty unvisited cell
+					// If current cell contains weight add 5 else it is empty unvisited cell so add 1
 					gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
 					hNew = Math.abs(stopRow-(i+neighbours[k].R)) + Math.abs(stopCol - (j+neighbours[k].C));
 					fNew = gNew + hNew;
