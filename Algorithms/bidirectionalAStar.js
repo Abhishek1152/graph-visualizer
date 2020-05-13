@@ -6,16 +6,35 @@ var predecessor1 = [];
 var predecessor2 = [];
 var arg1, arg2;
 
+/*
+** @param - row: 0 base row index of a cell
+** @param - col: 0 base column index of a cell
+** @return: A boolean value true signifying that algorithm from the both direction has intersected at a common place,
+** false otherwise.
+*/
 function checkIntersection(row, col)
 {
     return (StartclosedList[row][col] && StopclosedList[row][col]);
 }
 
+/*
+** @param - row: 0 base row index of a cell
+** @param - col: 0 base column index of a cell
+** @param - closedList: Boolean matrix representing if the cell is already visited or not
+** @return: A boolean value true signifying the cell is walkable, false otherwise
+*/
 function isPathforBidirAStar(row, col, closedList)
 {
     return (!closedList[row][col] && !getCell(row, col).classList.contains("wall"));
 }
 
+/*
+** @param - row: 0 base row index of the first intersected cell
+** @param - col: 0 base column index of the first intersected cell
+** @param - pred1: Takes predecessor1 matrix which has predecessor for every grid cells originating from start
+** @param - pred2: Takes predecessor2 matrix which has predecessor for every grid cells originating from stop
+** Draws the path from source to destination
+*/
 async function drawPathforBiDirAStar(row, col, pred1, pred2)
 {
     var path1 = [], path2 = [];
@@ -147,6 +166,8 @@ async function bidirectionalAStar()
             }
 
             StartclosedList[row1][col1] = true;
+
+            // Path found
             if(checkIntersection(row1, col1))
             {
                 found = true;
@@ -158,6 +179,7 @@ async function bidirectionalAStar()
             }
             var gNew, hNew, fNew;
             var neighbours = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
             for(var i=0; i<neighbours.length; i++)
             {
                 if(isValidCell(row1+neighbours[i][0], col1+neighbours[i][1]) && isPathforBidirAStar(row1+neighbours[i][0], col1+neighbours[i][1], StartclosedList))
@@ -195,6 +217,8 @@ async function bidirectionalAStar()
             }
 
             StopclosedList[row1][col1] = true;
+
+            // Path found
             if(checkIntersection(row1, col1))
             {
                 found = true;
@@ -233,7 +257,7 @@ async function bidirectionalAStar()
 }
 
 /*
-**  Compatible with uniform weighted graph
+**  Utility function of Bidirectional A* to initialize values and grid
 */
 async function bidirectionalAStarUtil()
 {

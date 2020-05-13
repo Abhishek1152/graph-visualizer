@@ -2,14 +2,20 @@ var closedList = [];
 var cellDetails = [];
 var predecessor = [];
 
+/*
+** @param - row: 0 base row index of a cell
+** @param - col: 0 base column index of a cell
+** @return: A boolean value true signifying the cell is walkable, false otherwise
+*/
 function isPathforAStar(row, col)
 {
 	return (!closedList[row][col] && !getCell(row, col).classList.contains("wall") 
 		|| getCell(row, col).classList.contains("stop"));
 }
+
+
 async function AStar()
 {
-	// Check if source is same as destination
 	var i = startRow, j = startCol;
 	cellDetails[i][j].f = 0;
 	cellDetails[i][j].g = 0;
@@ -26,6 +32,7 @@ async function AStar()
 		i = p.element[0];
 		j = p.element[1];
 		
+		// If showAnimations is false (when we are comparing algo), there is no need to animate cells
 		if(showAnimations)
 		{
 			var timeStamp = performance.now();
@@ -35,6 +42,8 @@ async function AStar()
 		}
 
 		closedList[i][j] = true;
+
+		// Path found
 		if(getCell(i, j).classList.contains("stop"))
 		{	
 			found = true;
@@ -44,6 +53,7 @@ async function AStar()
 			break;
 		}
 
+		// New g, h, f value to be calculated
 		var gNew, hNew, fNew;
 		for(var k in neighbours)
 		{
@@ -52,6 +62,7 @@ async function AStar()
 			{
 				if(!closedList[i+neighbours[k].R][j+neighbours[k].C])
 				{
+					// If current cell contains weight add 5 else it is empty unvisited cell
 					gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
 					hNew = Math.abs(stopRow-(i+neighbours[k].R)) + Math.abs(stopCol - (j+neighbours[k].C));
 					fNew = gNew + hNew;
@@ -72,7 +83,9 @@ async function AStar()
 	}
 }
 
-
+/*
+** Utlity function of A* to initialize values and grid
+*/
 async function AStarUtil() 
 {
 	isRunning = true;
@@ -91,12 +104,13 @@ async function AStarUtil()
 
 	    for(var j=0; j<gridCols; j++) 
 	    {
-	        dist[i][j] = Number.MAX_SAFE_INTEGER;
+	        dist[i][j] = INT_MAX;
 	        closedList[i][j] = false;
-	        cellDetails[i][j] = {"f":Number.MAX_SAFE_INTEGER,
-	        					 "g":Number.MAX_SAFE_INTEGER,
-	        					 "h":Number.MAX_SAFE_INTEGER,
-	        					 "parent_i": -1, "parent_j": -1};
+	        cellDetails[i][j] = {"f":INT_MAX,
+	        					 "g":INT_MAX,
+	        					 "h":INT_MAX,
+	        					 "parent_i": -1, 
+	        					 "parent_j": -1};
 	        predecessor[i][j] = {r: -1, c: -1};
 	    }
 	}
