@@ -8,6 +8,8 @@ var edgesKl = [];           // array with all edges
 
 async function KruskalMazeUtil()
 {
+    if(isRunning)
+        return;
 	isRunning = true;
 	clearGrid();
 	for(var i=0; i<gridRows; i++)

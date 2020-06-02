@@ -131,6 +131,8 @@ async function DFSMaze()
 
 async function DFSMazeUtil()
 {
+    if(isRunning)
+        return;
 	isRunning = true;
 	clearGrid();
 

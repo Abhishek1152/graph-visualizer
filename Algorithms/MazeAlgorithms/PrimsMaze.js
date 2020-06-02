@@ -9,6 +9,8 @@ var size = 1;
 
 async function PrimsMazeUtil()
 {
+    if(isRunning)
+        return;
 	isRunning = true;
 	clearGrid();
 	for(var i=0; i<gridRows; i++)
