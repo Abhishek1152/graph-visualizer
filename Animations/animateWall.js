@@ -1,6 +1,7 @@
 var grid = document.querySelector("#gridContainer"), isDragging = false, draggingStartCell = false, draggingStopCell = false;
 var prevMS;
 
+
 function getRowandCol(e)
 {
 	for(var i=0; i<gridRows; i++) 
@@ -79,8 +80,7 @@ grid.onmouseover = function(e)
 			var temp = getRowandCol(e.target);
 			startRow = temp[0], startCol = temp[1];
 		
-			// Work on instant shortest path
-			//BFSUtil();
+			// TODO : Work on instant shortest path
 			return;
 		}
 		if(draggingStopCell)
@@ -91,8 +91,7 @@ grid.onmouseover = function(e)
 			// Try scaling the below two lines
 			var temp = getRowandCol(e.target);
 			stopRow = temp[0], stopCol = temp[1];
-			// Work on instant shortest path
-			//BFSUtil();
+			// TODO : Work on instant shortest path
 			return;
 		}
 
