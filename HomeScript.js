@@ -1,7 +1,7 @@
 // Viewport height and width for calculations
 const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-const WALLCOLOR = "black", STARTCOLOR = "red", STOPCOLOR="green", VISITEDCOLOR="magenta", CURRENTCOLOR="yellow";
+const WALLCOLOR = "black", STARTCOLOR = "red", STOPCOLOR = "green", VISITEDCOLOR = "magenta", CURRENTCOLOR = "yellow";
 const neighbours = [{R: 1, C: 0}, {R: -1, C: 0}, {R: 0, C: 1}, {R: 0, C: -1}]; // The neighbours down, up, right, left
 const INT_MAX = Number.MAX_SAFE_INTEGER;
 

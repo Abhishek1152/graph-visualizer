@@ -37,8 +37,14 @@ async function addInnerWalls(horizontal, minX, maxX, minY, maxY)
 		
 		await addHorizontalWall(minX, maxX, y);
 
-		await addInnerWalls(!horizontal, minX, maxX, minY, y-1);
-		await addInnerWalls(!horizontal, minX, maxX, y+1, maxY);
+		/*
+		** Reduced skewedness of the maze by drawing horizontal walls unless
+		** the inner rectangle has greater length than breadth
+		*/
+		if(maxX - minX > maxY - minY)
+			horizontal = !horizontal;
+		await addInnerWalls(horizontal, minX, maxX, minY, y-1);
+		await addInnerWalls(horizontal, minX, maxX, y+1, maxY);
 	}
 	else
 	{
@@ -47,6 +53,12 @@ async function addInnerWalls(horizontal, minX, maxX, minY, maxY)
 		var x = Math.floor(randomNumber(minX, maxX)/2)*2;
 		await addVerticalWall(minY, maxY, x);
 
+		/*
+		** Reduced skewedness of the maze by drawing horizontal walls unless
+		** the inner rectangle has greater length than breadth
+		*/
+		if(maxX - minX > maxY - minY)
+			horizontal = !horizontal;
 		await addInnerWalls(!horizontal, minX, x-1, minY, maxY);
 		await addInnerWalls(!horizontal, x+1, maxX, minY, maxY);
 	}
