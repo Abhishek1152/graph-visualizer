@@ -25,7 +25,7 @@ function checkIntersection(row, col)
 */
 function isPathforBidirAStar(row, col, closedList)
 {
-    return (!closedList[row][col] && !getCell(row, col).classList.contains("wall"));
+    return (!closedList[row][col] && !Matrix[row][col].classList.contains("wall"));
 }
 
 /*
@@ -65,7 +65,7 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
     for(var i = path1.length - 1; i >= 0; i--)
     {
         var direction;
-        var cell = getCell(path1[i].r, path1[i].c);
+        var cell = Matrix[path1[i].r][path1[i].c];
 
         if(path1[i].r - prevRow == 0)
         {
@@ -98,7 +98,7 @@ async function drawPathforBiDirAStar(row, col, pred1, pred2)
     for(var i = 0; i < path2.length; i++)
     {
         var direction;
-        var cell = getCell(path2[i].r, path2[i].c);
+        var cell = Matrix[path2[i].r][path2[i].c];
 
         if(path2[i].r - prevRow == 0)
         {
@@ -160,7 +160,7 @@ async function bidirectionalAStar()
             if(showAnimations)
             {
                 var timeStamp = performance.now();
-                getCell(row1, col1).classList.add("animateVisited");
+                Matrix[row1][col1].classList.add("animateVisited");
                 await sleep(ms);
                 totalTimeSlept += (performance.now() - timeStamp);
             }
@@ -186,7 +186,7 @@ async function bidirectionalAStar()
                 {
                     if(!StartclosedList[row1+neighbours[i][0]][col1+neighbours[i][1]])
                     {
-                        gNew = StartcellDetails[row1][col1].g + (getCell(row1, col1).classList.contains("weight")? 5 : 1);
+                        gNew = StartcellDetails[row1][col1].g + (Matrix[row1][col1].classList.contains("weight")? 5 : 1);
                         hNew = Math.abs(stopRow-(row1+neighbours[i][0])) + Math.abs(stopCol - (col1+neighbours[i][1]));
                         fNew = gNew + hNew;
                         if(StartcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].f == INT_MAX
@@ -211,7 +211,7 @@ async function bidirectionalAStar()
             if(showAnimations)
             {
                 var timeStamp = performance.now();
-                getCell(row1, col1).classList.add("animateVisited");
+                Matrix[row1][col1].classList.add("animateVisited");
                 await sleep(ms);
                 totalTimeSlept += (performance.now() - timeStamp);
             }
@@ -236,7 +236,7 @@ async function bidirectionalAStar()
                 {
                     if(!StopclosedList[row1+neighbours[i][0]][col1+neighbours[i][1]])
                     {
-                        gNew = StopcellDetails[row1][col1].g + (getCell(row1, col1).classList.contains("weight")? 5 : 1);
+                        gNew = StopcellDetails[row1][col1].g + (Matrix[row1][col1].classList.contains("weight")? 5 : 1);
                         hNew = Math.abs(startRow-(row1+neighbours[i][0])) + Math.abs(startCol-(col1+neighbours[i][1]));
                         fNew = gNew + hNew;
                         if(StopcellDetails[row1+neighbours[i][0]][col1+neighbours[i][1]].f == INT_MAX

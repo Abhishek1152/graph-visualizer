@@ -6,8 +6,8 @@ var predecessor = [];
 */
 function isPathDijkstras(row, col)
 {
-	return (!getCell(row, col).classList.contains("wall") 
-		|| getCell(row, col).classList.contains("stop"));
+	return (!Matrix[row][col].classList.contains("wall") 
+		|| Matrix[row][col].classList.contains("stop"));
 }
 
 async function Dijkstras()
@@ -23,13 +23,13 @@ async function Dijkstras()
 		if(showAnimations)
 		{
 			var timeStamp = performance.now();
-			getCell(uRow, uCol).classList.add("animateVisited");
+			Matrix[uRow][uCol].classList.add("animateVisited");
 
 			await sleep(ms);
 			totalTimeSlept += (performance.now() - timeStamp);
 		}
 
-		if(getCell(uRow, uCol).classList.contains("stop"))
+		if(Matrix[uRow][uCol].classList.contains("stop"))
 		{
 			found = true;
 			if(showAnimations)
@@ -44,7 +44,7 @@ async function Dijkstras()
 				&& isPathDijkstras(uRow+neighbours[i].R, uCol+neighbours[i].C))
 			{
 				var vRow = uRow+neighbours[i].R, vCol = uCol+neighbours[i].C,
-				weight = (getCell(vRow, vCol).classList.contains("weight")? 5 : 1);
+				weight = (Matrix[vRow][vCol].classList.contains("weight")? 5 : 1);
 				if(dist[vRow][vCol] > dist[uRow][uCol] + weight)
 				{
 					dist[vRow][vCol] = dist[uRow][uCol] + weight;

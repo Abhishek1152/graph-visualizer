@@ -14,7 +14,7 @@ async function BreadthFirstSearch()
 		var row = Queue[0][0], col = Queue[0][1];
 
 		// Reached goal
-		if(getCell(row, col).classList.contains("stop"))
+		if(Matrix[row][col].classList.contains("stop"))
 		{
 			found = true;
 			if(showAnimations)
@@ -26,7 +26,7 @@ async function BreadthFirstSearch()
 		if(showAnimations)
 		{
 			var timeStamp = performance.now();
-			getCell(row, col).classList.add("animateVisited");
+			Matrix[row][col].classList.add("animateVisited");
 			await sleep(ms);
 			totalTimeSlept += (performance.now() - timeStamp);
 		}

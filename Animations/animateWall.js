@@ -4,22 +4,24 @@ var prevMS;
 
 function getRowandCol(e)
 {
-	for(var i=0; i<gridRows; i++) 
-	{
-	    for(var j=0; j<gridCols; j++) 
-	        if(e == getCell(i, j))
-	        	return [i, j];
-	}
+	return [e.getAttribute("row"), e.getAttribute("col")];
+	// for(var i=0; i<gridRows; i++) 
+	// {
+	// 	for(var j=0; j<gridCols; j++) 
+	// 		if(e == Matrix[i][j])
+	// 			return [i, j];
+	// }
 }
 
 grid.onmousedown = function(e) 
 {
-	if(e.target.nodeName === "DIV" && !e.target.id && !e.target.classList.contains("row") && !isRunning) 
+	if(e.target.nodeName == "DIV" && !e.target.id && !e.target.classList.contains("row") && !isRunning) 
 	{
-		if(e.target == getCell(startRow, startCol))
+
+		if(e.target.classList.contains("start"))
 			draggingStartCell = true;
 		
-		else if(e.target == getCell(stopRow, stopCol))
+		else if(e.target.classList.contains("stop"))
 			draggingStopCell = true;
 		
 		else
@@ -70,12 +72,13 @@ document.body.ondragstart = function(e)
 
 grid.onmouseover = function(e) 
 {
-	if (isDragging && e.target.nodeName === "DIV" && !e.target.classList.contains("row") && !e.target.id && !isRunning) 
+	if (isDragging && e.target.nodeName == "DIV" && !e.target.classList.contains("row") && !e.target.id && !isRunning) 
 	{
 		if(draggingStartCell)
 		{
 			prevStart = document.getElementsByClassName("start");
 			prevStart[0].classList.remove("start");
+			e.target.classList.remove("wall");
 			e.target.classList.add("start");
 			var temp = getRowandCol(e.target);
 			startRow = temp[0], startCol = temp[1];
@@ -87,6 +90,7 @@ grid.onmouseover = function(e)
 		{
 			prevStart = document.getElementsByClassName("stop");
 			prevStart[0].classList.remove("stop");
+			e.target.classList.remove("wall");
 			e.target.classList.add("stop");
 			// Try scaling the below two lines
 			var temp = getRowandCol(e.target);
@@ -95,7 +99,7 @@ grid.onmouseover = function(e)
 			return;
 		}
 
-		if(e.target == getCell(startRow, startCol) || e.target == getCell(stopRow, stopCol))
+		if(e.target == Matrix[startRow][startCol] || e.target == Matrix[stopRow][stopCol])
 			return;
 		e.target.classList.remove("animateVisited");
 		e.target.classList.remove("animatePath");
