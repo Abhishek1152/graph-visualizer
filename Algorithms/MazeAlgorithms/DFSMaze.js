@@ -18,9 +18,9 @@ async function DFSMaze()
     {
         for (var j = 2; j < gridCols-1; j+=2) 
         {
-        	if(Matrix[i][j].classList.contains("start") || Matrix[i][j].classList.contains("stop"))
+        	if(getCell(i, j).classList.contains("start") || getCell(i, j).classList.contains("stop"))
         		continue;
-        	Matrix[i][j].classList.add("wall");
+        	getCell(i, j).classList.add("wall");
         	
             board[i][j].visited = false, board[i][j].wall = true;
         }
@@ -30,9 +30,9 @@ async function DFSMaze()
     {
         for (var i = 2; i < gridRows-1; i += 2) 
         {
-        	if(Matrix[i][j].classList.contains("start") || Matrix[i][j].classList.contains("stop"))
+        	if(getCell(i, j).classList.contains("start") || getCell(i, j).classList.contains("stop"))
         		continue;
-        	Matrix[i][j].classList.add("wall");
+        	getCell(i, j).classList.add("wall");
         	
             board[i][j].visited = false, board[i][j].wall = true;
         }
@@ -81,14 +81,14 @@ async function DFSMaze()
             { // Same row
                 if (randNeighbour.x > current.x) 
                 {
-                	Matrix[current.y][current.x+1].classList.remove("wall");
+                	getCell(current.y, current.x+1).classList.remove("wall");
                 	await sleep(25);
                     board[current.y][current.x + 1].wall = false;
                 }
                 
                 else 
                 {
-                	Matrix[current.y][current.x-1].classList.remove("wall");
+                	getCell(current.y, current.x-1).classList.remove("wall");
                 	await sleep(25);
                     board[current.y][current.x - 1].wall = false;
                 }
@@ -98,13 +98,13 @@ async function DFSMaze()
             { // Same column
                 if (randNeighbour.y > current.y)
                 {
-                	Matrix[current.y+1][current.x].classList.remove("wall");
+                	getCell(current.y+1, current.x).classList.remove("wall");
                 	await sleep(25);
                     board[current.y + 1][current.x].wall = false;
                 }
                 else
                 {
-                	Matrix[current.y-1][current.x].classList.remove("wall");
+                	getCell(current.y-1, current.x).classList.remove("wall");
                 	await sleep(25);
                     board[current.y - 1][current.x].wall = false;
                 }
@@ -120,7 +120,7 @@ async function DFSMaze()
         for (var j = 0; j < gridCols; j++) {
             if (board[i][j] == -1) 
             {
-            	Matrix[i][j].classList.remove("wall");
+            	getCell(i, j).classList.remove("wall");
             	await sleep(5);
 
                 board[i][j].wall = false;

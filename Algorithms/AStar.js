@@ -9,8 +9,8 @@ var predecessor = [];
 */
 function isPathforAStar(row, col)
 {
-	return (!closedList[row][col] && !Matrix[row][col].classList.contains("wall") 
-		|| Matrix[row][col].classList.contains("stop"));
+	return (!closedList[row][col] && !getCell(row, col).classList.contains("wall") 
+		|| getCell(row, col).classList.contains("stop"));
 }
 
 
@@ -36,7 +36,7 @@ async function AStar()
 		if(showAnimations)
 		{
 			var timeStamp = performance.now();
-			Matrix[i][j].classList.add("animateVisited");
+			getCell(i, j).classList.add("animateVisited");
 			await sleep(ms);
 			totalTimeSlept += (performance.now() - timeStamp);
 		}
@@ -44,7 +44,7 @@ async function AStar()
 		closedList[i][j] = true;
 
 		// Path found
-		if(Matrix[i][j].classList.contains("stop"))
+		if(getCell(i, j).classList.contains("stop"))
 		{	
 			found = true;
 			if(showAnimations)
@@ -63,7 +63,7 @@ async function AStar()
 				if(!closedList[i+neighbours[k].R][j+neighbours[k].C])
 				{
 					// If current cell contains weight add 5 else it is empty unvisited cell so add 1
-					gNew = parseInt(cellDetails[i][j].g) + (Matrix[i][j].classList.contains("weight")? 5 : 1);
+					gNew = parseInt(cellDetails[i][j].g) + (getCell(i, j).classList.contains("weight")? 5 : 1);
 					hNew = Math.abs(stopRow-(i+neighbours[k].R)) + Math.abs(stopCol - (j+neighbours[k].C));
 					fNew = gNew + hNew;
 

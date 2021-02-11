@@ -293,7 +293,7 @@ function clearAnimatedCells()
 	{
 	    for(var j=0; j<gridCols; j++) 
 	    {
-	    	var cell = Matrix[i][j];
+	    	var cell = getCell(i, j);
 	        cell.classList.remove("animateVisited");
 	        cell.classList.remove("animatePath");
 	    }
@@ -311,7 +311,7 @@ function clearGrid()
 	{
 	    for(var j=0; j<gridCols; j++) 
 	    {
-	    	var cell = Matrix[i][j];
+	    	var cell = getCell(i, j);
 	        cell.classList.remove("animateVisited");
 	        cell.classList.remove("wall");
 	        cell.classList.remove("animatePath");
@@ -340,7 +340,7 @@ function isValidCell(row, col)
 */
 function isPath(row, col)
 {
-	return (!visited[row][col] && !Matrix[row][col].classList.contains("wall"));
+	return (!visited[row][col] && !getCell(row, col).classList.contains("wall"));
 }
 
 
@@ -366,7 +366,7 @@ async function drawShortestPath(pred)
 	var prevRow = path[path.length-1].r, prevCol = path[path.length-1].c;
 	for(var i = path.length - 1; i >= 0; i--)
 	{
-		var cell = Matrix[path[i].r][path[i].c];
+		var cell = getCell(path[i].r, path[i].c);
 		var direction;
 		if(path[i].r - prevRow == 0)
 		{
@@ -530,18 +530,8 @@ document.getElementById("gridContainer").style.left = (vw-document.getElementByI
 
 resetTable();
 
-var Matrix = [];
-for(var i=0; i<gridRows; i++)
-{
-	Matrix[i] = [];
-	for(var j=0; j<gridCols; j++)
-	{
-		var cell = getCell(i, j);
-		cell.setAttribute("row", i);
-		cell.setAttribute("col", j);
-		Matrix[i][j] = cell;
-	}
-}
+
+
 
 
 

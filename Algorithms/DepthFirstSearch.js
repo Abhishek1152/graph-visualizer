@@ -8,7 +8,7 @@ async function DepthFirstSearch(row, col)
 	// Reached goal
 	visited[row][col] = true;
 	
-	if(Matrix[row][col].classList.contains("stop"))
+	if(getCell(row, col).classList.contains("stop"))
 	{
 		found = true;
 		if(showAnimations)
@@ -20,7 +20,7 @@ async function DepthFirstSearch(row, col)
 	if(showAnimations)
 	{
 		var timeStamp = performance.now();
-		Matrix[row][col].classList.add("animateVisited");
+		getCell(row, col).classList.add("animateVisited");
 
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);

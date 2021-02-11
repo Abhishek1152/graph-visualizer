@@ -371,9 +371,8 @@ hr
 
 .animatePath
 {
-	background-color: cyan;
-
 	box-shadow: 0 1px 0 rgb(0,255,255) inset, 1px 0px 0px rgb(0,255,255) inset;
+	background-color: cyan;
 	animation-name: animatePath;
 	animation-duration: .5s; 
 	animation-timing-function: ease-out; 
@@ -388,21 +387,21 @@ hr
 {
 	background-image: url("./Resources/start.png");
 	-ms-transform: rotate(90deg);
-	transform: rotate(90deg);
+		transform: rotate(90deg);
 }
 
 .pathLeft
 {
 	background-image: url("./Resources/start.png");
 	-ms-transform: rotate(180deg);
-	transform: rotate(180deg);
+		transform: rotate(180deg);
 }
 
 .pathUp
 {
 	background-image: url("./Resources/start.png");
 	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
+		transform: rotate(270deg);
 }
 
 .wall
