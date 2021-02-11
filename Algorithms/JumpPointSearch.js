@@ -57,21 +57,21 @@ async function drawPathforJPS(pred)
 
 		for(var i = path.length - 1; i >= 0; i--)
 		{
-			var cell = getCell(path[i].r, path[i].c);
-		var direction;
-		if(path[i].r - prevRow == 0)
-		{
-			if(prevCol - path[i].c > 0)
-				direction = "pathLeft";
+			var cell = Matrix[path[i].r][path[i].c];
+			var direction;
+			if(path[i].r - prevRow == 0)
+			{
+				if(prevCol - path[i].c > 0)
+					direction = "pathLeft";
+				else
+					direction = "pathRight";
+			}
 			else
-				direction = "pathRight";
-		}
-		else
-		{
-			if(prevRow - path[i].r > 0)
-				direction = "pathUp";
-			else
-				direction = "pathDown";
+			{
+				if(prevRow - path[i].r > 0)
+					direction = "pathUp";
+				else
+					direction = "pathDown";
 		}
 		
 		cell.classList.remove("animateVisited");
@@ -105,13 +105,13 @@ async function JumpPointSearch()
 		i = p.element[0];
 		j = p.element[1];
 		
-		getCell(i, j).classList.add("animateVisited");
+		Matrix[i][j].classList.add("animateVisited");
 		var timeStamp = performance.now();
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);
 
 		closedList[i][j] = true;
-		if(getCell(i, j).classList.contains("stop"))
+		if(Matrix[i][j].classList.contains("stop"))
 		{
 			found = true;
 			break;
@@ -123,7 +123,7 @@ async function JumpPointSearch()
 			var n = neigh[k][1];
 			if(closedList[m][n])
 				continue;
-			var newDistance = cellDetails[i][j].distance + Math.abs(i-m)+Math.abs(j-n) + (getCell(i, j).classList.contains("weight")? 5 : 1);
+			var newDistance = cellDetails[i][j].distance + Math.abs(i-m)+Math.abs(j-n) + (Matrix[i][j].classList.contains("weight")? 5 : 1);
 
 			if(newDistance < cellDetails[m][n].distance)
 			{
@@ -146,7 +146,7 @@ async function JumpPointSearch()
 		if (closedList[i][j])
 			continue;
 		closedList[i][j] = true;
-		getCell(i, j).classList.add("animateVisited");
+		Matrix[i][j].classList.add("animateVisited");
 		var timeStamp = performance.now();
 		await sleep(ms);
 		totalTimeSlept += (performance.now() - timeStamp);
@@ -175,7 +175,7 @@ function pruneNeighbors(i, j)
 		for (var c = j + increment; (c < gridCols) && (c >= 0); c += increment)
 		{
 			var xy = i + "-" + c;
-			if (closedList[i][c] || getCell(i, c).classList.contains("wall"))
+			if (closedList[i][c] || Matrix[i][c].classList.contains("wall"))
 				break;
 			//Check if same row or column as end cell
 			if ((stopRow == i || stopCol == c) && !stored[xy])
@@ -186,9 +186,9 @@ function pruneNeighbors(i, j)
 			}
 			// Check if dead end
 			var deadEnd = !(xy in stored) && 
-							((direction == "left" && (c > 0) && getCell(i, c-1).classList.contains("wall"))
+							((direction == "left" && (c > 0) && Matrix[i][c-1].classList.contains("wall"))
 								|| (direction == "right" && c < (gridCols - 1) 
-									&& getCell(i, c+1).classList.contains("wall"))
+									&& Matrix[i][c+1].classList.contains("wall"))
 									|| (c == gridCols - 1) || (c == 0));  
 			if (deadEnd)
 			{
@@ -197,8 +197,8 @@ function pruneNeighbors(i, j)
 				break;
 			}
 			//Check for forced neighbors
-			var validForcedNeighbor = (direction == "right" && c < (gridCols - 1) && (!getCell(i, c+1).classList.contains("wall"))) 
-										|| (direction == "left" && (c > 0) && (!getCell(i, c-1).classList.contains("wall")));
+			var validForcedNeighbor = (direction == "right" && c < (gridCols - 1) && (!Matrix[i][c+1].classList.contains("wall"))) 
+										|| (direction == "left" && (c > 0) && (!Matrix[i][c-1].classList.contains("wall")));
 			if (validForcedNeighbor)
 			{
 				checkForcedNeighbor(i, c, direction, neighbors, stored);
@@ -221,7 +221,7 @@ function pruneNeighbors(i, j)
 		for (var r = i + increment; (r < gridRows) && (r >= 0); r += increment)
 		{
 			var xy = r + "-" + j;
-			if (closedList[r][j] || getCell(r, j).classList.contains("wall"))
+			if (closedList[r][j] || Matrix[r][j].classList.contains("wall"))
 				break;
 			if ((stopRow == r || stopCol == j) && !stored[xy])
 			{
@@ -230,8 +230,8 @@ function pruneNeighbors(i, j)
 				continue;
 			}
 			// Check if dead end
-			var deadEnd = !(xy in stored) && ((direction == "up" && (r > 0) && getCell(r-1, j).classList.contains("wall"))
-							 || (direction == "down" && r < (gridRows - 1) && getCell(r+1, j).classList.contains("wall"))
+			var deadEnd = !(xy in stored) && ((direction == "up" && (r > 0) && Matrix[r-1][j].classList.contains("wall"))
+							 || (direction == "down" && r < (gridRows - 1) && Matrix[r+1][j].classList.contains("wall"))
 							 	|| (r == gridRows - 1) || (r == 0));  
 			if (deadEnd)
 			{
@@ -240,8 +240,8 @@ function pruneNeighbors(i, j)
 				break;
 			}
 			//Check for forced neighbors
-			var validForcedNeighbor = (direction == "down" && (r < (gridRows - 1)) && (!getCell(r+1, j).classList.contains("wall"))) 
-										|| (direction == "up" && (r > 0) && (!getCell(r-1, j).classList.contains("wall")));
+			var validForcedNeighbor = (direction == "down" && (r < (gridRows - 1)) && (!Matrix[r+1][j].classList.contains("wall"))) 
+										|| (direction == "up" && (r > 0) && (!Matrix[r-1][j].classList.contains("wall")));
 			if (validForcedNeighbor)
 				checkForcedNeighbor(r, j, direction, neighbors, stored);
 		}
@@ -253,31 +253,31 @@ function checkForcedNeighbor(i, j, direction, neighbors, stored)
 {
 	if (direction == "right")
 	{
-		var isForcedNeighbor = ((i > 0) && getCell(i-1, j).classList.contains("wall") 
-								&& (!getCell(i-1, j+1).classList.contains("wall"))) 
-								|| ((i < (gridRows - 1)) && getCell(i+1, j).classList.contains("wall") && 
-									(!getCell(i+1, j+1).classList.contains("wall")));
+		var isForcedNeighbor = ((i > 0) && Matrix[i-1][j].classList.contains("wall") 
+								&& (!Matrix[i-1][j+1].classList.contains("wall"))) 
+								|| ((i < (gridRows - 1)) && Matrix[i+1][j].classList.contains("wall") && 
+									(!Matrix[i+1][j+1].classList.contains("wall")));
 		var neighbor = [i, j + 1];
 	} 
 	else if (direction == "left")
 	{
-		var isForcedNeighbor = ((i > 0) && getCell(i-1, j).classList.contains("wall") 
-								&& !getCell(i-1, j-1).classList.contains("wall")) || ((i < (gridRows - 1)) 
-								&& getCell(i+1, j).classList.contains("wall") && !getCell(i+1, j-1).classList.contains("wall"));
+		var isForcedNeighbor = ((i > 0) && Matrix[i-1][j].classList.contains("wall") 
+								&& !Matrix[i-1][j-1].classList.contains("wall")) || ((i < (gridRows - 1)) 
+								&& Matrix[i+1][j].classList.contains("wall") && !Matrix[i+1][j-1].classList.contains("wall"));
 		var neighbor = [i, j - 1];
 	} 
 	else if (direction == "up")
 	{
-		var isForcedNeighbor = ((j < (gridCols - 1)) && getCell(i, j+1).classList.contains("wall") 
-								&& !getCell(i-1, j+1).classList.contains("wall")) || ((j > 0) && 
-								getCell(i, j-1).classList.contains("wall") && !getCell(i-1, j-1).classList.contains("wall"));
+		var isForcedNeighbor = ((j < (gridCols - 1)) && Matrix[i][j+1].classList.contains("wall") 
+								&& !Matrix[i-1][j+1].classList.contains("wall")) || ((j > 0) && 
+								Matrix[i][j-1].classList.contains("wall") && !Matrix[i-1][j-1].classList.contains("wall"));
 		var neighbor = [i - 1, j];
 	} 
 	else 
 	{
-		var isForcedNeighbor = ((j < (gridCols - 1)) && getCell(i, j+1).classList.contains("wall") 
-								&& !getCell(i+1, j+1).classList.contains("wall")) || ((j > 0) 
-								&& getCell(i, j-1).classList.contains("wall") && !getCell(i+1, j-1).classList.contains("wall"));
+		var isForcedNeighbor = ((j < (gridCols - 1)) && Matrix[i][j+1].classList.contains("wall") 
+								&& !Matrix[i+1][j+1].classList.contains("wall")) || ((j > 0) 
+								&& Matrix[i][j-1].classList.contains("wall") && !Matrix[i+1][j-1].classList.contains("wall"));
 		var neighbor = [i + 1, j];
 	}
 	var xy = neighbor[0] + "-" + neighbor[1];

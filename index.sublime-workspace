@@ -1,0 +1,355 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"if",
+				"ifndef"
+			],
+			[
+				"curr",
+				"curr_sum"
+			],
+			[
+				"max",
+				"maxSum"
+			],
+			[
+				"res",
+				"resArr"
+			],
+			[
+				"seco",
+				"secondbest"
+			],
+			[
+				"co",
+				"countCandies"
+			],
+			[
+				"emp",
+				"emplace_back"
+			],
+			[
+				"A",
+				"auto"
+			],
+			[
+				"idx",
+				"idxbeg"
+			],
+			[
+				"id",
+				"idxend"
+			],
+			[
+				"sort",
+				"sortVec"
+			],
+			[
+				"sor",
+				"sortBinaryNumbers"
+			],
+			[
+				"fut",
+				"futVal"
+			],
+			[
+				"cur",
+				"curVal"
+			],
+			[
+				"cu",
+				"curVal"
+			],
+			[
+				"fu",
+				"futVal"
+			],
+			[
+				"Tr",
+				"TrieNode"
+			],
+			[
+				"Trie",
+				"TrieSuffix"
+			],
+			[
+				"coun",
+				"countNodesofTrie"
+			],
+			[
+				"suf",
+				"TrieSuffix"
+			],
+			[
+				"lon",
+				"longestPrefixSufix"
+			],
+			[
+				"get",
+				"getSmallest"
+			],
+			[
+				"div",
+				"divArr"
+			],
+			[
+				"is",
+				"isSorting"
+			],
+			[
+				"size",
+				"sizeRangeSlider"
+			],
+			[
+				"too",
+				"toogleToolbar"
+			],
+			[
+				"par",
+				"partition_idx"
+			],
+			[
+				"arr",
+				"arr_size"
+			],
+			[
+				"ge",
+				"generateRandomArr"
+			],
+			[
+				"mar",
+				"margin-bottom\tproperty"
+			],
+			[
+				"visi",
+				"visible"
+			],
+			[
+				"sa",
+				"swapdiv"
+			],
+			[
+				"cnt_",
+				"cnt_even"
+			],
+			[
+				"cnt",
+				"cnt_even"
+			],
+			[
+				"io",
+				"io_service"
+			],
+			[
+				"print",
+				"printSubset"
+			],
+			[
+				"n",
+				"n_bits"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Preferences: Package Control Settings – Default"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/media/abhishek/Data/Project/Graph-Visualizer/index.html",
+		"/home/abhishek/documents/Python/demo.py",
+		"/home/abhishek/documents/Python/whatsapp_bot/main.py",
+		"/home/abhishek/documents/Python/Web-Automate-Selenium-master/internshala_feedback_automate.py",
+		"/home/abhishek/documents/CPP/MindTree/R2Q8.cpp",
+		"/home/abhishek/documents/CPP/MindTree/R2Q1.cpp",
+		"/home/abhishek/documents/CPP/MindTree/R2Q3.cpp",
+		"/home/abhishek/documents/CPP/MindTree/input.txt",
+		"/home/abhishek/documents/CPP/MindTree/output.txt",
+		"/home/abhishek/documents/CPP/MindTree/binaryStorage.cpp",
+		"/home/abhishek/documents/CPP/output.txt",
+		"/home/abhishek/documents/CPP/a.cpp",
+		"/home/abhishek/documents/CPP/input.txt",
+		"/home/abhishek/documents/CPP/MindTree/a.cpp",
+		"/media/abhishek/Avinash Singh/divisibilitySubstring.cpp",
+		"/home/abhishek/documents/CPP/MindTree/a (copy).cpp",
+		"/home/abhishek/documents/CPP/MindTree/divisibilitySubstring.cpp",
+		"/media/abhishek/Data/Documents/a.cpp",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/index.html",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/HomeScript.js",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/algorithms/SelectionSort.js",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/algorithms/InsertionSort.js",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/algorithms/HeapSort.js",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/algorithms/BubbleSort.js",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/algorithms/MergeSort.js",
+		"/media/abhishek/Data1/Project/Sorting Visualizer/algorithms/QuickSort.js",
+		"/media/abhishek/Data/Project/Sorting Visualizer/algorithms/BubbleSort.js",
+		"/media/abhishek/Data/Project/Sorting Visualizer/algorithms/MergeSort.js",
+		"/media/abhishek/Data/Project/Sorting Visualizer/HomeScript.js",
+		"/media/abhishek/Data/Project/Sorting Visualizer/main.html",
+		"/home/abhishek/documents/CPP/ab.cpp",
+		"/home/abhishek/documents/CPP/GFG/client.cpp",
+		"/home/abhishek/documents/CPP/GFG/server.cpp",
+		"/home/abhishek/documents/CPP/GFG/use.cpp",
+		"/media/abhishek/56ad10a6-1b69-4748-b282-c1cf9e94f32f/abhishek/.profile",
+		"/usr/share/applications/defaults.list",
+		"/home/abhishek/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/abhishek/documents/CPP/a.java",
+		"/home/abhishek/.config/sublime-text-3/Packages/Package Control/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "index.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

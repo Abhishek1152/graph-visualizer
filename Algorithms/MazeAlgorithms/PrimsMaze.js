@@ -16,10 +16,10 @@ async function PrimsMazeUtil()
 	for(var i=0; i<gridRows; i++)
 	{
 		for(var j=0; j<gridCols; j++)
-			getCell(i, j).classList.add("wall");
+			Matrix[i][j].classList.add("wall");
 		await sleep(50);
-        getCell(startRow, startCol).classList.remove("wall");
-        getCell(stopRow, stopCol).classList.remove("wall");
+        Matrix[startRow][startCol].classList.remove("wall");
+        Matrix[stopRow][stopCol].classList.remove("wall");
 	}
 	
 	iSize = (gridRows-1)/2;
@@ -56,7 +56,7 @@ function Node(x, y, size, value)
         {
         	if (this.path || this.current);
         	else
-        		getCell(this.y+1, this.x+1).classList.remove("wall");      
+        		Matrix[this.y+1][this.x+1].classList.remove("wall");      
         		//ctx.fillStyle = "white";
             //ctx.fillRect(this.x, this.y, this.size, this.size);            
         }
@@ -96,10 +96,7 @@ function Edge(a, b, edge)
 
             if (a.path && b.path);
             else
-            	getCell(Math.floor((a.y+b.y)/2)+1, Math.floor((a.x+b.x)/2)+1).classList.remove("wall"); 
-            	//ctx.fillStyle = "white";
-            
-            // ctx.fillRect((a.x + b.x) / 2, (a.y + b.y) / 2, size, size);            
+            	Matrix[Math.floor((a.y+b.y)/2)+1][Math.floor((a.x+b.x)/2)+1].classList.remove("wall"); 
         }
     }
 }
@@ -110,7 +107,7 @@ function startExec()
     setup();
 
     running = true;
-    getCell(1, 1).classList.remove("wall");
+    Matrix[1][1].classList.remove("wall");
     startTimer = setInterval(function () 
     {
         prim();
