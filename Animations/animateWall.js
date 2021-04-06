@@ -4,7 +4,7 @@ var prevMS;
 
 function getRowandCol(e)
 {
-	return [e.getAttribute("row"), e.getAttribute("col")];
+	return [parseInt(e.getAttribute("row")), parseInt(e.getAttribute("col"))];
 	// for(var i=0; i<gridRows; i++) 
 	// {
 	// 	for(var j=0; j<gridCols; j++) 
